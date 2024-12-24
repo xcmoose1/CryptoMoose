@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoMoose VIP - Members Area</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/market-analysis.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+</head>
+<body class="glass-bg">
+    <div id="membersContent" class="members-content">
+        <nav class="members-nav glass">
+            <div class="container">
+                <div class="nav-content">
+                    <a href="index.html" class="nav-logo">
+                        <img src="images/moose.png" alt="CryptoMoose" class="nav-logo-img">
+                        <span>CryptoMoose VIP</span>
+                    </a>
+                    <button onclick="logout()" class="btn btn-outline">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <main>
+            <section class="market-analysis glass">
+                <div class="container">
+                    <h2><i class="fas fa-chart-line"></i> Live Market Analysis</h2>
+                    
+                    <!-- Trading Pair & Timeframe Controls -->
+                    <div class="market-controls">
+                        <div class="pair-selectors">
+                            <button class="pair-selector active" data-pair="BTCUSDT">BTC/USDT</button>
+                            <button class="pair-selector" data-pair="ETHUSDT">ETH/USDT</button>
+                            <button class="pair-selector" data-pair="XRPUSDT">XRP/USDT</button>
+                            <button class="pair-selector" data-pair="BNBUSDT">BNB/USDT</button>
+                            <button class="pair-selector" data-pair="DOGEUSDT">DOGE/USDT</button>
+                        </div>
+                        <div class="timeframe-selectors">
+                            <button class="timeframe-selector active" data-timeframe="15m">15m</button>
+                            <button class="timeframe-selector" data-timeframe="1h">1H</button>
+                            <button class="timeframe-selector" data-timeframe="4h">4H</button>
+                            <button class="timeframe-selector" data-timeframe="1d">1D</button>
+                        </div>
+                    </div>
+
+                    <!-- Main Content Grid -->
+                    <div class="market-content-grid">
+                        <!-- Left Column: Chart and Analysis -->
+                        <div class="chart-column">
+                            <!-- Chart Container -->
+                            <div class="chart-container glass-panel">
+                                <canvas id="priceChart"></canvas>
+                            </div>
+                            
+                            <!-- Correlation Matrix -->
+                            <div class="correlation-container glass-panel">
+                                <h3>Market Correlations</h3>
+                                <div id="correlationMatrix"></div>
+                            </div>
+
+                            <!-- Order Book -->
+                            <div class="order-book-container glass-panel">
+                                <h3>Order Book Heatmap</h3>
+                                <div id="orderBookHeatmap"></div>
+                            </div>
+                        </div>
+
+                        <!-- Right Column: Indicators -->
+                        <div class="indicators-panel">
+                            <!-- Market Sentiment -->
+                            <div class="indicator-card glass-panel">
+                                <div class="indicator-header">
+                                    <h3>Market Sentiment</h3>
+                                    <span id="marketSentiment" class="sentiment-value bullish">BULLISH</span>
+                                </div>
+                            </div>
+
+                            <!-- RSI -->
+                            <div class="indicator-card glass-panel">
+                                <div class="indicator-header">
+                                    <h3>RSI (14)</h3>
+                                    <span id="rsiValue" class="indicator-value">41.21</span>
+                                </div>
+                            </div>
+
+                            <!-- MACD -->
+                            <div class="indicator-card glass-panel">
+                                <div class="indicator-header">
+                                    <h3>MACD</h3>
+                                </div>
+                                <div class="indicator-content">
+                                    <div class="metric-row">
+                                        <span class="metric-label">MACD:</span>
+                                        <span id="macdValue" class="metric-value">5.41</span>
+                                    </div>
+                                    <div class="metric-row">
+                                        <span class="metric-label">Signal:</span>
+                                        <span id="macdSignal" class="metric-value">-97.90</span>
+                                    </div>
+                                    <div class="metric-row">
+                                        <span class="metric-label">Histogram:</span>
+                                        <span id="macdHist" class="metric-value positive">103.32</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Moving Averages -->
+                            <div class="indicator-card glass-panel">
+                                <div class="indicator-header">
+                                    <h3>Moving Averages</h3>
+                                </div>
+                                <div class="indicator-content">
+                                    <div class="metric-row">
+                                        <span class="metric-label">EMA 20:</span>
+                                        <span id="ema20" class="metric-value">97491.16</span>
+                                    </div>
+                                    <div class="metric-row">
+                                        <span class="metric-label">EMA 50:</span>
+                                        <span id="ema50" class="metric-value">97654.87</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Bollinger Bands -->
+                            <div class="indicator-card glass-panel">
+                                <div class="indicator-header">
+                                    <h3>Bollinger Bands</h3>
+                                </div>
+                                <div class="indicator-content">
+                                    <div class="metric-row">
+                                        <span class="metric-label">Upper:</span>
+                                        <span id="bbUpper" class="metric-value">97789.25</span>
+                                    </div>
+                                    <div class="metric-row">
+                                        <span class="metric-label">Middle:</span>
+                                        <span id="bbMiddle" class="metric-value">97434.46</span>
+                                    </div>
+                                    <div class="metric-row">
+                                        <span class="metric-label">Lower:</span>
+                                        <span id="bbLower" class="metric-value">97079.66</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bottom Market Analysis Section -->
+                    <div class="market-analysis-grid">
+                        <!-- Fear & Greed Index -->
+                        <div class="fear-greed-panel glass-panel">
+                            <div class="panel-header">
+                                <i class="fas fa-gauge-high"></i>
+                                <h3>Fear & Greed Index</h3>
+                            </div>
+                            <div class="fear-greed-content">
+                                <div class="fear-greed-value">
+                                    <span id="fearGreedValue">-</span>
+                                    <span id="fearGreedText">Neutral</span>
+                                </div>
+                                <div class="fear-greed-history">
+                                    <div class="history-item">
+                                        <span>Yesterday:</span>
+                                        <span id="fearGreedYesterday">-</span>
+                                    </div>
+                                    <div class="history-item">
+                                        <span>Last Week:</span>
+                                        <span id="fearGreedLastWeek">-</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Altcoin Market Analysis -->
+                        <div class="altcoin-panel glass-panel">
+                            <div class="panel-header">
+                                <i class="fas fa-chart-pie"></i>
+                                <h3>Altcoin Market Analysis</h3>
+                            </div>
+                            <div class="altcoin-content">
+                                <div class="market-metrics">
+                                    <div class="metric-item">
+                                        <span class="metric-label">Altcoin Dominance</span>
+                                        <span id="altcoinDominance" class="metric-value">-</span>
+                                    </div>
+                                    <div class="metric-item">
+                                        <span class="metric-label">24h Volume</span>
+                                        <span id="marketVolume24h" class="metric-value">-</span>
+                                    </div>
+                                </div>
+                                <div class="market-trends">
+                                    <h4>Market Trends</h4>
+                                    <div class="trend-grid">
+                                        <div class="trend-item">
+                                            <i class="fas fa-chart-line"></i>
+                                            <span class="trend-label">Large Cap Trend</span>
+                                            <span id="largecapTrend" class="trend-value">-</span>
+                                        </div>
+                                        <div class="trend-item">
+                                            <i class="fas fa-chart-line"></i>
+                                            <span class="trend-label">Mid Cap Trend</span>
+                                            <span id="midcapTrend" class="trend-value">-</span>
+                                        </div>
+                                        <div class="trend-item">
+                                            <i class="fas fa-chart-line"></i>
+                                            <span class="trend-label">Small Cap Trend</span>
+                                            <span id="smallcapTrend" class="trend-value">-</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="market-summary">
+                                    <h4>Market Summary</h4>
+                                    <p id="marketSummaryText">-</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script type="module" src="js/members.js"></script>
+</body>
+</html>

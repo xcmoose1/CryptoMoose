@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoMoose VIP - Market Analysis</title>
+    <link rel="stylesheet" href="css/market-analysis.css">
+    <link rel="stylesheet" href="css/members.css">
+    <link rel="stylesheet" href="css/indicator-boxes.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/toxicity"></script>
+    <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header class="glass">
+            <nav>
+                <div class="logo">
+                    <img src="images/moose.png" alt="CryptoMoose">
+                    <span>CryptoMoose VIP</span>
+                </div>
+                <div class="nav-controls">
+                    <div class="nav-links">
+                        <a href="index.html" class="nav-link">Home</a>
+                        <a href="market-analytics.html" class="nav-link active">Market Analytics</a>
+                        <a href="learning.html" class="nav-link">Learning</a>
+                        <a href="x-analysis.html" class="nav-link">X Analysis</a>
+                    </div>
+                    <div class="refresh-countdown glass">
+                        <span>Next Refresh:</span>
+                        <span id="refreshCountdown">--:--:--</span>
+                    </div>
+                    <button class="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+            </nav>
+        </header>
+
+        <main class="market-grid">
+            <!-- Left Column -->
+            <section class="chart-section">
+                <!-- Main Chart -->
+                <div class="chart-container glass">
+                    <div class="chart-header">
+                        <div class="pair-selector">
+                            <select id="tradingPair" aria-label="Select Trading Pair">
+                                <option value="BTCUSDT">Bitcoin (BTC/USDT)</option>
+                                <option value="ETHUSDT">Ethereum (ETH/USDT)</option>
+                                <option value="SOLUSDT">Solana (SOL/USDT)</option>
+                                <option value="XRPUSDT">Ripple (XRP/USDT)</option>
+                                <option value="DOGEUSDT">Dogecoin (DOGE/USDT)</option>
+                                <option value="BNBUSDT">Binance Coin (BNB/USDT)</option>
+                                <option value="ADAUSDT">Cardano (ADA/USDT)</option>
+                                <option value="DOTUSDT">Polkadot (DOT/USDT)</option>
+                                <option value="AVAXUSDT">Avalanche (AVAX/USDT)</option>
+                            </select>
+                        </div>
+                        <div class="market-sentiment">
+                            <div class="sentiment-indicator" id="marketSentiment">
+                                <span class="sentiment-label">Market Sentiment:</span>
+                                <span class="sentiment-value">Analyzing...</span>
+                            </div>
+                        </div>
+                        <div class="indicator-boxes">
+                            <div class="indicator" id="volume">
+                                <div class="title">Volume</div>
+                                <div class="signal">
+                                    <span class="signal-text">Neutral</span>
+                                    <div class="indicator-dots">
+                                        <div class="signal-dot"></div>
+                                        <div class="signal-dot"></div>
+                                        <div class="signal-dot"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="indicator" id="rsi">
+                                <div class="title">RSI</div>
+                                <div class="signal">
+                                    <span class="signal-text">Neutral</span>
+                                    <div class="indicator-dots">
+                                        <div class="signal-dot"></div>
+                                        <div class="signal-dot"></div>
+                                        <div class="signal-dot"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="indicator" id="ema">
+                                <div class="title">EMA 50/200</div>
+                                <div class="signal">
+                                    <span class="signal-text">Neutral</span>
+                                    <div class="indicator-dots">
+                                        <div class="signal-dot"></div>
+                                        <div class="signal-dot"></div>
+                                        <div class="signal-dot"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="indicator" id="macd">
+                                <div class="title">MACD</div>
+                                <div class="signal">
+                                    <span class="signal-text">Neutral</span>
+                                    <div class="indicator-dots">
+                                        <div class="signal-dot"></div>
+                                        <div class="signal-dot"></div>
+                                        <div class="signal-dot"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="indicator" id="bb">
+                                <div class="title">Bollinger</div>
+                                <div class="signal">
+                                    <span class="signal-text">Neutral</span>
+                                    <div class="indicator-dots">
+                                        <div class="signal-dot"></div>
+                                        <div class="signal-dot"></div>
+                                        <div class="signal-dot"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="indicator" id="atr">
+                                <div class="title">ATR</div>
+                                <div class="signal">
+                                    <span class="signal-text">Neutral</span>
+                                    <div class="indicator-dots">
+                                        <div class="signal-dot"></div>
+                                        <div class="signal-dot"></div>
+                                        <div class="signal-dot"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="indicator" id="pivot">
+                                <div class="title">Pivot Points</div>
+                                <div class="signal">
+                                    <span class="signal-text">Neutral</span>
+                                    <div class="indicator-dots">
+                                        <div class="signal-dot"></div>
+                                        <div class="signal-dot"></div>
+                                        <div class="signal-dot"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="indicator" id="vwap">
+                                <div class="title">VWAP</div>
+                                <div class="signal">
+                                    <span class="signal-text">Neutral</span>
+                                    <div class="indicator-dots">
+                                        <div class="signal-dot"></div>
+                                        <div class="signal-dot"></div>
+                                        <div class="signal-dot"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="indicator" id="orderflow">
+                                <div class="title">Order Flow</div>
+                                <div class="signal">
+                                    <span class="signal-text">Neutral</span>
+                                    <div class="indicator-dots">
+                                        <div class="signal-dot"></div>
+                                        <div class="signal-dot"></div>
+                                        <div class="signal-dot"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="indicator" id="liquidity">
+                                <div class="title">Liquidity</div>
+                                <div class="signal">
+                                    <span class="signal-text">Neutral</span>
+                                    <div class="indicator-dots">
+                                        <div class="signal-dot"></div>
+                                        <div class="signal-dot"></div>
+                                        <div class="signal-dot"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeframe-selector">
+                            <button class="timeframe-btn active" data-timeframe="1h">1H</button>
+                            <button class="timeframe-btn" data-timeframe="4h">4H</button>
+                            <button class="timeframe-btn" data-timeframe="12h">12H</button>
+                            <button class="timeframe-btn" data-timeframe="1d">1D</button>
+                        </div>
+                    </div>
+                    <div id="priceChart"></div>
+                </div>
+                <!-- AI Insights Section -->
+                <div class="ai-insights glass">
+                    <h3><i class="fas fa-robot"></i> AI Market Insights</h3>
+                    <div class="insights-grid">
+                        <div class="insight-box">
+                            <h4>Price Action Analysis</h4>
+                            <p id="priceActionInsight" class="insight-text">Loading analysis...</p>
+                        </div>
+                        <div class="insight-box">
+                            <h4>Market Sentiment</h4>
+                            <p id="marketSentimentInsight" class="insight-text">Loading sentiment...</p>
+                        </div>
+                        <div class="insight-box">
+                            <h4>Trading Signals</h4>
+                            <p id="tradingSignalInsight" class="insight-text">Loading signals...</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Enhanced Altcoin Analysis Section -->
+        <section class="altcoin-analysis-section glass">
+            <div class="section-header">
+                <h2><i class="fas fa-chart-pie"></i> Altcoin Market Analysis</h2>
+                <div class="market-phase">
+                    <span class="phase-label">Market Phase:</span>
+                    <span id="marketPhase" class="phase-value">Accumulation</span>
+                </div>
+            </div>
+
+            <div class="altcoin-grid"><!-- AI Market Insights -->
+                <div class="altcoin-panel glass">
+                    <h3><i class="fas fa-robot"></i> AI Market Insights</h3>
+                    <div class="ai-analysis-content">
+                        <div class="market-insight">
+                            <h4>🎯 Market Overview</h4>
+                            <p id="marketOverview" class="insight-text">Analyzing market conditions...</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Key Market Levels -->
+                <div class="altcoin-panel glass">
+                    <h3><i class="fas fa-chart-bar"></i> Key Market Metrics</h3>
+                    <div class="market-metrics-grid">
+                        <div class="metric-card">
+                            <i class="fas fa-coins"></i>
+                            <span class="metric-label">Altcoin Dominance</span>
+                            <span id="altcoinDominance" class="metric-value">Loading...</span>
+                        </div>
+                        <div class="metric-card">
+                            <i class="fas fa-balance-scale"></i>
+                            <span class="metric-label">Altcoin Fear & Greed</span>
+                            <span id="altcoinFearGreed" class="metric-value">Loading...</span>
+                        </div>
+                        <div class="metric-card">
+                            <i class="fas fa-bolt"></i>
+                            <span class="metric-label">Market Volatility</span>
+                            <span id="marketVolatility" class="metric-value">Loading...</span>
+                        </div>
+                    </div>
+                    <!-- Trading Strategy -->
+                    <div class="trading-strategy">
+                        <h4>⚡ Trading Strategy</h4>
+                        <p id="tradingStrategy" class="strategy-text">Formulating strategy...</p>
+                    </div>
+                </div>
+
+                <!-- Market Trends -->
+                <div class="altcoin-panel glass">
+                    <h3><i class="fas fa-chart-line"></i> Market Trends</h3>
+                    <div class="trends-grid">
+                        <div class="trend-category">
+                            <h4>Large Cap (Top 20)</h4>
+                            <div class="trend-metrics">
+                                <div class="trend-metric">
+                                    <span class="trend-label">Trend:</span>
+                                    <span id="largecapTrend" class="trend-value positive">Bullish</span>
+                                </div>
+                                <div class="trend-metric">
+                                    <span class="trend-label">24h Change:</span>
+                                    <span id="largecap24h" class="trend-value positive">+2.5%</span>
+                                </div>
+                                <div class="trend-metric">
+                                    <span class="trend-label">7d Change:</span>
+                                    <span id="largecap7d" class="trend-value positive">+15.3%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="trend-category">
+                            <h4>Mid Cap (21-100)</h4>
+                            <div class="trend-metrics">
+                                <div class="trend-metric">
+                                    <span class="trend-label">Trend:</span>
+                                    <span id="midcapTrend" class="trend-value positive">Bullish</span>
+                                </div>
+                                <div class="trend-metric">
+                                    <span class="trend-label">24h Change:</span>
+                                    <span id="midcap24h" class="trend-value positive">+3.8%</span>
+                                </div>
+                                <div class="trend-metric">
+                                    <span class="trend-label">7d Change:</span>
+                                    <span id="midcap7d" class="trend-value positive">+22.1%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="trend-category">
+                            <h4>Small Cap (101-250)</h4>
+                            <div class="trend-metrics">
+                                <div class="trend-metric">
+                                    <span class="trend-label">Trend:</span>
+                                    <span id="smallcapTrend" class="trend-value negative">Bearish</span>
+                                </div>
+                                <div class="trend-metric">
+                                    <span class="trend-label">24h Change:</span>
+                                    <span id="smallcap24h" class="trend-value negative">-1.2%</span>
+                                </div>
+                                <div class="trend-metric">
+                                    <span class="trend-label">7d Change:</span>
+                                    <span id="smallcap7d" class="trend-value positive">+8.4%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Market Correlations -->
+                <div class="altcoin-panel glass">
+                    <h3><i class="fas fa-project-diagram"></i> Crypto Market Analysis</h3>
+                    <div class="timeframe-selector">
+                        <button class="timeframe-btn" data-timeframe="1d">1D</button>
+                        <button class="timeframe-btn active" data-timeframe="1w">1W</button>
+                        <button class="timeframe-btn" data-timeframe="1M">1M</button>
+                    </div>
+                    <div id="multiAssetChart" class="chart-container"></div>
+                    <div class="asset-legend">
+                        <div class="legend-item">
+                            <span class="color-dot" style="background-color: #F7931A"></span>
+                            <span>Bitcoin</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="color-dot" style="background-color: #627EEA"></span>
+                            <span>Ethereum</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="color-dot" style="background-color: #F3BA2F"></span>
+                            <span>BNB</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="color-dot" style="background-color: #14F195"></span>
+                            <span>Solana</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="color-dot" style="background-color: #BA9F33"></span>
+                            <span>Dogecoin</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="color-dot" style="background-color: #FF007A"></span>
+                            <span>Uniswap</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="color-dot" style="background-color: #B6509E"></span>
+                            <span>Aave</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="color-dot" style="background-color: #1AAB9B"></span>
+                            <span>Maker</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>        <!-- Sector Analysis Section -->
+        <section class="sector-analysis-section glass">
+            <div class="section-header">
+                <h2><i class="fas fa-layer-group"></i> Sector Analysis</h2>
+                <div class="sector-selector">
+                    <button class="sector-btn active" data-sector="gaming">Gaming</button>
+                    <button class="sector-btn" data-sector="l1">Layer 1</button>
+                    <button class="sector-btn" data-sector="l2">Layer 2</button>
+                    <button class="sector-btn" data-sector="defi">DeFi</button>
+                    <button class="sector-btn" data-sector="launchpads">Launchpads</button>
+                    <button class="sector-btn" data-sector="ai">AI</button>
+                    <button class="sector-btn" data-sector="depin">DePIN</button>
+                    <button class="sector-btn" data-sector="privacy">Privacy</button>
+                    <button class="sector-btn" data-sector="memes">Memes</button>
+                </div>
+            </div>
+
+            <div class="sector-content">
+                <div class="sector-overview glass">
+                    <h3>Sector Overview</h3>
+                    <div class="sector-metrics">
+                        <div class="metric">
+                            <span class="label">Market Cap</span>
+                            <span id="sectorMarketCap" class="value">Loading...</span>
+                        </div>
+                        <div class="metric">
+                            <span class="label">24h Volume</span>
+                            <span id="sectorVolume" class="value">Loading...</span>
+                        </div>
+                        <div class="metric">
+                            <span class="label">24h Change</span>
+                            <span id="sectorChange" class="value">Loading...</span>
+                        </div>
+                        <div class="metric">
+                            <span class="label">Dominance</span>
+                            <span id="sectorDominance" class="value">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sector-analysis glass">
+                    <h3>AI Sector Insights</h3>
+                    <div class="sector-insights">
+                        <div class="insight-card">
+                            <h4>🎮 Sector Trends</h4>
+                            <p id="sectorTrends" class="insight-text">Analyzing trends...</p>
+                        </div>
+                        <div class="insight-card">
+                            <h4>📊 Market Structure</h4>
+                            <p id="marketStructure" class="insight-text">Analyzing structure...</p>
+                        </div>
+                        <div class="insight-card">
+                            <h4>🎯 Key Opportunities</h4>
+                            <p id="sectorOpportunities" class="insight-text">Analyzing opportunities...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="top-assets glass">
+                    <h3><i class="fas fa-trophy"></i> Top 10 Performers</h3>
+                    <div class="assets-grid">
+                        <div class="asset-headers">
+                            <span>Asset</span>
+                            <span>Price</span>
+                            <span>24h Change</span>
+                            <span>Volume</span>
+                            <span>Trend</span>
+                        </div>
+                        <div id="topAssetsList" class="assets-list">
+                            <!-- Assets will be populated dynamically -->
+                            <div class="loading-message">Loading top assets...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="js/market-analysis.js"></script>
+    <script src="js/market-metrics.js"></script>
+    <script src="js/market-visualization.js"></script>
+    <script src="js/indicator-signals.js"></script>
+    <script src="js/sector-analysis.js"></script>
+    <script src="js/init.js"></script>
+</body>
+</html>

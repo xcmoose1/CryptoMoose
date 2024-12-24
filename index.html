@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoMoose | AI Trading Signals</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-content">
+                <a href="https://t.me/CryptoMoose1" target="_blank" class="social-link telegram">
+                    <i class="fab fa-telegram"></i> Join Our Telegram
+                </a>
+                <a href="#" class="nav-logo">CryptoMoose</a>
+                <div class="nav-right">
+                    <a href="https://x.com" target="_blank" class="social-link twitter">
+                        <i class="fab fa-x-twitter"></i> Follow on X
+                    </a>
+                    <a href="members.html" class="nav-vip">
+                        <i class="fas fa-crown"></i>
+                        <span>VIP Area</span>
+                        <div class="vip-tooltip">
+                            Members only: Premium signals, e-books & more
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section id="hero" class="glass">
+        <div class="container">
+            <div class="hero-section">
+                <div class="hero-content">
+                    <h1>AI-Powered Crypto Signals 🦌</h1>
+                    <div class="hero-flex">
+                        <div class="pricing-card glass">
+                            <h2>Start Trading Smarter</h2>
+                            <div class="price">$29.99<span>/month</span></div>
+                            <ul class="benefits">
+                                <li><i class="fas fa-check"></i> Real-time AI trading signals</li>
+                                <li><i class="fas fa-check"></i> Instant mobile notifications</li>
+                                <li><i class="fas fa-check"></i> Advanced technical analysis</li>
+                                <li><i class="fas fa-check"></i> 24/7 market monitoring</li>
+                            </ul>
+                            <button class="btn btn-primary" onclick="openPaymentModal()">
+                                <i class="fas fa-wallet"></i> Subscribe Now
+                            </button>
+                        </div>
+                        <div class="hero-mascot">
+                            <img src="images/moose.png" alt="CryptoMoose Wizard" class="mascot">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>AI Signals</h3>
+                    <p>Real-time trading signals with high accuracy powered by advanced machine learning algorithms</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="icon">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <h3>Instant Alerts</h3>
+                    <p>Never miss a trading opportunity with our real-time notification system</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Market Analysis</h3>
+                    <p>Deep market insights and trends analysis to make informed trading decisions</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="notification-feature glass">
+        <div class="container">
+            <div class="notification-content">
+                <div class="notification-text">
+                    <h2>Never Miss a Trading Opportunity</h2>
+                    <p>Get instant alerts directly on Telegram:</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-bolt"></i> Real-time trading signals</li>
+                        <li><i class="fas fa-chart-line"></i> Market trend updates</li>
+                        <li><i class="fas fa-clock"></i> 24/7 market monitoring</li>
+                        <li><i class="fas fa-bell"></i> Instant notifications</li>
+                    </ul>
+                    <div class="cta-buttons">
+                        <a href="https://t.me/CryptoMoose1" target="_blank" class="btn btn-primary">
+                            <i class="fab fa-telegram"></i> Join Our Telegram
+                        </a>
+                        <a href="members.html" class="btn btn-secondary">
+                            <i class="fas fa-crown"></i> Access VIP Signals
+                        </a>
+                    </div>
+                </div>
+                <div class="notification-preview">
+                    <div class="telegram-preview">
+                        <div class="telegram-header">
+                            <i class="fab fa-telegram"></i> CryptoMoose Signals
+                        </div>
+                        <div class="telegram-messages">
+                            <div class="message">
+                                <span class="time">Now</span>
+                                <p><strong>🚨 NEW SIGNAL ALERT</strong></p>
+                                <p>💎 Premium Signal #420</p>
+                                <p>Target hit! +15.8% profit</p>
+                            </div>
+                            <div class="message">
+                                <span class="time">2m ago</span>
+                                <p><strong>📊 MARKET UPDATE</strong></p>
+                                <p>Bitcoin breaking key resistance</p>
+                                <p>Potential breakout forming</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Crypto Payment Modal -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content glass">
+            <span class="close">&times;</span>
+            <h2>Payment Details</h2>
+            <div class="payment-instructions">
+                <div class="payment-step active">
+                    <h3><i class="fas fa-wallet"></i> Step 1: Send Payment</h3>
+                    <p>Send exactly <strong>29.99 USDC/USDT</strong> to wallet:</p>
+                    
+                    <div class="wallet-addresses">
+                        <div class="wallet-item phantom-wallet">
+                            <div class="wallet-header">
+                                <i class="fas fa-wallet wallet-icon"></i>
+                                <h3>Wallet Address</h3>
+                            </div>
+                            <div class="address-container">
+                                <code class="wallet-address">YOUR_PHANTOM_ADDRESS</code>
+                                <button class="copy-btn" onclick="copyAddress('phantom')">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="network-options">
+                                <div class="network-option">
+                                    <i class="fas fa-bolt network-icon solana"></i>
+                                    <div class="network-details">
+                                        <strong>USDC on Solana</strong>
+                                        <span class="fee-info">Lowest fees ✨</span>
+                                    </div>
+                                </div>
+                                <div class="network-option">
+                                    <i class="fas fa-link network-icon base"></i>
+                                    <div class="network-details">
+                                        <strong>USDT on Base</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="payment-step">
+                    <h3><i class="fas fa-clipboard-check"></i> Step 2: Copy Transaction ID</h3>
+                    <p>After sending, copy your transaction ID (TX hash) from your wallet.</p>
+                    <div class="tip">
+                        <i class="fas fa-lightbulb"></i>
+                        <span>The transaction ID is a long string of letters and numbers that proves your payment.</span>
+                    </div>
+                </div>
+
+                <div class="payment-step">
+                    <h3><i class="fab fa-telegram"></i> Step 3: Contact Us</h3>
+                    <p>Message <a href="https://t.me/CryptoMoose1" target="_blank" class="telegram-link">@CryptoMoose1</a> on Telegram with:</p>
+                    <ul class="contact-checklist">
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            Transaction ID (TX hash)
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            Network used (Solana/Base)
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            Token sent (USDC/USDT)
+                        </li>
+                    </ul>
+                    <div class="benefits-preview">
+                        <h4><i class="fas fa-gift"></i> What You'll Get:</h4>
+                        <ul class="benefits-list">
+                            <li>
+                                <i class="fas fa-lock"></i>
+                                Private VIP signals channel invitation
+                            </li>
+                            <li>
+                                <i class="fas fa-users"></i>
+                                Access to our community group
+                            </li>
+                            <li>
+                                <i class="fas fa-chart-line"></i>
+                                Real-time trading signals
+                            </li>
+                        </ul>
+                    </div>
+                    <a href="https://t.me/CryptoMoose1" target="_blank" class="btn btn-telegram">
+                        <i class="fab fa-telegram"></i> Message @CryptoMoose1
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="disclaimer">
+                <h3>Risk Disclosure and Legal Notice</h3>
+                <div class="disclaimer-content">
+                    <p class="warning-text">WARNING: Cryptocurrency trading is extremely high risk and can result in the total loss of your investment. Trading based on signals is essentially gambling and should be treated as such.</p>
+                    
+                    <p>The signals and analysis provided by CryptoMoose ("we," "us," or "our") are:</p>
+                    <ul class="warning-list">
+                        <li>Purely speculative guesses with no guarantee of accuracy</li>
+                        <li>Based on past events which may not predict future outcomes</li>
+                        <li>NOT financial advice or trading recommendations</li>
+                        <li>For entertainment purposes only</li>
+                    </ul>
+
+                    <p>You must understand and agree that:</p>
+                    <ul>
+                        <li>Trading cryptocurrencies is extremely high risk and can be addictive</li>
+                        <li>You could lose your entire investment in a matter of seconds</li>
+                        <li>Our signals are educated guesses, not guaranteed predictions</li>
+                        <li>Market conditions can change rapidly and unpredictably</li>
+                        <li>Past success of signals does not indicate future performance</li>
+                        <li>You should NEVER trade with money you cannot afford to lose</li>
+                        <li>You should NEVER take loans or use leverage to trade</li>
+                    </ul>
+                    
+                    <p>The information provided is for informational purposes only. We are not a registered investment advisor, financial planner, or broker. All trading signals, market information, and content are not solicitations to buy or sell any cryptocurrency.</p>
+                    
+                    <p>By using our services, you explicitly acknowledge that:</p>
+                    <ul>
+                        <li>Trading cryptocurrency is similar to gambling and carries extreme risk</li>
+                        <li>All trading decisions and their consequences are solely your responsibility</li>
+                        <li>We are not liable for any losses or damages resulting from your trading decisions</li>
+                        <li>Cryptocurrency trading may not be legal in your jurisdiction</li>
+                        <li>Market data and signals may be delayed, incorrect, or manipulated</li>
+                    </ul>
+                    
+                    <p>Cryptocurrency trading is largely unregulated. No protection is provided by regulatory agencies like the Financial Conduct Authority (FCA) or Securities and Exchange Commission (SEC). If you have a gambling addiction, please seek help at <a href="http://www.gamcare.org.uk" target="_blank" class="footer-link">www.gamcare.org.uk</a> or similar services in your region.</p>
+                    
+                    <p class="copyright"> 2024 CryptoMoose. All rights reserved. <a href="#" class="footer-link">Terms of Service</a> • <a href="#" class="footer-link">Privacy Policy</a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/market-metrics.js" type="module"></script>
+    <script src="js/market-analysis.js" type="module"></script>
+    <script src="js/main.js" type="module"></script>
+</body>
+</html>
