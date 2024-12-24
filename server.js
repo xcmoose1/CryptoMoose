@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import fetch from 'node-fetch';
+import axios from 'axios'; // Import axios
 
 dotenv.config();
 
@@ -156,7 +157,7 @@ Format with emojis, use *bold* for important points, and _italics_ for emphasis.
             model: "gpt-4",
             messages: [{
                 role: "system",
-                content: "You are an expert cryptocurrency trader specializing in altcoin markets. Provide precise, technical, and engaging market analysis. Your insights should combine technical analysis, market structure, and inter-market dynamics. Be specific about market conditions and opportunities, but never recommend specific coins. Use emojis and formatting to make key points stand out."
+                content: "You are an expert cryptocurrency trader specializing in altcoin markets. Provide precise, technical, and engaging market analysis. Your insights should combine technical analysis, market structure, and inter-market dynamics. Be specific about market conditions and opportunities, but never recommend specific coins. Use emojis and formatting to highlight key points."
             }, {
                 role: "user",
                 content: prompt
@@ -268,7 +269,7 @@ app.get('/api/sector/metrics', async (req, res) => {
             }
         }
 
-        // Fetch sector data from Bybit or other data source
+        // Fetch sector data from MEXC or other data source
         const metrics = await fetchSectorMetrics(sector);
         
         analysisCache.set(cacheKey, {
@@ -349,7 +350,7 @@ app.get('/api/sector/assets', async (req, res) => {
             }
         }
 
-        // Fetch top assets for the sector from Bybit or other data source
+        // Fetch top assets for the sector from MEXC or other data source
         const assets = await fetchSectorAssets(sector);
         
         analysisCache.set(cacheKey, {
@@ -376,161 +377,68 @@ app.get('/api/mexc/tickers', async (req, res) => {
     }
 });
 
-// MEXC API endpoint for klines data
+// MEXC API proxy endpoint
 app.get('/api/mexc/klines', async (req, res) => {
-    let { symbol = 'BTCUSDT', interval = '1h', limit = 100 } = req.query;
-    
-    // Format symbols
-    symbol = symbol.toUpperCase();
-    
-    // Convert intervals
-    const intervalMap = {
-        '1m': '1m',
-        '5m': '5m',
-        '15m': '15m',
-        '30m': '30m',
-        '1h': '1h',
-        '4h': '4h',
-        '12h': '12h',
-        '1d': '1d',
-        '1w': '1w'
-    };
-
-    const mexcInterval = intervalMap[interval] || '1h';
-    const bybitInterval = interval.replace('h', '') === '1' ? '60' : 
-                         interval.replace('h', '') === '4' ? '240' :
-                         interval.replace('h', '') === '12' ? '720' :
-                         interval.replace('d', '') === '1' ? 'D' :
-                         interval.replace('w', '') === '1' ? 'W' : '60';
-    
-    console.log(`Fetching klines for ${symbol} on ${interval} timeframe`);
-    
     try {
-        let retries = 3;
-        let lastError;
-
-        while (retries > 0) {
-            try {
-                console.log(`Attempt ${4-retries}: Fetching from MEXC API`);
-                const mexcUrl = `https://api.mexc.com/api/v3/klines?symbol=${symbol}&interval=${mexcInterval}&limit=${limit}`;
-                console.log('MEXC URL:', mexcUrl);
-                const response = await fetch(mexcUrl);
-                
-                if (!response.ok) {
-                    throw new Error(`MEXC API responded with status: ${response.status}`);
-                }
-                
-                const text = await response.text();
-                console.log('Raw MEXC response:', text);
-                
-                try {
-                    const data = JSON.parse(text);
-                    console.log(`Successfully parsed ${data.length} klines from MEXC`);
-                    return res.json(data);
-                } catch (parseError) {
-                    console.error('Failed to parse MEXC response:', parseError);
-                    throw new Error('Invalid JSON from MEXC');
-                }
-            } catch (error) {
-                console.error(`Attempt ${4-retries} failed:`, error.message);
-                lastError = error;
-                retries--;
-                
-                if (retries > 0) {
-                    console.log('Trying Bybit as fallback...');
-                    try {
-                        // Format symbol for Bybit (remove USDT suffix)
-                        const bybitSymbol = symbol.replace('USDT', '') + 'USDT';
-                        const bybitUrl = `https://api.bybit.com/v5/market/kline?category=spot&symbol=${bybitSymbol}&interval=${bybitInterval}&limit=${limit}`;
-                        console.log('Bybit URL:', bybitUrl);
-                        const bybitResponse = await fetch(bybitUrl);
-                        
-                        if (!bybitResponse.ok) {
-                            throw new Error(`Bybit API responded with status: ${bybitResponse.status}`);
-                        }
-                        
-                        const text = await bybitResponse.text();
-                        console.log('Raw Bybit response:', text);
-                        
-                        try {
-                            const bybitData = JSON.parse(text);
-                            console.log('Successfully parsed Bybit response:', bybitData);
-                            if (bybitData.result && bybitData.result.list) {
-                                // Transform Bybit data to match MEXC format
-                                const transformedData = bybitData.result.list.map(item => [
-                                    parseInt(item[0]), // timestamp
-                                    parseFloat(item[1]), // open
-                                    parseFloat(item[2]), // high
-                                    parseFloat(item[3]), // low
-                                    parseFloat(item[4]), // close
-                                    parseFloat(item[5]), // volume
-                                    parseInt(item[0]) + getIntervalMs(interval), // close time
-                                    0 // ignore quote asset volume
-                                ]);
-                                return res.json(transformedData);
-                            } else {
-                                throw new Error('Invalid Bybit data structure');
-                            }
-                        } catch (parseError) {
-                            console.error('Failed to parse Bybit response:', parseError);
-                            throw new Error('Invalid JSON from Bybit');
-                        }
-                    } catch (bybitError) {
-                        console.error('Bybit attempt failed:', bybitError.message);
-                    }
-                    
-                    console.log(`Waiting before retry... ${retries} attempts left`);
-                    await new Promise(resolve => setTimeout(resolve, 2000));
-                }
-            }
+        const { symbol, interval, limit } = req.query;
+        console.log('Received request with params:', { symbol, interval, limit });
+        
+        // Validate inputs
+        if (!symbol || !interval) {
+            return res.status(400).json({ error: 'Missing required parameters' });
         }
 
-        throw new Error('All API attempts failed');
+        // Map intervals to MEXC format
+        const intervalMap = {
+            '1m': '1m',
+            '3m': '3m',
+            '5m': '5m',
+            '15m': '15m',
+            '30m': '30m',
+            '1h': '1h',
+            '2h': '2h',
+            '4h': '4h',
+            '6h': '6h',
+            '8h': '8h',
+            '12h': '12h',
+            '1d': '1d',
+            '1w': '1w',
+            '1M': '1M'
+        };
+
+        const mexcInterval = intervalMap[interval.toLowerCase()];
+        console.log('Mapped interval:', { original: interval, mapped: mexcInterval });
+        
+        if (!mexcInterval) {
+            return res.status(400).json({ 
+                error: `Invalid interval: ${interval}. Valid intervals are: ${Object.keys(intervalMap).join(', ')}` 
+            });
+        }
+        
+        // Forward request to MEXC
+        const mexcUrl = `https://api.mexc.com/api/v3/klines?symbol=${symbol.toUpperCase()}&interval=${mexcInterval}&limit=${limit || 100}`;
+        console.log('Fetching from MEXC:', mexcUrl);
+        
+        const response = await axios.get(mexcUrl);
+        const klines = response.data;
+        
+        if (!Array.isArray(klines)) {
+            return res.status(500).json({ error: 'Invalid response from MEXC' });
+        }
+        
+        console.log('Successfully fetched', klines.length, 'klines from MEXC');
+        res.json(klines);
+        
     } catch (error) {
-        console.error('All attempts failed:', error.message);
-        res.status(503).json({ 
-            error: 'Service temporarily unavailable',
-            details: error.message 
-        });
+        console.error('Error fetching from MEXC:', error.response?.data || error.message);
+        res.status(error.response?.status || 500).json({ error: error.message });
     }
 });
-
-// Helper function to convert interval to milliseconds
-function getIntervalMs(interval) {
-    const unit = interval.slice(-1);
-    const value = parseInt(interval);
-    
-    switch(unit) {
-        case 'm': return value * 60 * 1000;
-        case 'h': return value * 60 * 60 * 1000;
-        case 'd': return value * 24 * 60 * 60 * 1000;
-        case 'w': return value * 7 * 24 * 60 * 60 * 1000;
-        default: return 60 * 60 * 1000; // default to 1h
-    }
-}
 
 // MEXC ticker endpoint
 app.get('/api/mexc/ticker/24hr', async (req, res) => {
     try {
         const response = await fetch('https://api.mexc.com/api/v3/ticker/24hr');
-        if (!response.ok) {
-            // If MEXC fails, try Bybit as fallback
-            const bybitResponse = await fetch('https://api.bybit.com/v5/market/tickers?category=spot');
-            if (!bybitResponse.ok) {
-                throw new Error('Failed to fetch data from both MEXC and Bybit');
-            }
-            const bybitData = await bybitResponse.json();
-            // Transform Bybit data to match MEXC format
-            const transformedData = bybitData.result.list.map(item => ({
-                symbol: item.symbol,
-                lastPrice: item.lastPrice,
-                volume: item.volume24h,
-                priceChange: item.price24hPcnt,
-                high: item.highPrice24h,
-                low: item.lowPrice24h
-            }));
-            return res.json(transformedData);
-        }
         const data = await response.json();
         res.json(data);
     } catch (error) {
@@ -539,123 +447,92 @@ app.get('/api/mexc/ticker/24hr', async (req, res) => {
     }
 });
 
-// Technical indicators endpoint
+// Map timeframes to MEXC format
+const timeframeMap = {
+    '1m': '1m',
+    '3m': '3m',
+    '5m': '5m',
+    '15m': '15m',
+    '30m': '30m',
+    '1h': '1h',
+    '2h': '2h',
+    '4h': '4h',
+    '6h': '6h',
+    '8h': '8h',
+    '12h': '12h',
+    '1d': '1d',
+    '1w': '1w',
+    '1M': '1M'
+};
+
+// Indicators endpoint
 app.get('/api/indicators', async (req, res) => {
     try {
         const { symbol, timeframe } = req.query;
-        const klinesResponse = await fetch(`https://api.mexc.com/api/v3/klines?symbol=${symbol}&interval=${timeframe}&limit=100`);
-        if (!klinesResponse.ok) {
-            throw new Error(`HTTP error! status: ${klinesResponse.status}`);
+        
+        // Validate inputs
+        if (!symbol || !timeframe) {
+            return res.status(400).json({ error: 'Missing required parameters' });
         }
-        const klines = await klinesResponse.json();
-
-        // Extract price data
-        const closes = klines.map(k => parseFloat(k[4]));
-        const price = closes[closes.length - 1];
-
-        // Calculate RSI
-        const rsi = calculateRSI(closes);
-
-        // Calculate Bollinger Bands
-        const bb = calculateBollingerBands(closes);
-
-        // Calculate MACD
-        const macd = calculateMACD(closes);
-
-        res.json({
-            price,
+        
+        const mexcTimeframe = timeframeMap[timeframe.toLowerCase()];
+        if (!mexcTimeframe) {
+            return res.status(400).json({ error: `Invalid timeframe: ${timeframe}. Valid timeframes are: ${Object.keys(timeframeMap).join(', ')}` });
+        }
+        
+        // Fetch klines data from MEXC
+        const klinesUrl = `https://api.mexc.com/api/v3/klines?symbol=${symbol.toUpperCase()}&interval=${mexcTimeframe}&limit=100`;
+        console.log('Fetching from MEXC:', klinesUrl);
+        
+        const response = await axios.get(klinesUrl);
+        const klines = response.data;
+        
+        if (!Array.isArray(klines) || klines.length === 0) {
+            return res.status(500).json({ error: 'Invalid response from MEXC' });
+        }
+        
+        console.log('Successfully parsed', klines.length, 'klines from MEXC');
+        
+        // Extract price data - MEXC format: [timestamp, open, high, low, close, volume, closeTime, quoteVolume]
+        const prices = klines.map(k => parseFloat(k[4])); // closing prices
+        const highs = klines.map(k => parseFloat(k[2])); // high prices
+        const lows = klines.map(k => parseFloat(k[3])); // low prices
+        const volumes = klines.map(k => parseFloat(k[5])); // volumes
+        
+        // Calculate indicators
+        const rsi = calculateRSI(prices);
+        const bb = calculateBollingerBands(prices);
+        const macd = calculateMACD(prices);
+        const ema50 = calculateEMA(prices, 50);
+        const ema200 = calculateEMA(prices, 200);
+        
+        const result = {
             rsi: rsi[rsi.length - 1],
             bb: {
                 upper: bb.upper[bb.upper.length - 1],
                 middle: bb.middle[bb.middle.length - 1],
                 lower: bb.lower[bb.lower.length - 1]
             },
-            macd: macd.macd[macd.macd.length - 1],
-            signal: macd.signal[macd.signal.length - 1],
-            histogram: macd.histogram[macd.histogram.length - 1]
-        });
+            macd: {
+                macd: macd.macd[macd.macd.length - 1],
+                signal: macd.signal[macd.signal.length - 1],
+                histogram: macd.histogram[macd.histogram.length - 1]
+            },
+            ema: {
+                ema50: ema50[ema50.length - 1],
+                ema200: ema200[ema200.length - 1]
+            },
+            price: prices[prices.length - 1],
+            volume: volumes[volumes.length - 1]
+        };
+        
+        console.log('Calculated indicators:', result);
+        res.json(result);
     } catch (error) {
         console.error('Error calculating indicators:', error);
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ error: error.message || 'Failed to calculate indicators' });
     }
 });
-
-// Technical indicator calculations
-function calculateRSI(prices, period = 14) {
-    let gains = 0;
-    let losses = 0;
-    
-    for (let i = 1; i < period + 1; i++) {
-        const diff = prices[i] - prices[i - 1];
-        if (diff >= 0) gains += diff;
-        else losses -= diff;
-    }
-    
-    let avgGain = gains / period;
-    let avgLoss = losses / period;
-    
-    for (let i = period + 1; i < prices.length; i++) {
-        const diff = prices[i] - prices[i - 1];
-        if (diff >= 0) {
-            avgGain = (avgGain * 13 + diff) / period;
-            avgLoss = (avgLoss * 13) / period;
-        } else {
-            avgGain = (avgGain * 13) / period;
-            avgLoss = (avgLoss * 13 - diff) / period;
-        }
-    }
-    
-    const rs = avgGain / avgLoss;
-    return prices.map((_, i) => {
-        if (i < period) return 0;
-        return 100 - (100 / (1 + rs));
-    });
-}
-
-function calculateBollingerBands(prices, period = 20, multiplier = 2) {
-    const sma = prices.slice(-period).reduce((a, b) => a + b) / period;
-    const squaredDiffs = prices.slice(-period).map(p => Math.pow(p - sma, 2));
-    const stdDev = Math.sqrt(squaredDiffs.reduce((a, b) => a + b) / period);
-    
-    return {
-        upper: prices.map((_, i) => {
-            if (i < period) return 0;
-            return sma + (multiplier * stdDev);
-        }),
-        middle: prices.map((_, i) => {
-            if (i < period) return 0;
-            return sma;
-        }),
-        lower: prices.map((_, i) => {
-            if (i < period) return 0;
-            return sma - (multiplier * stdDev);
-        })
-    };
-}
-
-function calculateMACD(prices, fastPeriod = 12, slowPeriod = 26, signalPeriod = 9) {
-    const ema12 = calculateEMA(prices, fastPeriod);
-    const ema26 = calculateEMA(prices, slowPeriod);
-    const macdLine = ema12.map((e, i) => e - ema26[i]);
-    const signalLine = calculateEMA(macdLine, signalPeriod);
-    
-    return {
-        macd: macdLine,
-        signal: signalLine,
-        histogram: macdLine.map((m, i) => m - signalLine[i])
-    };
-}
-
-function calculateEMA(prices, period) {
-    const k = 2 / (period + 1);
-    let ema = prices[0];
-    
-    return prices.map((p, i) => {
-        if (i === 0) return ema;
-        ema = (p * k) + (ema * (1 - k));
-        return ema;
-    });
-}
 
 async function fetchSectorMetrics(sector) {
     // Implement sector metrics fetching logic here
@@ -679,3 +556,109 @@ const PORT = process.env.PORT || 8001;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
+
+// Calculate RSI
+function calculateRSI(prices, period = 14) {
+    if (prices.length < period + 1) {
+        return Array(prices.length).fill(50);
+    }
+
+    let gains = [];
+    let losses = [];
+    
+    // Calculate price changes
+    for (let i = 1; i < prices.length; i++) {
+        const change = prices[i] - prices[i - 1];
+        gains.push(change > 0 ? change : 0);
+        losses.push(change < 0 ? -change : 0);
+    }
+    
+    // Calculate average gains and losses
+    let avgGain = gains.slice(0, period).reduce((a, b) => a + b) / period;
+    let avgLoss = losses.slice(0, period).reduce((a, b) => a + b) / period;
+    
+    let rsi = [];
+    rsi.push(100 - (100 / (1 + avgGain / avgLoss)));
+    
+    // Calculate RSI for remaining prices
+    for (let i = period; i < prices.length - 1; i++) {
+        avgGain = (avgGain * (period - 1) + gains[i]) / period;
+        avgLoss = (avgLoss * (period - 1) + losses[i]) / period;
+        rsi.push(100 - (100 / (1 + avgGain / avgLoss)));
+    }
+    
+    return rsi;
+}
+
+// Calculate Bollinger Bands
+function calculateBollingerBands(prices, period = 20, stdDev = 2) {
+    if (prices.length < period) {
+        return {
+            upper: Array(prices.length).fill(0),
+            middle: Array(prices.length).fill(0),
+            lower: Array(prices.length).fill(0)
+        };
+    }
+
+    let upper = [];
+    let middle = [];
+    let lower = [];
+    
+    for (let i = period - 1; i < prices.length; i++) {
+        const slice = prices.slice(i - period + 1, i + 1);
+        const sma = slice.reduce((a, b) => a + b) / period;
+        const std = Math.sqrt(slice.reduce((a, b) => a + Math.pow(b - sma, 2), 0) / period);
+        
+        middle.push(sma);
+        upper.push(sma + (stdDev * std));
+        lower.push(sma - (stdDev * std));
+    }
+    
+    // Pad the beginning with the first value
+    const padding = Array(period - 1).fill(0);
+    upper = [...padding, ...upper];
+    middle = [...padding, ...middle];
+    lower = [...padding, ...lower];
+    
+    return { upper, middle, lower };
+}
+
+// Calculate MACD
+function calculateMACD(prices, fastPeriod = 12, slowPeriod = 26, signalPeriod = 9) {
+    if (prices.length < slowPeriod + signalPeriod) {
+        return {
+            macd: Array(prices.length).fill(0),
+            signal: Array(prices.length).fill(0),
+            histogram: Array(prices.length).fill(0)
+        };
+    }
+
+    const fastEMA = calculateEMA(prices, fastPeriod);
+    const slowEMA = calculateEMA(prices, slowPeriod);
+    
+    const macdLine = fastEMA.map((fast, i) => fast - slowEMA[i]);
+    const signalLine = calculateEMA(macdLine, signalPeriod);
+    const histogram = macdLine.map((macd, i) => macd - signalLine[i]);
+    
+    return {
+        macd: macdLine,
+        signal: signalLine,
+        histogram: histogram
+    };
+}
+
+// Calculate EMA
+function calculateEMA(prices, period) {
+    if (prices.length < period) {
+        return Array(prices.length).fill(prices[0] || 0);
+    }
+
+    const multiplier = 2 / (period + 1);
+    let ema = [prices[0]];
+    
+    for (let i = 1; i < prices.length; i++) {
+        ema.push((prices[i] * multiplier) + (ema[i - 1] * (1 - multiplier)));
+    }
+    
+    return ema;
+}
