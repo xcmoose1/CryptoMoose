@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Analysis - CryptoMoose Learning</title>
+    <link rel="stylesheet" href="../css/members-new.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .course-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .course-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .lesson {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .market-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .metric-card {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 1.5rem;
+            color: #f0b90b;
+            margin: 0.5rem 0;
+        }
+
+        .chart-container {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+        }
+
+        .sentiment-meter {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+        }
+
+        .meter-bar {
+            height: 20px;
+            background: #333;
+            border-radius: 10px;
+            margin: 1rem 0;
+            position: relative;
+        }
+
+        .meter-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff4444, #ffb700, #44ff44);
+            border-radius: 10px;
+            width: 70%;
+            transition: width 0.3s ease;
+        }
+
+        .meter-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.5rem;
+        }
+
+        .correlation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .correlation-card {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .correlation-value {
+            font-size: 1.2rem;
+            margin: 0.5rem 0;
+        }
+
+        .positive { color: #4CAF50; }
+        .negative { color: #F44336; }
+        .neutral { color: #FFC107; }
+
+        header.glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        .logo span {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #f0b90b;
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: rgba(240, 185, 11, 0.2);
+            color: #f0b90b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="glass">
+            <nav>
+                <div class="logo">
+                    <img src="../images/Moose.png" alt="CryptoMoose">
+                    <span>CryptoMoose Learning</span>
+                </div>
+                <div class="nav-controls">
+                    <div class="nav-links">
+                        <a href="../index.html" class="nav-link">Home</a>
+                        <a href="../learning.html" class="nav-link">Courses</a>
+                        <a href="../members.html" class="nav-link">Signals</a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <div class="course-container">
+            <div class="course-header">
+                <h1>Market Analysis</h1>
+            </div>
+
+            <div class="lesson">
+                <h2>1. Market Cycles & Sentiment Analysis</h2>
+
+                <div class="market-metrics">
+                    <div class="metric-card">
+                        <h3>BTC Dominance</h3>
+                        <div class="metric-value">42.3%</div>
+                        <div class="trend positive">↑ 2.1%</div>
+                    </div>
+                    <div class="metric-card">
+                        <h3>Total Market Cap</h3>
+                        <div class="metric-value">$1.62T</div>
+                        <div class="trend negative">↓ 1.8%</div>
+                    </div>
+                    <div class="metric-card">
+                        <h3>24h Volume</h3>
+                        <div class="metric-value">$48.5B</div>
+                        <div class="trend positive">↑ 5.3%</div>
+                    </div>
+                </div>
+
+                <h3>Market Sentiment</h3>
+                <div class="sentiment-meter">
+                    <h4>Fear & Greed Index</h4>
+                    <div class="meter-bar">
+                        <div class="meter-fill" id="sentiment-fill"></div>
+                    </div>
+                    <div class="meter-labels">
+                        <span>Extreme Fear</span>
+                        <span>Fear</span>
+                        <span>Neutral</span>
+                        <span>Greed</span>
+                        <span>Extreme Greed</span>
+                    </div>
+                </div>
+
+                <h3>Asset Correlations</h3>
+                <div class="correlation-grid">
+                    <div class="correlation-card">
+                        <h4>BTC/ETH</h4>
+                        <div class="correlation-value positive">0.85</div>
+                        <div>Strong Positive</div>
+                    </div>
+                    <div class="correlation-card">
+                        <h4>BTC/Gold</h4>
+                        <div class="correlation-value negative">-0.21</div>
+                        <div>Weak Negative</div>
+                    </div>
+                    <div class="correlation-card">
+                        <h4>BTC/S&P500</h4>
+                        <div class="correlation-value neutral">0.32</div>
+                        <div>Weak Positive</div>
+                    </div>
+                </div>
+
+                <h3>Market Cycle Analysis</h3>
+                <p>Current market indicators suggest we are in the <strong>Accumulation Phase</strong> of the market cycle.</p>
+                <ul>
+                    <li>Volume is steadily increasing</li>
+                    <li>Long-term holders are accumulating</li>
+                    <li>Institutional interest is growing</li>
+                    <li>Retail sentiment remains cautious</li>
+                </ul>
+
+                <div class="chart-section">
+                    <h4>Market Cycle Phases</h4>
+                    <img src="../images/market-cycles.svg" alt="Market Cycle Phases" style="width: 100%; max-width: 800px; background: rgba(255, 255, 255, 0.05); padding: 1rem; border-radius: 10px;">
+                </div>
+
+                <div class="navigation-buttons">
+                    <span class="nav-button disabled">← Previous Lesson</span>
+                    <a href="market-analysis-2.html" class="nav-button">Next Lesson →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../js/market-cycles.js"></script>
+    <script>
+        // Simulate dynamic sentiment updates
+        function updateSentiment() {
+            const fill = document.getElementById('sentiment-fill');
+            const values = [20, 35, 50, 65, 80];
+            const currentValue = values[Math.floor(Math.random() * values.length)];
+            fill.style.width = currentValue + '%';
+        }
+
+        // Update sentiment every 5 seconds
+        setInterval(updateSentiment, 5000);
+        updateSentiment(); // Initial update
+    </script>
+</body>
+</html>

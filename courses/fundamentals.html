@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Fundamentals - CryptoMoose Learning</title>
+    <link rel="stylesheet" href="../css/members-new.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .course-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .course-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .course-progress {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+
+        .progress-bar {
+            background: #333;
+            height: 10px;
+            border-radius: 5px;
+            margin-top: 1rem;
+            overflow: hidden;
+        }
+
+        .progress {
+            background: #f0b90b;
+            height: 100%;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .lesson {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .lesson h2 {
+            color: #f0b90b;
+            margin-bottom: 1rem;
+        }
+
+        .lesson-content {
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        .key-points {
+            background: rgba(240, 185, 11, 0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+        }
+
+        .key-points h3 {
+            color: #f0b90b;
+            margin-bottom: 0.5rem;
+        }
+
+        .key-points ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .key-points li {
+            padding-left: 1.5rem;
+            position: relative;
+            margin: 0.5rem 0;
+        }
+
+        .key-points li:before {
+            content: "→";
+            color: #f0b90b;
+            position: absolute;
+            left: 0;
+        }
+
+        .quiz {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-top: 2rem;
+        }
+
+        .quiz h3 {
+            color: #f0b90b;
+            margin-bottom: 1rem;
+        }
+
+        .quiz-option {
+            padding: 1rem;
+            margin: 0.5rem 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .quiz-option:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .next-lesson {
+            display: inline-block;
+            background: #f0b90b;
+            color: black;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 2rem;
+            font-weight: 500;
+            transition: background 0.3s ease;
+        }
+
+        .next-lesson:hover {
+            background: #d4a409;
+        }
+
+        header.glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        .logo span {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #f0b90b;
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: rgba(240, 185, 11, 0.2);
+            color: #f0b90b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="glass">
+            <nav>
+                <div class="logo">
+                    <img src="../images/Moose.png" alt="CryptoMoose">
+                    <span>CryptoMoose Learning</span>
+                </div>
+                <div class="nav-controls">
+                    <div class="nav-links">
+                        <a href="../index.html" class="nav-link">Home</a>
+                        <a href="../learning.html" class="nav-link">Courses</a>
+                        <a href="../members.html" class="nav-link">Signals</a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <div class="course-container">
+            <div class="course-header">
+                <h1>Crypto Fundamentals</h1>
+                <div class="course-progress">
+                    <p>Course Progress: <span id="progress-text">0%</span></p>
+                    <div class="progress-bar">
+                        <div class="progress" id="progress-bar"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lesson">
+                <h2>1. Introduction to Blockchain Technology</h2>
+                <div class="lesson-content">
+                    <p>Blockchain technology is a revolutionary way of storing and tracking data that's completely decentralized and transparent. Think of it as a digital ledger that's copied across thousands of computers worldwide.</p>
+                    
+                    <div class="key-points">
+                        <h3>Key Concepts:</h3>
+                        <ul>
+                            <li>Decentralization: No single entity controls the network</li>
+                            <li>Immutability: Once data is recorded, it cannot be changed</li>
+                            <li>Transparency: All transactions are public and verifiable</li>
+                            <li>Consensus: Network participants must agree on the state of the ledger</li>
+                        </ul>
+                    </div>
+
+                    <h3>How Blockchain Works</h3>
+                    <p>When a transaction occurs:</p>
+                    <ol>
+                        <li>The transaction is broadcast to the network</li>
+                        <li>Network nodes validate the transaction</li>
+                        <li>Validated transactions are combined into a block</li>
+                        <li>The block is added to the chain, creating a permanent record</li>
+                    </ol>
+
+                    <div class="quiz">
+                        <h3>Quick Quiz</h3>
+                        <div class="quiz-option" onclick="checkAnswer(1)">1. Blockchain is a centralized database controlled by banks</div>
+                        <div class="quiz-option" onclick="checkAnswer(2)">2. Blockchain is a decentralized, immutable ledger</div>
+                        <div class="quiz-option" onclick="checkAnswer(3)">3. Blockchain is just another name for Bitcoin</div>
+                        <div class="quiz-option" onclick="checkAnswer(4)">4. Blockchain is a private network for governments</div>
+                    </div>
+                </div>
+                <a href="fundamentals-2.html" class="next-lesson">Next Lesson: Understanding Bitcoin →</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function checkAnswer(answer) {
+            if(answer === 2) {
+                alert('Correct! Blockchain is indeed a decentralized, immutable ledger.');
+                document.getElementById('progress-bar').style.width = '25%';
+                document.getElementById('progress-text').textContent = '25%';
+            } else {
+                alert('Not quite right. Try again!');
+            }
+        }
+    </script>
+</body>
+</html>

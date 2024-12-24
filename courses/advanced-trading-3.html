@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Trading - Market Psychology - CryptoMoose Learning</title>
+    <link rel="stylesheet" href="../css/members-new.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .course-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .course-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .lesson {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .psychology-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .psychology-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .psychology-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .psychology-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .psychology-icon {
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            color: #f0b90b;
+        }
+
+        .emotion-meter {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+
+        .emotion-scale {
+            height: 20px;
+            background: linear-gradient(90deg, #4CAF50, #FFC107, #f44336);
+            border-radius: 10px;
+            margin: 1rem 0;
+            position: relative;
+        }
+
+        .emotion-marker {
+            width: 10px;
+            height: 30px;
+            background: white;
+            position: absolute;
+            top: -5px;
+            transform: translateX(-50%);
+            cursor: pointer;
+            transition: left 0.3s ease;
+        }
+
+        .journal-entry {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+        }
+
+        .journal-form {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .journal-form input,
+        .journal-form textarea {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0.5rem;
+            border-radius: 5px;
+            color: white;
+            width: 100%;
+        }
+
+        .journal-form textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .journal-form button {
+            background: #f0b90b;
+            color: black;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+
+        .nav-button {
+            background: rgba(240, 185, 11, 0.2);
+            color: #f0b90b;
+            border: 1px solid #f0b90b;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .nav-button:hover {
+            background: rgba(240, 185, 11, 0.3);
+        }
+
+        .mindset-checklist {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            margin: 0.5rem 0;
+        }
+
+        .checklist-item input[type="checkbox"] {
+            margin-right: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="glass">
+            <nav>
+                <div class="logo">
+                    <img src="../images/moose.png" alt="CryptoMoose">
+                    <span>CryptoMoose Learning</span>
+                </div>
+                <div class="nav-controls">
+                    <div class="nav-links">
+                        <a href="../index.html" class="nav-link">Home</a>
+                        <a href="../learning.html" class="nav-link">Courses</a>
+                        <a href="../members.html" class="nav-link">Signals</a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <div class="course-container">
+            <div class="course-header">
+                <h1>Advanced Trading - Market Psychology</h1>
+            </div>
+
+            <div class="lesson">
+                <h2>3. Trading Psychology & Emotional Control</h2>
+
+                <div class="psychology-grid">
+                    <div class="psychology-card">
+                        <div class="psychology-header">
+                            <i class="fas fa-brain psychology-icon"></i>
+                            <h3>Common Psychological Biases</h3>
+                        </div>
+                        <ul>
+                            <li>FOMO (Fear of Missing Out)</li>
+                            <li>Confirmation Bias</li>
+                            <li>Loss Aversion</li>
+                            <li>Overconfidence</li>
+                            <li>Anchoring</li>
+                        </ul>
+                    </div>
+
+                    <div class="psychology-card">
+                        <div class="psychology-header">
+                            <i class="fas fa-balance-scale psychology-icon"></i>
+                            <h3>Emotional Balance</h3>
+                        </div>
+                        <ul>
+                            <li>Managing Fear</li>
+                            <li>Controlling Greed</li>
+                            <li>Dealing with Stress</li>
+                            <li>Maintaining Focus</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Emotional State Tracker</h3>
+                <div class="emotion-meter">
+                    <p>How are you feeling about the market today?</p>
+                    <div class="emotion-scale">
+                        <div class="emotion-marker" id="emotionMarker"></div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span>Fearful</span>
+                        <span>Neutral</span>
+                        <span>Greedy</span>
+                    </div>
+                </div>
+
+                <h3>Trading Journal</h3>
+                <div class="journal-entry">
+                    <form class="journal-form" id="journalForm">
+                        <input type="date" id="tradeDate">
+                        <input type="text" placeholder="Trading Pair (e.g., BTC/USD)" required>
+                        <select>
+                            <option value="long">Long</option>
+                            <option value="short">Short</option>
+                        </select>
+                        <textarea placeholder="What was your thought process? How did you feel during the trade?" required></textarea>
+                        <textarea placeholder="What went well? What could be improved?" required></textarea>
+                        <button type="submit">Save Entry</button>
+                    </form>
+                </div>
+
+                <h3>Trader's Mindset Checklist</h3>
+                <div class="mindset-checklist">
+                    <div class="checklist-item">
+                        <input type="checkbox" id="check1">
+                        <label for="check1">I have a clear trading plan for today</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="check2">
+                        <label for="check2">My risk management rules are set</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="check3">
+                        <label for="check3">I am well-rested and focused</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="check4">
+                        <label for="check4">I am not trading based on emotions</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="check5">
+                        <label for="check5">I have reviewed my previous trades</label>
+                    </div>
+                </div>
+
+                <div class="navigation-buttons">
+                    <a href="advanced-trading-2.html" class="nav-button">← Previous Lesson</a>
+                    <a href="../learning.html" class="nav-button">Back to Courses →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Emotion tracker
+        const emotionMarker = document.getElementById('emotionMarker');
+        const emotionScale = document.querySelector('.emotion-scale');
+
+        emotionScale.addEventListener('click', function(e) {
+            const rect = this.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const percentage = (x / rect.width) * 100;
+            emotionMarker.style.left = `${percentage}%`;
+            
+            // Save to localStorage
+            localStorage.setItem('emotionLevel', percentage);
+        });
+
+        // Load saved emotion level
+        const savedEmotion = localStorage.getItem('emotionLevel');
+        if (savedEmotion) {
+            emotionMarker.style.left = `${savedEmotion}%`;
+        }
+
+        // Set today's date as default
+        document.getElementById('tradeDate').valueAsDate = new Date();
+
+        // Save journal entry
+        document.getElementById('journalForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Journal entry saved!');
+            this.reset();
+            document.getElementById('tradeDate').valueAsDate = new Date();
+        });
+
+        // Save checklist state
+        document.querySelectorAll('.checklist-item input').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                localStorage.setItem(this.id, this.checked);
+            });
+
+            // Load saved state
+            const saved = localStorage.getItem(checkbox.id);
+            if (saved === 'true') {
+                checkbox.checked = true;
+            }
+        });
+    </script>
+</body>
+</html>

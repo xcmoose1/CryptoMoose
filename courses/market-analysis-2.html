@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Analysis - On-Chain Analytics - CryptoMoose Learning</title>
+    <link rel="stylesheet" href="../css/members-new.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .course-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .course-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .lesson {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .metric-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .metric-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .metric-icon {
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            color: #f0b90b;
+        }
+
+        .chart-container {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            height: 300px;
+            position: relative;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .data-table th {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+
+        .nav-button {
+            background: rgba(240, 185, 11, 0.2);
+            color: #f0b90b;
+            border: 1px solid #f0b90b;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .nav-button:hover {
+            background: rgba(240, 185, 11, 0.3);
+        }
+
+        .info-box {
+            background: rgba(33, 150, 243, 0.1);
+            border-left: 4px solid #2196f3;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .metric-selector {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0.5rem;
+            border-radius: 5px;
+            color: white;
+            margin: 1rem 0;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        header.glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        .logo span {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #f0b90b;
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: rgba(240, 185, 11, 0.2);
+            color: #f0b90b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="glass">
+            <nav>
+                <div class="logo">
+                    <img src="../images/Moose.png" alt="CryptoMoose">
+                    <span>CryptoMoose Learning</span>
+                </div>
+                <div class="nav-controls">
+                    <div class="nav-links">
+                        <a href="../index.html" class="nav-link">Home</a>
+                        <a href="../learning.html" class="nav-link">Courses</a>
+                        <a href="../members.html" class="nav-link">Signals</a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <div class="course-container">
+            <div class="course-header">
+                <h1>Market Analysis - On-Chain Analytics</h1>
+            </div>
+
+            <div class="lesson">
+                <h2>2. Understanding On-Chain Metrics</h2>
+
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-header">
+                            <i class="fas fa-network-wired metric-icon"></i>
+                            <h3>Network Activity</h3>
+                        </div>
+                        <ul>
+                            <li>Active Addresses</li>
+                            <li>Transaction Volume</li>
+                            <li>Gas Usage</li>
+                            <li>New Addresses</li>
+                        </ul>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-header">
+                            <i class="fas fa-wallet metric-icon"></i>
+                            <h3>Wallet Analysis</h3>
+                        </div>
+                        <ul>
+                            <li>Whale Movements</li>
+                            <li>HODLer Behavior</li>
+                            <li>Exchange Flows</li>
+                            <li>Token Distribution</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Network Activity Metrics</h3>
+                <select class="metric-selector" id="metricSelector" onchange="updateChart()">
+                    <option value="active">Active Addresses</option>
+                    <option value="volume">Transaction Volume</option>
+                    <option value="gas">Gas Usage</option>
+                </select>
+                <div class="chart-container">
+                    <canvas id="metricsChart"></canvas>
+                </div>
+
+                <h3>Whale Movement Analysis</h3>
+                <div class="chart-container">
+                    <canvas id="whaleChart"></canvas>
+                </div>
+
+                <h3>Recent Large Transactions</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Amount (BTC)</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Type</th>
+                        </tr>
+                    </thead>
+                    <tbody id="transactionTable">
+                    </tbody>
+                </table>
+
+                <div class="info-box">
+                    <h4>💡 Understanding Metrics</h4>
+                    <p>On-chain metrics provide valuable insights into network health and market sentiment. High network activity often correlates with increased adoption and price movement.</p>
+                </div>
+
+                <div class="navigation-buttons">
+                    <a href="market-analysis.html" class="nav-button">← Previous Lesson</a>
+                    <a href="market-analysis-3.html" class="nav-button">Next Lesson →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize charts with sample data
+        function initializeCharts() {
+            // Network Metrics Chart
+            const metricsCtx = document.getElementById('metricsChart').getContext('2d');
+            window.metricsChart = new Chart(metricsCtx, {
+                type: 'line',
+                data: {
+                    labels: Array.from({length: 30}, (_, i) => `Day ${i+1}`),
+                    datasets: [{
+                        label: 'Active Addresses',
+                        data: Array.from({length: 30}, () => Math.random() * 1000000),
+                        borderColor: '#f0b90b',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: 'white'
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            ticks: { color: 'white' }
+                        },
+                        x: {
+                            ticks: { color: 'white' }
+                        }
+                    }
+                }
+            });
+
+            // Whale Movement Chart
+            const whaleCtx = document.getElementById('whaleChart').getContext('2d');
+            new Chart(whaleCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Exchange In', 'Exchange Out', 'Wallet to Wallet', 'New Wallets'],
+                    datasets: [{
+                        label: 'Volume (BTC)',
+                        data: [1200, 800, 500, 300],
+                        backgroundColor: ['#4CAF50', '#f44336', '#2196f3', '#f0b90b']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: 'white'
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            ticks: { color: 'white' }
+                        },
+                        x: {
+                            ticks: { color: 'white' }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Update metrics chart based on selector
+        function updateChart() {
+            const metric = document.getElementById('metricSelector').value;
+            const data = {
+                active: Array.from({length: 30}, () => Math.random() * 1000000),
+                volume: Array.from({length: 30}, () => Math.random() * 50000),
+                gas: Array.from({length: 30}, () => Math.random() * 100)
+            };
+
+            window.metricsChart.data.datasets[0].data = data[metric];
+            window.metricsChart.data.datasets[0].label = document.getElementById('metricSelector').options[document.getElementById('metricSelector').selectedIndex].text;
+            window.metricsChart.update();
+        }
+
+        // Generate sample transaction data
+        function generateTransactions() {
+            const table = document.getElementById('transactionTable');
+            table.innerHTML = '';
+            
+            const types = ['Exchange Deposit', 'Exchange Withdrawal', 'Wallet Transfer'];
+            const addresses = ['1A1zP...', '3J98t...', 'bc1q...', '1F1tM...'];
+            
+            for(let i = 0; i < 5; i++) {
+                const row = table.insertRow();
+                const time = new Date(Date.now() - i * 3600000).toLocaleTimeString();
+                const amount = (Math.random() * 100).toFixed(2);
+                const type = types[Math.floor(Math.random() * types.length)];
+                
+                row.innerHTML = `
+                    <td>${time}</td>
+                    <td>${amount}</td>
+                    <td>${addresses[Math.floor(Math.random() * addresses.length)]}</td>
+                    <td>${addresses[Math.floor(Math.random() * addresses.length)]}</td>
+                    <td>${type}</td>
+                `;
+            }
+        }
+
+        // Initialize everything
+        initializeCharts();
+        generateTransactions();
+        setInterval(generateTransactions, 5000); // Update transactions every 5 seconds
+    </script>
+</body>
+</html>

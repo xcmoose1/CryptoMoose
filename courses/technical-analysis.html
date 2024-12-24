@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technical Analysis - CryptoMoose Learning</title>
+    <link rel="stylesheet" href="../css/members-new.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Same styles as fundamentals.html */
+        .course-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .course-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .course-progress {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+
+        .progress-bar {
+            background: #333;
+            height: 10px;
+            border-radius: 5px;
+            margin-top: 1rem;
+            overflow: hidden;
+        }
+
+        .progress {
+            background: #f0b90b;
+            height: 100%;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .lesson {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .lesson h2 {
+            color: #f0b90b;
+            margin-bottom: 1rem;
+        }
+
+        .lesson-content {
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        .chart-example {
+            background: #fff;
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            text-align: center;
+        }
+
+        .chart-example img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .pattern-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .pattern-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .pattern-card img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 1rem;
+        }
+
+        .key-points {
+            background: rgba(240, 185, 11, 0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+        }
+
+        .key-points h3 {
+            color: #f0b90b;
+            margin-bottom: 0.5rem;
+        }
+
+        .key-points ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .key-points li {
+            padding-left: 1.5rem;
+            position: relative;
+            margin: 0.5rem 0;
+        }
+
+        .key-points li:before {
+            content: "→";
+            color: #f0b90b;
+            position: absolute;
+            left: 0;
+        }
+
+        .practice-section {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-top: 2rem;
+        }
+
+        .next-lesson {
+            display: inline-block;
+            background: #f0b90b;
+            color: black;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 2rem;
+            font-weight: 500;
+            transition: background 0.3s ease;
+        }
+
+        .next-lesson:hover {
+            background: #d4a409;
+        }
+
+        header.glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        .logo span {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #f0b90b;
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: rgba(240, 185, 11, 0.2);
+            color: #f0b90b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="glass">
+            <nav>
+                <div class="logo">
+                    <img src="../images/Moose.png" alt="CryptoMoose">
+                    <span>CryptoMoose Learning</span>
+                </div>
+                <div class="nav-controls">
+                    <div class="nav-links">
+                        <a href="../index.html" class="nav-link">Home</a>
+                        <a href="../learning.html" class="nav-link">Courses</a>
+                        <a href="../members.html" class="nav-link">Signals</a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <div class="course-container">
+            <div class="course-header">
+                <h1>Technical Analysis Fundamentals</h1>
+                <div class="course-progress">
+                    <p>Course Progress: <span id="progress-text">0%</span></p>
+                    <div class="progress-bar">
+                        <div class="progress" id="progress-bar"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lesson">
+                <h2>1. Understanding Chart Patterns</h2>
+                <div class="lesson-content">
+                    <p>Chart patterns are the foundation of technical analysis. They represent the psychology of market participants and can help predict future price movements.</p>
+                    
+                    <div class="key-points">
+                        <h3>Essential Chart Patterns:</h3>
+                        <ul>
+                            <li>Support and Resistance Levels</li>
+                            <li>Trend Lines and Channels</li>
+                            <li>Double Tops and Bottoms</li>
+                            <li>Head and Shoulders Pattern</li>
+                            <li>Bull and Bear Flags</li>
+                        </ul>
+                    </div>
+
+                    <h3>Support and Resistance</h3>
+                    <div class="chart-example">
+                        <img src="../images/support-resistance.svg" alt="Support and Resistance Example">
+                        <p>Key levels where price tends to bounce (support) or reject (resistance)</p>
+                    </div>
+
+                    <h3>Common Chart Patterns</h3>
+                    <div class="pattern-grid">
+                        <div class="pattern-card">
+                            <h4>Support & Resistance</h4>
+                            <img src="../images/support-resistance.svg" alt="Support and Resistance Pattern">
+                        </div>
+                        <div class="pattern-card">
+                            <h4>Head & Shoulders</h4>
+                            <img src="../images/head-shoulders.svg" alt="Head and Shoulders Pattern">
+                        </div>
+                        <div class="pattern-card">
+                            <h4>Double Top</h4>
+                            <img src="../images/double-top.svg" alt="Double Top Pattern">
+                        </div>
+                        <div class="pattern-card">
+                            <h4>Bull Flag</h4>
+                            <img src="../images/bull-flag.svg" alt="Bull Flag Pattern">
+                        </div>
+                    </div>
+
+                    <div class="practice-section">
+                        <h3>Practice Chart</h3>
+                        <img src="../images/practice-chart.svg" alt="Practice Chart">
+                        <p>Try to identify the patterns and key levels in this chart</p>
+                        <ol>
+                            <li>Major support levels</li>
+                            <li>Major resistance levels</li>
+                            <li>Any chart patterns you can spot</li>
+                        </ol>
+                        <button onclick="showHints()" class="next-lesson" style="margin-right: 1rem">Show Hints</button>
+                        <button onclick="showSolution()" class="next-lesson">Show Solution</button>
+                    </div>
+                </div>
+                <a href="technical-analysis-2.html" class="next-lesson">Next Lesson: Technical Indicators →</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showHints() {
+            alert('Hint: Look for areas where price has bounced multiple times. Pay special attention to round numbers, as they often act as psychological support/resistance levels.');
+        }
+
+        function showSolution() {
+            document.getElementById('progress-bar').style.width = '25%';
+            document.getElementById('progress-text').textContent = '25%';
+            alert('Major support levels: $40,000 and $37,500\nMajor resistance levels: $44,000 and $46,500\nPatterns: Bull flag forming between support and resistance');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technical Analysis - Advanced Patterns - CryptoMoose Learning</title>
+    <link rel="stylesheet" href="../css/members-new.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .course-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .course-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .lesson {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .indicator-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .indicator-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .indicator-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .indicator-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .indicator-icon {
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            color: #f0b90b;
+        }
+
+        .chart-container {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+        }
+
+        .formula {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 5px;
+            font-family: monospace;
+            margin: 1rem 0;
+            color: #f0b90b;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+
+        .nav-button {
+            background: rgba(240, 185, 11, 0.2);
+            color: #f0b90b;
+            border: 1px solid #f0b90b;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .nav-button:hover {
+            background: rgba(240, 185, 11, 0.3);
+        }
+
+        .quiz-section {
+            margin-top: 2rem;
+        }
+
+        .quiz-question {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+        }
+
+        .quiz-options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .quiz-option {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .quiz-option:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .correct {
+            background: rgba(76, 175, 80, 0.2) !important;
+        }
+
+        .incorrect {
+            background: rgba(244, 67, 54, 0.2) !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="glass">
+            <nav>
+                <div class="logo">
+                    <img src="../images/moose.png" alt="CryptoMoose">
+                    <span>CryptoMoose Learning</span>
+                </div>
+                <div class="nav-controls">
+                    <div class="nav-links">
+                        <a href="../index.html" class="nav-link">Home</a>
+                        <a href="../learning.html" class="nav-link">Courses</a>
+                        <a href="../members.html" class="nav-link">Signals</a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <div class="course-container">
+            <div class="course-header">
+                <h1>Technical Analysis - Advanced Patterns & Indicators</h1>
+            </div>
+
+            <div class="lesson">
+                <h2>2. Advanced Technical Indicators</h2>
+
+                <div class="indicator-grid">
+                    <div class="indicator-card">
+                        <div class="indicator-header">
+                            <i class="fas fa-wave-square indicator-icon"></i>
+                            <h3>RSI (Relative Strength Index)</h3>
+                        </div>
+                        <p>Measures momentum by comparing the magnitude of recent gains to recent losses.</p>
+                        <div class="formula">
+                            RSI = 100 - (100 / (1 + RS))<br>
+                            RS = Average Gain / Average Loss
+                        </div>
+                        <ul>
+                            <li>Above 70: Overbought</li>
+                            <li>Below 30: Oversold</li>
+                        </ul>
+                    </div>
+
+                    <div class="indicator-card">
+                        <div class="indicator-header">
+                            <i class="fas fa-chart-line indicator-icon"></i>
+                            <h3>MACD (Moving Average Convergence Divergence)</h3>
+                        </div>
+                        <p>Shows the relationship between two moving averages of an asset's price.</p>
+                        <div class="formula">
+                            MACD = 12-day EMA - 26-day EMA<br>
+                            Signal Line = 9-day EMA of MACD
+                        </div>
+                        <ul>
+                            <li>MACD crosses above signal line: Bullish</li>
+                            <li>MACD crosses below signal line: Bearish</li>
+                        </ul>
+                    </div>
+
+                    <div class="indicator-card">
+                        <div class="indicator-header">
+                            <i class="fas fa-arrows-alt-v indicator-icon"></i>
+                            <h3>Bollinger Bands</h3>
+                        </div>
+                        <p>Shows volatility and potential overbought/oversold conditions.</p>
+                        <div class="formula">
+                            Middle Band = 20-day SMA<br>
+                            Upper Band = Middle Band + (2 × σ)<br>
+                            Lower Band = Middle Band - (2 × σ)
+                        </div>
+                        <ul>
+                            <li>Price at upper band: Potential resistance</li>
+                            <li>Price at lower band: Potential support</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Indicator Combinations</h3>
+                <p>Using multiple indicators together can provide stronger trading signals:</p>
+                <ul>
+                    <li>RSI + MACD for momentum confirmation</li>
+                    <li>Bollinger Bands + RSI for volatility and momentum</li>
+                    <li>Moving Averages + MACD for trend confirmation</li>
+                </ul>
+
+                <div class="quiz-section">
+                    <h3>Quick Quiz</h3>
+                    <div class="quiz-question">
+                        <p>What RSI value indicates an overbought condition?</p>
+                        <div class="quiz-options">
+                            <div class="quiz-option" onclick="checkAnswer(this, true)">Above 70</div>
+                            <div class="quiz-option" onclick="checkAnswer(this, false)">Above 50</div>
+                            <div class="quiz-option" onclick="checkAnswer(this, false)">Above 80</div>
+                            <div class="quiz-option" onclick="checkAnswer(this, false)">Above 60</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="navigation-buttons">
+                    <a href="technical-analysis.html" class="nav-button">← Previous Lesson</a>
+                    <a href="technical-analysis-3.html" class="nav-button">Next Lesson →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function checkAnswer(element, isCorrect) {
+            // Remove previous classes
+            document.querySelectorAll('.quiz-option').forEach(option => {
+                option.classList.remove('correct', 'incorrect');
+            });
+
+            // Add appropriate class
+            if (isCorrect) {
+                element.classList.add('correct');
+            } else {
+                element.classList.add('incorrect');
+            }
+        }
+    </script>
+</body>
+</html>

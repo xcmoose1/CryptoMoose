@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFT & Web3 - NFT Creation & Minting - CryptoMoose Learning</title>
+    <link rel="stylesheet" href="../css/members-new.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .course-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .course-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .lesson {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nft-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .nft-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .nft-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .nft-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .nft-icon {
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            color: #f0b90b;
+        }
+
+        .code-block {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+            font-family: monospace;
+            white-space: pre-wrap;
+            overflow-x: auto;
+        }
+
+        .nft-preview {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .nft-canvas {
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin: 1rem 0;
+        }
+
+        .color-picker {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .color-option {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: transform 0.3s ease;
+        }
+
+        .color-option:hover {
+            transform: scale(1.2);
+        }
+
+        .tool-panel {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .tool-button {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .tool-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .metadata-form {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0.5rem;
+            border-radius: 5px;
+            color: white;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .info-box {
+            background: rgba(33, 150, 243, 0.1);
+            border-left: 4px solid #2196f3;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 5px 5px 0;
+        }
+
+        header.glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        .logo span {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #f0b90b;
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: rgba(240, 185, 11, 0.2);
+            color: #f0b90b;
+        }
+
+        .nav-button {
+            background: rgba(240, 185, 11, 0.2);
+            color: #f0b90b;
+            border: 1px solid #f0b90b;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .nav-button:hover {
+            background: rgba(240, 185, 11, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="glass">
+            <nav>
+                <div class="logo">
+                    <img src="../images/Moose.png" alt="CryptoMoose">
+                    <span>CryptoMoose Learning</span>
+                </div>
+                <div class="nav-controls">
+                    <div class="nav-links">
+                        <a href="../index.html" class="nav-link">Home</a>
+                        <a href="../learning.html" class="nav-link">Courses</a>
+                        <a href="../members.html" class="nav-link">Signals</a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <div class="course-container">
+            <div class="course-header">
+                <h1>NFT & Web3 - NFT Creation & Minting</h1>
+            </div>
+
+            <div class="lesson">
+                <h2>2. Creating and Minting NFTs</h2>
+
+                <div class="nft-grid">
+                    <div class="nft-card">
+                        <div class="nft-header">
+                            <i class="fas fa-paint-brush nft-icon"></i>
+                            <h3>NFT Creation</h3>
+                        </div>
+                        <ul>
+                            <li>Digital Art Creation</li>
+                            <li>Metadata Standards</li>
+                            <li>File Formats</li>
+                            <li>IPFS Storage</li>
+                        </ul>
+                    </div>
+
+                    <div class="nft-card">
+                        <div class="nft-header">
+                            <i class="fas fa-code nft-icon"></i>
+                            <h3>Smart Contracts</h3>
+                        </div>
+                        <ul>
+                            <li>ERC-721 Standard</li>
+                            <li>ERC-1155 Standard</li>
+                            <li>Minting Functions</li>
+                            <li>Royalties Setup</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>NFT Creator Studio</h3>
+                <div class="nft-preview">
+                    <canvas id="nftCanvas" class="nft-canvas"></canvas>
+                    <div class="color-picker">
+                        <div class="color-option" style="background: #ff0000" data-color="#ff0000"></div>
+                        <div class="color-option" style="background: #00ff00" data-color="#00ff00"></div>
+                        <div class="color-option" style="background: #0000ff" data-color="#0000ff"></div>
+                        <div class="color-option" style="background: #ffff00" data-color="#ffff00"></div>
+                        <div class="color-option" style="background: #ff00ff" data-color="#ff00ff"></div>
+                    </div>
+                    <div class="tool-panel">
+                        <button class="tool-button" onclick="setTool('brush')">Brush</button>
+                        <button class="tool-button" onclick="setTool('eraser')">Eraser</button>
+                        <button class="tool-button" onclick="clearCanvas()">Clear</button>
+                        <button class="tool-button" onclick="downloadNFT()">Download</button>
+                    </div>
+                </div>
+
+                <h3>NFT Metadata</h3>
+                <div class="metadata-form">
+                    <div class="form-group">
+                        <label for="nftName">NFT Name:</label>
+                        <input type="text" id="nftName" placeholder="Enter NFT name">
+                    </div>
+                    <div class="form-group">
+                        <label for="nftDescription">Description:</label>
+                        <textarea id="nftDescription" placeholder="Describe your NFT"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="nftAttributes">Attributes (JSON):</label>
+                        <textarea id="nftAttributes" placeholder='{"trait_type": "Background", "value": "Blue"}'></textarea>
+                    </div>
+                    <button class="tool-button" onclick="generateMetadata()">Generate Metadata</button>
+                </div>
+
+                <h3>Smart Contract Example</h3>
+                <div class="code-block">// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+contract MyNFT is ERC721, Ownable {
+    uint256 private _tokenIds;
+    
+    constructor() ERC721("MyNFT", "MNFT") {}
+    
+    function mint(address recipient, string memory tokenURI)
+        public onlyOwner
+        returns (uint256)
+    {
+        _tokenIds++;
+        uint256 newItemId = _tokenIds;
+        _mint(recipient, newItemId);
+        _setTokenURI(newItemId, tokenURI);
+        return newItemId;
+    }
+}</div>
+
+                <div class="info-box">
+                    <h4>💡 Pro Tips</h4>
+                    <ul>
+                        <li>Always verify your metadata is properly formatted</li>
+                        <li>Use IPFS for decentralized storage</li>
+                        <li>Test your smart contract on testnet first</li>
+                        <li>Consider implementing royalties for secondary sales</li>
+                    </ul>
+                </div>
+
+                <div class="navigation-buttons">
+                    <a href="nft-web3.html" class="nav-button">← Previous Lesson</a>
+                    <a href="nft-web3-3.html" class="nav-button">Next Lesson →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let isDrawing = false;
+        let currentTool = 'brush';
+        let currentColor = '#ff0000';
+        const canvas = document.getElementById('nftCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Set canvas size
+        canvas.width = 300;
+        canvas.height = 300;
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Drawing functions
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mouseout', stopDrawing);
+
+        function startDrawing(e) {
+            isDrawing = true;
+            draw(e);
+        }
+
+        function draw(e) {
+            if (!isDrawing) return;
+            
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            ctx.lineWidth = 5;
+            ctx.lineCap = 'round';
+            
+            if (currentTool === 'eraser') {
+                ctx.strokeStyle = '#ffffff';
+            } else {
+                ctx.strokeStyle = currentColor;
+            }
+
+            ctx.lineTo(x, y);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+        }
+
+        function stopDrawing() {
+            isDrawing = false;
+            ctx.beginPath();
+        }
+
+        function setTool(tool) {
+            currentTool = tool;
+            document.querySelectorAll('.tool-button').forEach(btn => {
+                btn.style.background = 'rgba(255, 255, 255, 0.1)';
+            });
+            event.target.style.background = 'rgba(255, 255, 255, 0.3)';
+        }
+
+        function clearCanvas() {
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+
+        // Color picker
+        document.querySelectorAll('.color-option').forEach(option => {
+            option.addEventListener('click', function() {
+                currentColor = this.dataset.color;
+                document.querySelectorAll('.color-option').forEach(opt => {
+                    opt.style.border = '2px solid transparent';
+                });
+                this.style.border = '2px solid white';
+            });
+        });
+
+        function downloadNFT() {
+            const link = document.createElement('a');
+            link.download = 'my-nft.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+
+        function generateMetadata() {
+            const name = document.getElementById('nftName').value;
+            const description = document.getElementById('nftDescription').value;
+            let attributes;
+            try {
+                attributes = JSON.parse(document.getElementById('nftAttributes').value);
+            } catch (e) {
+                attributes = [];
+            }
+
+            const metadata = {
+                name,
+                description,
+                image: 'ipfs://YOUR_IPFS_HASH',
+                attributes: Array.isArray(attributes) ? attributes : [attributes]
+            };
+
+            const blob = new Blob([JSON.stringify(metadata, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'metadata.json';
+            link.click();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Trading - CryptoMoose Learning</title>
+    <link rel="stylesheet" href="../css/members-new.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Same base styles as other course pages */
+        .course-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .course-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .lesson {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .strategy-card {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+        }
+
+        .strategy-card h3 {
+            color: #f0b90b;
+            margin-bottom: 1rem;
+        }
+
+        .risk-meter {
+            display: flex;
+            align-items: center;
+            margin: 1rem 0;
+        }
+
+        .risk-label {
+            width: 100px;
+            color: #f0b90b;
+        }
+
+        .risk-bar {
+            flex-grow: 1;
+            height: 10px;
+            background: #333;
+            border-radius: 5px;
+            margin: 0 1rem;
+            overflow: hidden;
+        }
+
+        .risk-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4CAF50, #FFC107, #F44336);
+            width: 70%;
+        }
+
+        .calculator {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+        }
+
+        .calculator input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0.5rem;
+            border-radius: 5px;
+            color: white;
+            margin: 0.5rem 0;
+            width: 200px;
+        }
+
+        .calculator button {
+            background: #f0b90b;
+            color: black;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        .calculator button:hover {
+            background: #d4a409;
+        }
+
+        .result {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(240, 185, 11, 0.1);
+            border-radius: 5px;
+            display: none;
+        }
+
+        header.glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        .logo span {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #f0b90b;
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: rgba(240, 185, 11, 0.2);
+            color: #f0b90b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="glass">
+            <nav>
+                <div class="logo">
+                    <img src="../images/Moose.png" alt="CryptoMoose">
+                    <span>CryptoMoose Learning</span>
+                </div>
+                <div class="nav-controls">
+                    <div class="nav-links">
+                        <a href="../index.html" class="nav-link">Home</a>
+                        <a href="../learning.html" class="nav-link">Courses</a>
+                        <a href="../members.html" class="nav-link">Signals</a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <div class="course-container">
+            <div class="course-header">
+                <h1>Advanced Trading Strategies</h1>
+            </div>
+
+            <div class="lesson">
+                <h2>1. Order Flow Analysis</h2>
+                <div class="lesson-content">
+                    <p>Order flow analysis is an advanced trading technique that focuses on understanding the relationship between price, volume, and time to predict future market movements.</p>
+
+                    <div class="strategy-card">
+                        <h3>Market Depth Analysis</h3>
+                        <p>Understanding the order book can reveal potential support and resistance levels based on large orders.</p>
+                        <div class="risk-meter">
+                            <span class="risk-label">Complexity:</span>
+                            <div class="risk-bar">
+                                <div class="risk-fill" style="width: 80%"></div>
+                            </div>
+                            <span>High</span>
+                        </div>
+                        <ul>
+                            <li>Large limit orders often indicate strong support/resistance</li>
+                            <li>Order book imbalances can predict short-term price movements</li>
+                            <li>Hidden orders can cause unexpected price movements</li>
+                        </ul>
+                    </div>
+
+                    <div class="calculator">
+                        <h3>Position Size Calculator</h3>
+                        <div>
+                            <label>Account Size ($):</label><br>
+                            <input type="number" id="accountSize" placeholder="Enter account size">
+                        </div>
+                        <div>
+                            <label>Risk Per Trade (%):</label><br>
+                            <input type="number" id="riskPercent" placeholder="Enter risk percentage">
+                        </div>
+                        <div>
+                            <label>Entry Price ($):</label><br>
+                            <input type="number" id="entryPrice" placeholder="Enter entry price">
+                        </div>
+                        <div>
+                            <label>Stop Loss ($):</label><br>
+                            <input type="number" id="stopLoss" placeholder="Enter stop loss">
+                        </div>
+                        <button onclick="calculatePosition()">Calculate Position Size</button>
+                        <div id="result" class="result"></div>
+                    </div>
+
+                    <div class="strategy-card">
+                        <h3>Volume Profile Analysis</h3>
+                        <p>Volume profile helps identify key price levels where most trading activity occurs.</p>
+                        <ul>
+                            <li>Point of Control (POC) - Price level with highest trading volume</li>
+                            <li>Value Area - Range where 70% of trading occurs</li>
+                            <li>Volume gaps can indicate potential breakout levels</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function calculatePosition() {
+            const accountSize = parseFloat(document.getElementById('accountSize').value);
+            const riskPercent = parseFloat(document.getElementById('riskPercent').value);
+            const entryPrice = parseFloat(document.getElementById('entryPrice').value);
+            const stopLoss = parseFloat(document.getElementById('stopLoss').value);
+
+            if (!accountSize || !riskPercent || !entryPrice || !stopLoss) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            const riskAmount = accountSize * (riskPercent / 100);
+            const priceDistance = Math.abs(entryPrice - stopLoss);
+            const positionSize = riskAmount / priceDistance;
+            const totalPositionValue = positionSize * entryPrice;
+
+            const result = document.getElementById('result');
+            result.style.display = 'block';
+            result.innerHTML = `
+                <h4>Position Details:</h4>
+                <p>Position Size: ${positionSize.toFixed(4)} units</p>
+                <p>Total Position Value: $${totalPositionValue.toFixed(2)}</p>
+                <p>Risk Amount: $${riskAmount.toFixed(2)}</p>
+                <p>Risk per Unit: $${priceDistance.toFixed(2)}</p>
+            `;
+        }
+    </script>
+</body>
+</html>

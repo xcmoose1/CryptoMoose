@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFT & Web3 - NFT Trading & Marketing - CryptoMoose Learning</title>
+    <link rel="stylesheet" href="../css/members-new.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .course-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .course-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .lesson {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .market-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .market-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .market-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .market-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .market-icon {
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            color: #f0b90b;
+        }
+
+        .chart-container {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            height: 300px;
+            position: relative;
+        }
+
+        .marketplace {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+
+        .nft-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .nft-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .nft-image {
+            width: 100%;
+            height: 150px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+
+        .price-tag {
+            background: #f0b90b;
+            color: black;
+            padding: 0.25rem 0.5rem;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 0.5rem 0;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+
+        .nav-button {
+            background: rgba(240, 185, 11, 0.2);
+            color: #f0b90b;
+            border: 1px solid #f0b90b;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .nav-button:hover {
+            background: rgba(240, 185, 11, 0.3);
+        }
+
+        .marketing-strategy {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+
+        .strategy-timeline {
+            display: flex;
+            justify-content: space-between;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .strategy-timeline::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 1;
+        }
+
+        .timeline-point {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 1rem;
+            border-radius: 10px;
+            position: relative;
+            z-index: 2;
+            width: 150px;
+            text-align: center;
+        }
+
+        .calculator {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+
+        .calculator input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0.5rem;
+            border-radius: 5px;
+            color: white;
+            margin: 0.5rem 0;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .calculator button {
+            background: #f0b90b;
+            color: black;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        .result {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 5px;
+            display: none;
+        }
+
+        .tip-box {
+            background: rgba(76, 175, 80, 0.1);
+            border-left: 4px solid #4CAF50;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 5px 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="glass">
+            <nav>
+                <div class="logo">
+                    <img src="../images/moose.png" alt="CryptoMoose">
+                    <span>CryptoMoose Learning</span>
+                </div>
+                <div class="nav-controls">
+                    <div class="nav-links">
+                        <a href="../index.html" class="nav-link">Home</a>
+                        <a href="../learning.html" class="nav-link">Courses</a>
+                        <a href="../members.html" class="nav-link">Signals</a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <div class="course-container">
+            <div class="course-header">
+                <h1>NFT & Web3 - NFT Trading & Marketing</h1>
+            </div>
+
+            <div class="lesson">
+                <h2>3. NFT Trading Strategies & Marketing</h2>
+
+                <div class="market-grid">
+                    <div class="market-card">
+                        <div class="market-header">
+                            <i class="fas fa-chart-line market-icon"></i>
+                            <h3>Trading Strategies</h3>
+                        </div>
+                        <ul>
+                            <li>Floor Price Analysis</li>
+                            <li>Rarity Assessment</li>
+                            <li>Volume Analysis</li>
+                            <li>Market Timing</li>
+                        </ul>
+                    </div>
+
+                    <div class="market-card">
+                        <div class="market-header">
+                            <i class="fas fa-bullhorn market-icon"></i>
+                            <h3>Marketing Channels</h3>
+                        </div>
+                        <ul>
+                            <li>Social Media</li>
+                            <li>Discord Community</li>
+                            <li>NFT Marketplaces</li>
+                            <li>Influencer Partnerships</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Market Analysis</h3>
+                <div class="chart-container">
+                    <canvas id="marketChart"></canvas>
+                </div>
+
+                <h3>NFT Marketplace Simulator</h3>
+                <div class="marketplace">
+                    <div class="nft-grid" id="nftMarketplace"></div>
+                </div>
+
+                <h3>Marketing Timeline Strategy</h3>
+                <div class="marketing-strategy">
+                    <div class="strategy-timeline">
+                        <div class="timeline-point">
+                            <h4>Pre-Launch</h4>
+                            <p>Community Building</p>
+                        </div>
+                        <div class="timeline-point">
+                            <h4>Launch</h4>
+                            <p>Minting Event</p>
+                        </div>
+                        <div class="timeline-point">
+                            <h4>Post-Launch</h4>
+                            <p>Engagement & Utility</p>
+                        </div>
+                        <div class="timeline-point">
+                            <h4>Long-Term</h4>
+                            <p>Ecosystem Growth</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>ROI Calculator</h3>
+                <div class="calculator">
+                    <div>
+                        <label for="mintPrice">Mint Price (ETH):</label>
+                        <input type="number" id="mintPrice" placeholder="Enter mint price" step="0.01">
+                    </div>
+                    <div>
+                        <label for="currentPrice">Current Floor Price (ETH):</label>
+                        <input type="number" id="currentPrice" placeholder="Enter current price" step="0.01">
+                    </div>
+                    <div>
+                        <label for="quantity">Number of NFTs:</label>
+                        <input type="number" id="quantity" placeholder="Enter quantity">
+                    </div>
+                    <button onclick="calculateROI()">Calculate ROI</button>
+                    <div id="roiResult" class="result"></div>
+                </div>
+
+                <div class="tip-box">
+                    <h4>💡 Marketing Tips</h4>
+                    <ul>
+                        <li>Build an engaged community before launch</li>
+                        <li>Create unique utility for your NFTs</li>
+                        <li>Partner with established projects</li>
+                        <li>Maintain transparent communication</li>
+                    </ul>
+                </div>
+
+                <div class="navigation-buttons">
+                    <a href="nft-web3-2.html" class="nav-button">← Previous Lesson</a>
+                    <a href="../learning.html" class="nav-button">Back to Courses →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize market chart
+        function initializeMarketChart() {
+            const ctx = document.getElementById('marketChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: Array.from({length: 30}, (_, i) => `Day ${i+1}`),
+                    datasets: [{
+                        label: 'Floor Price (ETH)',
+                        data: Array.from({length: 30}, () => Math.random() * 2 + 1),
+                        borderColor: '#f0b90b',
+                        tension: 0.4
+                    }, {
+                        label: 'Volume (ETH)',
+                        data: Array.from({length: 30}, () => Math.random() * 100 + 50),
+                        borderColor: '#2196f3',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: 'white'
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            ticks: { color: 'white' }
+                        },
+                        x: {
+                            ticks: { color: 'white' }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Generate marketplace items
+        function generateMarketplace() {
+            const marketplace = document.getElementById('nftMarketplace');
+            marketplace.innerHTML = '';
+            
+            const collections = ['CryptoPunks', 'Bored Apes', 'Doodles', 'Azuki'];
+            
+            for(let i = 0; i < 8; i++) {
+                const nft = document.createElement('div');
+                nft.className = 'nft-item';
+                nft.innerHTML = `
+                    <div class="nft-image"></div>
+                    <h4>${collections[Math.floor(Math.random() * collections.length)]} #${Math.floor(Math.random() * 10000)}</h4>
+                    <div class="price-tag">${(Math.random() * 10).toFixed(2)} ETH</div>
+                    <small>Rarity Rank: #${Math.floor(Math.random() * 10000)}</small>
+                `;
+                marketplace.appendChild(nft);
+            }
+        }
+
+        // Calculate ROI
+        function calculateROI() {
+            const mintPrice = parseFloat(document.getElementById('mintPrice').value);
+            const currentPrice = parseFloat(document.getElementById('currentPrice').value);
+            const quantity = parseInt(document.getElementById('quantity').value);
+
+            if (!mintPrice || !currentPrice || !quantity) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            const investment = mintPrice * quantity;
+            const currentValue = currentPrice * quantity;
+            const profit = currentValue - investment;
+            const roi = (profit / investment) * 100;
+
+            const result = document.getElementById('roiResult');
+            result.style.display = 'block';
+            result.innerHTML = `
+                <h4>ROI Analysis:</h4>
+                <p>Total Investment: ${investment.toFixed(2)} ETH</p>
+                <p>Current Value: ${currentValue.toFixed(2)} ETH</p>
+                <p>Profit/Loss: ${profit.toFixed(2)} ETH</p>
+                <p>ROI: ${roi.toFixed(2)}%</p>
+            `;
+        }
+
+        // Initialize everything
+        initializeMarketChart();
+        generateMarketplace();
+        setInterval(generateMarketplace, 10000); // Update marketplace every 10 seconds
+    </script>
+</body>
+</html>

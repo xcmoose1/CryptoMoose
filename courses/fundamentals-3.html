@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Fundamentals - Buying & Trading - CryptoMoose Learning</title>
+    <link rel="stylesheet" href="../css/members-new.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .course-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .course-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .lesson {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .exchange-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .exchange-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .exchange-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .exchange-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .exchange-icon {
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            color: #f0b90b;
+        }
+
+        .step-by-step {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+
+        .step {
+            display: flex;
+            align-items: flex-start;
+            margin: 1rem 0;
+        }
+
+        .step-number {
+            background: #f0b90b;
+            color: black;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        .fee-comparison {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .fee-comparison th,
+        .fee-comparison td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .fee-comparison th {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+
+        .nav-button {
+            background: rgba(240, 185, 11, 0.2);
+            color: #f0b90b;
+            border: 1px solid #f0b90b;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .nav-button:hover {
+            background: rgba(240, 185, 11, 0.3);
+        }
+
+        .calculator {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+
+        .calculator input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0.5rem;
+            border-radius: 5px;
+            color: white;
+            margin: 0.5rem 0;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .calculator button {
+            background: #f0b90b;
+            color: black;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        .result {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 5px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="glass">
+            <nav>
+                <div class="logo">
+                    <img src="../images/Moose.png" alt="CryptoMoose">
+                    <span>CryptoMoose Learning</span>
+                </div>
+                <div class="nav-controls">
+                    <div class="nav-links">
+                        <a href="../index.html" class="nav-link">Home</a>
+                        <a href="../learning.html" class="nav-link">Courses</a>
+                        <a href="../members.html" class="nav-link">Signals</a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <div class="course-container">
+            <div class="course-header">
+                <h1>Crypto Fundamentals - Buying & Trading Crypto</h1>
+            </div>
+
+            <div class="lesson">
+                <h2>3. How to Buy and Trade Cryptocurrency</h2>
+
+                <div class="exchange-grid">
+                    <div class="exchange-card">
+                        <div class="exchange-header">
+                            <i class="fas fa-building-columns exchange-icon"></i>
+                            <h3>Centralized Exchanges (CEX)</h3>
+                        </div>
+                        <p>Traditional exchange platforms with order books.</p>
+                        <h4>Popular Options:</h4>
+                        <ul>
+                            <li>Binance</li>
+                            <li>Coinbase</li>
+                            <li>Kraken</li>
+                        </ul>
+                        <p><strong>Pros:</strong> Easy to use, high liquidity</p>
+                        <p><strong>Cons:</strong> Requires KYC, custodial</p>
+                    </div>
+
+                    <div class="exchange-card">
+                        <div class="exchange-header">
+                            <i class="fas fa-code-branch exchange-icon"></i>
+                            <h3>Decentralized Exchanges (DEX)</h3>
+                        </div>
+                        <p>Peer-to-peer trading through smart contracts.</p>
+                        <h4>Popular Options:</h4>
+                        <ul>
+                            <li>Uniswap</li>
+                            <li>PancakeSwap</li>
+                            <li>dYdX</li>
+                        </ul>
+                        <p><strong>Pros:</strong> No KYC, self-custody</p>
+                        <p><strong>Cons:</strong> Higher fees, more complex</p>
+                    </div>
+                </div>
+
+                <h3>Fee Comparison</h3>
+                <table class="fee-comparison">
+                    <tr>
+                        <th>Exchange Type</th>
+                        <th>Trading Fee</th>
+                        <th>Withdrawal Fee</th>
+                        <th>Deposit Methods</th>
+                    </tr>
+                    <tr>
+                        <td>Centralized</td>
+                        <td>0.1% - 0.5%</td>
+                        <td>Network fee + fixed fee</td>
+                        <td>Bank transfer, card</td>
+                    </tr>
+                    <tr>
+                        <td>Decentralized</td>
+                        <td>0.3% - 1%</td>
+                        <td>Network fee only</td>
+                        <td>Crypto only</td>
+                    </tr>
+                </table>
+
+                <h3>Step-by-Step Guide to Buying Crypto</h3>
+                <div class="step-by-step">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div>
+                            <h4>Choose an Exchange</h4>
+                            <p>Select based on your location, preferred payment method, and security needs.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div>
+                            <h4>Complete Verification</h4>
+                            <p>Prepare ID documents and complete KYC if using a centralized exchange.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div>
+                            <h4>Add Funds</h4>
+                            <p>Deposit using bank transfer, credit card, or existing crypto.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div>
+                            <h4>Place Order</h4>
+                            <p>Choose between market order (instant) or limit order (specific price).</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">5</div>
+                        <div>
+                            <h4>Secure Storage</h4>
+                            <p>Transfer to your wallet for safe storage.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Fee Calculator</h3>
+                <div class="calculator">
+                    <div>
+                        <label for="amount">Purchase Amount ($):</label>
+                        <input type="number" id="amount" placeholder="Enter amount">
+                    </div>
+                    <div>
+                        <label for="feePercentage">Exchange Fee (%):</label>
+                        <input type="number" id="feePercentage" placeholder="Enter fee percentage" step="0.1">
+                    </div>
+                    <button onclick="calculateFees()">Calculate Fees</button>
+                    <div id="result" class="result"></div>
+                </div>
+
+                <div class="navigation-buttons">
+                    <a href="fundamentals-2.html" class="nav-button">← Previous Lesson</a>
+                    <a href="../learning.html" class="nav-button">Back to Courses →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function calculateFees() {
+            const amount = parseFloat(document.getElementById('amount').value);
+            const feePercentage = parseFloat(document.getElementById('feePercentage').value);
+
+            if (!amount || !feePercentage) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            const fee = amount * (feePercentage / 100);
+            const total = amount + fee;
+
+            const result = document.getElementById('result');
+            result.style.display = 'block';
+            result.innerHTML = `
+                <h4>Fee Calculation:</h4>
+                <p>Purchase Amount: $${amount.toFixed(2)}</p>
+                <p>Trading Fee: $${fee.toFixed(2)}</p>
+                <p>Total Cost: $${total.toFixed(2)}</p>
+            `;
+        }
+    </script>
+</body>
+</html>

@@ -15,7 +15,32 @@ const __dirname = path.dirname(__filename);
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use(express.static(__dirname));
+
+// Serve static files
+app.use(express.static(path.join(__dirname)));
+
+// Serve course files
+app.get('/courses/:course', (req, res) => {
+    const courseName = req.params.course;
+    res.sendFile(path.join(__dirname, 'courses', courseName));
+});
+
+// Serve HTML files
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+app.get('/learning', (req, res) => {
+    res.sendFile(path.join(__dirname, 'learning.html'));
+});
+
+app.get('/dashboard', (req, res) => {
+    res.sendFile(path.join(__dirname, 'dashboard.html'));
+});
+
+app.get('/members', (req, res) => {
+    res.sendFile(path.join(__dirname, 'members.html'));
+});
 
 // Initialize OpenAI
 const openai = new OpenAI({

@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeFi Mastery - Smart Contracts & Security - CryptoMoose Learning</title>
+    <link rel="stylesheet" href="../css/members-new.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .course-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .course-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .lesson {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .security-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .security-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .security-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .security-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .security-icon {
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            color: #f0b90b;
+        }
+
+        .code-block {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+            font-family: monospace;
+            white-space: pre-wrap;
+            overflow-x: auto;
+        }
+
+        .checklist {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            margin: 0.5rem 0;
+        }
+
+        .checklist-item input[type="checkbox"] {
+            margin-right: 1rem;
+        }
+
+        .audit-tool {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+
+        .audit-input {
+            width: 100%;
+            height: 150px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 1rem;
+            border-radius: 5px;
+            color: white;
+            font-family: monospace;
+            margin: 1rem 0;
+            resize: vertical;
+        }
+
+        .audit-button {
+            background: #f0b90b;
+            color: black;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+
+        .nav-button {
+            background: rgba(240, 185, 11, 0.2);
+            color: #f0b90b;
+            border: 1px solid #f0b90b;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .nav-button:hover {
+            background: rgba(240, 185, 11, 0.3);
+        }
+
+        .warning {
+            background: rgba(244, 67, 54, 0.1);
+            border-left: 4px solid #f44336;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .tip {
+            background: rgba(76, 175, 80, 0.1);
+            border-left: 4px solid #4CAF50;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 5px 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="glass">
+            <nav>
+                <div class="logo">
+                    <img src="../images/moose.png" alt="CryptoMoose">
+                    <span>CryptoMoose Learning</span>
+                </div>
+                <div class="nav-controls">
+                    <div class="nav-links">
+                        <a href="../index.html" class="nav-link">Home</a>
+                        <a href="../learning.html" class="nav-link">Courses</a>
+                        <a href="../members.html" class="nav-link">Signals</a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <div class="course-container">
+            <div class="course-header">
+                <h1>DeFi Mastery - Smart Contracts & Security</h1>
+            </div>
+
+            <div class="lesson">
+                <h2>3. Smart Contract Security Best Practices</h2>
+
+                <div class="warning">
+                    <h4>⚠️ Critical Warning</h4>
+                    <p>Smart contract vulnerabilities can lead to complete loss of funds. Always verify contract security before interacting.</p>
+                </div>
+
+                <div class="security-grid">
+                    <div class="security-card">
+                        <div class="security-header">
+                            <i class="fas fa-shield-alt security-icon"></i>
+                            <h3>Common Vulnerabilities</h3>
+                        </div>
+                        <ul>
+                            <li>Reentrancy Attacks</li>
+                            <li>Integer Overflow</li>
+                            <li>Flash Loan Attacks</li>
+                            <li>Front-Running</li>
+                        </ul>
+                    </div>
+
+                    <div class="security-card">
+                        <div class="security-header">
+                            <i class="fas fa-check-double security-icon"></i>
+                            <h3>Security Measures</h3>
+                        </div>
+                        <ul>
+                            <li>Code Audits</li>
+                            <li>Bug Bounties</li>
+                            <li>Time Locks</li>
+                            <li>Multi-sig</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Reentrancy Attack Example</h3>
+                <div class="code-block">
+// Vulnerable Contract
+contract Vulnerable {
+    mapping(address => uint) public balances;
+    
+    function withdraw() public {
+        uint balance = balances[msg.sender];
+        require(balance > 0);
+        (bool success, ) = msg.sender.call{value: balance}("");
+        require(success);
+        balances[msg.sender] = 0;
+    }
+}
+
+// Safe Contract
+contract Safe {
+    mapping(address => uint) public balances;
+    
+    function withdraw() public {
+        uint balance = balances[msg.sender];
+        require(balance > 0);
+        balances[msg.sender] = 0;
+        (bool success, ) = msg.sender.call{value: balance}("");
+        require(success);
+    }
+}</div>
+
+                <h3>Security Audit Checklist</h3>
+                <div class="checklist">
+                    <div class="checklist-item">
+                        <input type="checkbox" id="check1">
+                        <label for="check1">Contract is verified on blockchain explorer</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="check2">
+                        <label for="check2">Code has been audited by reputable firms</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="check3">
+                        <label for="check3">Time lock mechanisms are in place</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="check4">
+                        <label for="check4">Emergency pause functionality exists</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="check5">
+                        <label for="check5">Owner privileges are limited</label>
+                    </div>
+                </div>
+
+                <h3>Contract Analyzer Tool</h3>
+                <div class="audit-tool">
+                    <p>Paste Solidity code to check for common vulnerabilities:</p>
+                    <textarea class="audit-input" id="contractCode" placeholder="// Paste your contract code here"></textarea>
+                    <button class="audit-button" onclick="analyzeContract()">Analyze Contract</button>
+                    <div id="analysisResult" class="code-block" style="display: none;"></div>
+                </div>
+
+                <div class="tip">
+                    <h4>💡 Pro Tip</h4>
+                    <p>Always check contract permissions and owner functions before depositing large amounts. Use tools like Etherscan's contract reader to verify function behaviors.</p>
+                </div>
+
+                <div class="navigation-buttons">
+                    <a href="defi-mastery-2.html" class="nav-button">← Previous Lesson</a>
+                    <a href="../learning.html" class="nav-button">Back to Courses →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Save checklist state
+        document.querySelectorAll('.checklist-item input').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                localStorage.setItem(this.id, this.checked);
+            });
+
+            // Load saved state
+            const saved = localStorage.getItem(checkbox.id);
+            if (saved === 'true') {
+                checkbox.checked = true;
+            }
+        });
+
+        function analyzeContract() {
+            const code = document.getElementById('contractCode').value;
+            if (!code) {
+                alert('Please paste some contract code first');
+                return;
+            }
+
+            const result = document.getElementById('analysisResult');
+            result.style.display = 'block';
+
+            // Simple analysis checks
+            const checks = {
+                reentrancy: code.includes('call.value') || code.includes('call{value:'),
+                overflow: !code.includes('SafeMath') && !code.includes('0.8.0'),
+                timelock: !code.includes('timelock') && !code.includes('delay'),
+                ownable: code.includes('Ownable') || code.includes('onlyOwner'),
+            };
+
+            result.innerHTML = `Security Analysis Results:
+            
+🔍 Potential Issues Found:
+${checks.reentrancy ? '⚠️ Possible reentrancy vulnerability detected' : '✅ No reentrancy issues found'}
+${checks.overflow ? '⚠️ No SafeMath or Solidity 0.8+ overflow protection' : '✅ Overflow protection detected'}
+${checks.timelock ? '⚠️ No timelock mechanism found' : '✅ Timelock mechanism detected'}
+${checks.ownable ? '⚠️ Contract uses centralized ownership' : '✅ No centralized ownership detected'}
+
+Note: This is a basic analysis. Always get a professional audit.`;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFT & Web3 - CryptoMoose Learning</title>
+    <link rel="stylesheet" href="../css/members-new.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .course-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .course-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .lesson {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nft-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .nft-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .nft-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .nft-info {
+            padding: 1rem;
+        }
+
+        .nft-price {
+            color: #f0b90b;
+            font-size: 1.2rem;
+            margin: 0.5rem 0;
+        }
+
+        .marketplace-card {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .marketplace-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: white;
+            padding: 5px;
+        }
+
+        .marketplace-info {
+            flex-grow: 1;
+        }
+
+        .marketplace-stats {
+            text-align: right;
+            color: #f0b90b;
+        }
+
+        .web3-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            color: #f0b90b;
+            margin-bottom: 1rem;
+        }
+
+        .gas-tracker {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+        }
+
+        .gas-meter {
+            height: 10px;
+            background: #333;
+            border-radius: 5px;
+            margin: 0.5rem 0;
+            overflow: hidden;
+        }
+
+        .gas-fill {
+            height: 100%;
+            background: #f0b90b;
+            width: 60%;
+            transition: width 0.3s ease;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+
+        .nav-button {
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.08);
+            color: #f0b90b;
+            text-decoration: none;
+        }
+
+        .nav-button.disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        header.glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        .logo span {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #f0b90b;
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: rgba(240, 185, 11, 0.2);
+            color: #f0b90b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="glass">
+            <nav>
+                <div class="logo">
+                    <img src="../images/moose.png" alt="CryptoMoose">
+                    <span>CryptoMoose Learning</span>
+                </div>
+                <div class="nav-controls">
+                    <div class="nav-links">
+                        <a href="../index.html" class="nav-link">Home</a>
+                        <a href="../learning.html" class="nav-link">Courses</a>
+                        <a href="../members.html" class="nav-link">Signals</a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <div class="course-container">
+            <div class="course-header">
+                <h1>NFT & Web3</h1>
+            </div>
+
+            <div class="lesson">
+                <h2>1. Understanding NFTs & Web3 Infrastructure</h2>
+
+                <h3>What are NFTs?</h3>
+                <p>Non-Fungible Tokens (NFTs) are unique digital assets that represent ownership of specific items or content on the blockchain.</p>
+
+                <div class="nft-grid">
+                    <div class="nft-card">
+                        <img src="../images/nft1.png" alt="Example NFT" class="nft-image">
+                        <div class="nft-info">
+                            <h4>CryptoPunk #7804</h4>
+                            <div class="nft-price">150 ETH</div>
+                            <p>One of the original CryptoPunks</p>
+                        </div>
+                    </div>
+                    <div class="nft-card">
+                        <img src="../images/nft2.png" alt="Example NFT" class="nft-image">
+                        <div class="nft-info">
+                            <h4>Bored Ape #8817</h4>
+                            <div class="nft-price">200 ETH</div>
+                            <p>Rare gold fur trait</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Top NFT Marketplaces</h3>
+                <div class="marketplace-card">
+                    <img src="../images/opensea.png" alt="OpenSea" class="marketplace-logo">
+                    <div class="marketplace-info">
+                        <h4>OpenSea</h4>
+                        <p>The largest NFT marketplace by volume</p>
+                    </div>
+                    <div class="marketplace-stats">
+                        <div>24h Volume: 1,245 ETH</div>
+                        <div>Floor Price: 12.5 ETH</div>
+                    </div>
+                </div>
+
+                <h3>Web3 Features</h3>
+                <div class="web3-features">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <h4>Decentralization</h4>
+                        <p>No central authority controls the network</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                        <h4>Self-Custody</h4>
+                        <p>Users control their own assets</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                        <h4>Interoperability</h4>
+                        <p>Systems can work together seamlessly</p>
+                    </div>
+                </div>
+
+                <h3>Current Gas Prices</h3>
+                <div class="gas-tracker">
+                    <div>
+                        <span>Current: 25 Gwei</span>
+                        <div class="gas-meter">
+                            <div class="gas-fill" id="gas-level"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <p>Recommended transaction speed:</p>
+                        <ul>
+                            <li>Fast: 30 Gwei (~30 seconds)</li>
+                            <li>Average: 25 Gwei (~2 minutes)</li>
+                            <li>Slow: 20 Gwei (~5 minutes)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="navigation-buttons">
+                    <span class="nav-button disabled">← Previous Lesson</span>
+                    <a href="nft-web3-2.html" class="nav-button">Next Lesson →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simulate gas price updates
+        function updateGasPrice() {
+            const gasLevel = document.getElementById('gas-level');
+            const level = Math.random() * 100;
+            gasLevel.style.width = level + '%';
+        }
+
+        // Update gas price every 3 seconds
+        setInterval(updateGasPrice, 3000);
+        updateGasPrice(); // Initial update
+    </script>
+</body>
+</html>
