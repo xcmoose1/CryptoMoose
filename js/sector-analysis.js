@@ -94,6 +94,16 @@ class SectorAnalysis {
             this.updateTopPerformersForSector(data);
         } catch (error) {
             console.error('Error loading sector data:', error);
+            this.updateSectorUI({
+                marketCap: 'Error loading',
+                volume: 'Error loading',
+                change: 'N/A',
+                dominance: 'N/A',
+                trends: 'Error loading sector trends',
+                structure: 'Error loading market structure',
+                opportunities: 'Error loading opportunities',
+                topAssets: []
+            });
         }
     }
 
@@ -137,15 +147,23 @@ class SectorAnalysis {
     }
 
     updateSectorUI(data) {
-        // Update sector metrics
-        document.getElementById('sectorMarketCap').textContent = this.formatCurrency(data.marketCap);
-        document.getElementById('sectorVolume').textContent = this.formatCurrency(data.volume);
-        document.getElementById('sectorChange').textContent = `${data.change.toFixed(2)}%`;
-        document.getElementById('sectorDominance').textContent = `${data.dominance.toFixed(2)}%`;
+        try {
+            if (!data) return;
 
-        // Update classes for styling
-        document.getElementById('sectorChange').className = 
-            `value ${data.change >= 0 ? 'positive' : 'negative'}`;
+            // Update sector metrics
+            const changeValue = typeof data.change === 'number' ? data.change.toFixed(2) + '%' : '0%';
+            const changeClass = parseFloat(changeValue) >= 0 ? 'positive' : 'negative';
+            
+            // Update DOM elements
+            document.getElementById('sectorName').textContent = data.name || 'Loading...';
+            document.getElementById('sectorChange').textContent = changeValue;
+            document.getElementById('sectorChange').className = `change ${changeClass}`;
+            document.getElementById('sectorVolume').textContent = data.volume || 'Loading...';
+            document.getElementById('sectorMarketCap').textContent = data.marketCap || 'Loading...';
+
+        } catch (error) {
+            console.error('Error updating sector UI:', error);
+        }
     }
 
     async generateSectorInsights() {

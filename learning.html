@@ -6,6 +6,7 @@
     <title>CryptoMoose Learning Hub</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/responsive.css">
     <style>
         :root {
             --color-primary: #007BFF;
@@ -17,6 +18,8 @@
             --gradient-primary: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
             --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.2);
             --border-radius: 12px;
+            --container-padding-desktop: 2rem;
+            --container-padding-mobile: 1rem;
         }
 
         * {
@@ -33,43 +36,55 @@
             min-height: 100vh;
         }
 
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--container-padding-desktop);
+        }
+
+        .header {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .header p {
+            color: var(--color-text-secondary);
+            font-size: 1.1rem;
+        }
+
         .glass-header {
-            background: rgba(42, 42, 42, 0.9);
+            background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem var(--container-padding-desktop);
             position: sticky;
             top: 0;
-            z-index: 1000;
-            padding: 1rem 0;
+            z-index: 100;
         }
 
         nav {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .logo {
             display: flex;
             align-items: center;
-            gap: 1rem;
             text-decoration: none;
+            color: var(--color-text);
         }
 
         .logo img {
             height: 40px;
             width: auto;
-        }
-
-        .logo span {
-            font-size: 1.5rem;
-            font-weight: 600;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            margin-right: 1rem;
         }
 
         .nav-links {
@@ -81,192 +96,105 @@
             color: var(--color-text);
             text-decoration: none;
             font-weight: 500;
-            padding: 0.5rem 1rem;
-            border-radius: var(--border-radius);
-            transition: all 0.3s ease;
+            transition: color 0.3s;
         }
 
         .nav-link:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateY(-2px);
-        }
-
-        .nav-link.active {
-            background: var(--gradient-primary);
-            color: white;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .header p {
-            color: var(--color-text-secondary);
-            font-size: 1.1rem;
+            color: var(--color-secondary);
         }
 
         .courses-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
-            margin-top: 2rem;
+            margin-top: 3rem;
         }
 
         .course-card {
-            background: var(--color-surface);
+            background: rgba(255, 255, 255, 0.05);
             border-radius: var(--border-radius);
             overflow: hidden;
-            transition: transform 0.3s ease;
-            box-shadow: var(--shadow-lg);
-            position: relative;
+            transition: transform 0.3s;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
         }
 
         .course-card:hover {
             transform: translateY(-5px);
         }
 
-        .course-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transform: translateX(-100%);
-            transition: transform 0.6s ease;
-        }
-
-        .course-card:hover::before {
-            transform: translateX(100%);
-        }
-
         .course-image {
-            width: 100%;
-            height: 160px;
             background: var(--gradient-primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .course-image i {
+            padding: 2rem;
+            text-align: center;
             font-size: 3rem;
-            color: white;
         }
 
         .course-content {
             padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
         }
 
-        .course-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--color-text);
-        }
-
-        .course-description {
-            color: var(--color-text-secondary);
-            font-size: 0.9rem;
+        .course-content h2 {
+            font-size: 1.5rem;
             margin-bottom: 1rem;
         }
 
-        .course-topics {
+        .course-content p {
+            color: var(--color-text-secondary);
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .tags {
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .topic-tag {
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--color-text);
-            padding: 0.3rem 0.8rem;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            transition: all 0.3s ease;
-        }
-
-        .course-stats {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
             margin-bottom: 1.5rem;
         }
 
-        .stat-item {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 0.8rem;
-            border-radius: var(--border-radius);
-            text-align: center;
+        .tag {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
         }
 
-        .stat-value {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--color-secondary);
-        }
-
-        .stat-label {
-            font-size: 0.8rem;
-            color: var(--color-text-secondary);
-        }
-
-        .course-meta {
+        .course-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .difficulty {
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            color: var(--color-text-secondary);
-            font-size: 0.9rem;
         }
 
-        .difficulty i {
+        .start-learning {
             color: var(--color-secondary);
-            font-size: 0.8rem;
-        }
-
-        .course-button {
-            display: inline-block;
-            padding: 0.8rem 1.5rem;
-            background: var(--gradient-primary);
-            color: white;
             text-decoration: none;
-            border-radius: 30px;
             font-weight: 500;
-            transition: all 0.3s ease;
         }
 
-        .course-button:hover {
-            box-shadow: var(--shadow-lg);
-            transform: scale(1.05);
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--color-text);
+            font-size: 1.5rem;
+            cursor: pointer;
         }
 
-        @media (max-width: 768px) {
+        @media screen and (max-width: 1024px) {
             .container {
-                padding: 1rem;
+                padding: var(--container-padding-mobile);
             }
 
             .header h1 {
@@ -274,17 +202,78 @@
             }
 
             .courses-grid {
-                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .glass-header {
+                padding: 1rem;
             }
 
-            nav {
-                flex-direction: column;
-                gap: 1rem;
+            .menu-toggle {
+                display: block;
             }
 
             .nav-links {
-                flex-wrap: wrap;
-                justify-content: center;
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--color-surface);
+                padding: 1rem;
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .course-image {
+                padding: 1.5rem;
+                font-size: 2.5rem;
+            }
+
+            .course-content {
+                padding: 1.25rem;
+            }
+
+            .course-content h2 {
+                font-size: 1.25rem;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .header {
+                margin: 1.5rem 0;
+            }
+
+            .header h1 {
+                font-size: 1.75rem;
+            }
+
+            .header p {
+                font-size: 1rem;
+            }
+
+            .courses-grid {
+                gap: 1rem;
+            }
+
+            .course-image {
+                padding: 1.25rem;
+                font-size: 2rem;
+            }
+
+            .course-content {
+                padding: 1rem;
+            }
+
+            .tag {
+                font-size: 0.75rem;
             }
         }
     </style>
@@ -296,6 +285,9 @@
                 <img src="images/Moose.png" alt="CryptoMoose">
                 <span>CryptoMoose</span>
             </a>
+            <button class="menu-toggle" aria-label="Toggle navigation menu">
+                <i class="fas fa-bars"></i>
+            </button>
             <div class="nav-links">
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="learning.html" class="nav-link active">Learning</a>
@@ -320,10 +312,10 @@
                 <div class="course-content">
                     <h2 class="course-title">Trading Fundamentals</h2>
                     <p class="course-description">Learn the basics of cryptocurrency trading, market analysis, and risk management.</p>
-                    <div class="course-topics">
-                        <span class="topic-tag">Blockchain</span>
-                        <span class="topic-tag">Crypto Basics</span>
-                        <span class="topic-tag">Trading</span>
+                    <div class="tags">
+                        <span class="tag">Blockchain</span>
+                        <span class="tag">Crypto Basics</span>
+                        <span class="tag">Trading</span>
                     </div>
                     <div class="course-stats">
                         <div class="stat-item">
@@ -335,12 +327,12 @@
                             <div class="stat-label">Duration</div>
                         </div>
                     </div>
-                    <div class="course-meta">
+                    <div class="course-footer">
                         <div class="difficulty">
                             <i class="fas fa-signal"></i>
                             <span>Beginner</span>
                         </div>
-                        <a href="courses/fundamentals.html" class="course-button">Start Learning</a>
+                        <a href="courses/fundamentals.html" class="start-learning">Start Learning</a>
                     </div>
                 </div>
             </div>
@@ -352,10 +344,10 @@
                 <div class="course-content">
                     <h2 class="course-title">Market Analysis</h2>
                     <p class="course-description">Master technical analysis, chart patterns, and market indicators.</p>
-                    <div class="course-topics">
-                        <span class="topic-tag">Chart Patterns</span>
-                        <span class="topic-tag">Indicators</span>
-                        <span class="topic-tag">Price Action</span>
+                    <div class="tags">
+                        <span class="tag">Chart Patterns</span>
+                        <span class="tag">Indicators</span>
+                        <span class="tag">Price Action</span>
                     </div>
                     <div class="course-stats">
                         <div class="stat-item">
@@ -367,13 +359,13 @@
                             <div class="stat-label">Duration</div>
                         </div>
                     </div>
-                    <div class="course-meta">
+                    <div class="course-footer">
                         <div class="difficulty">
                             <i class="fas fa-signal"></i>
                             <i class="fas fa-signal"></i>
                             <span>Intermediate</span>
                         </div>
-                        <a href="courses/market-analysis.html" class="course-button">Start Learning</a>
+                        <a href="courses/market-analysis.html" class="start-learning">Start Learning</a>
                     </div>
                 </div>
             </div>
@@ -385,10 +377,10 @@
                 <div class="course-content">
                     <h2 class="course-title">Advanced Trading</h2>
                     <p class="course-description">Advanced strategies, portfolio management, and algorithmic trading.</p>
-                    <div class="course-topics">
-                        <span class="topic-tag">Portfolio Management</span>
-                        <span class="topic-tag">Risk Analysis</span>
-                        <span class="topic-tag">Automation</span>
+                    <div class="tags">
+                        <span class="tag">Portfolio Management</span>
+                        <span class="tag">Risk Analysis</span>
+                        <span class="tag">Automation</span>
                     </div>
                     <div class="course-stats">
                         <div class="stat-item">
@@ -400,14 +392,14 @@
                             <div class="stat-label">Duration</div>
                         </div>
                     </div>
-                    <div class="course-meta">
+                    <div class="course-footer">
                         <div class="difficulty">
                             <i class="fas fa-signal"></i>
                             <i class="fas fa-signal"></i>
                             <i class="fas fa-signal"></i>
                             <span>Advanced</span>
                         </div>
-                        <a href="courses/advanced-trading.html" class="course-button">Start Learning</a>
+                        <a href="courses/advanced-trading.html" class="start-learning">Start Learning</a>
                     </div>
                 </div>
             </div>
@@ -419,10 +411,10 @@
                 <div class="course-content">
                     <h2 class="course-title">DeFi Mastery</h2>
                     <p class="course-description">Learn about decentralized finance, yield farming, and liquidity provision.</p>
-                    <div class="course-topics">
-                        <span class="topic-tag">Smart Contracts</span>
-                        <span class="topic-tag">DEX</span>
-                        <span class="topic-tag">Yield</span>
+                    <div class="tags">
+                        <span class="tag">Smart Contracts</span>
+                        <span class="tag">DEX</span>
+                        <span class="tag">Yield</span>
                     </div>
                     <div class="course-stats">
                         <div class="stat-item">
@@ -434,13 +426,13 @@
                             <div class="stat-label">Duration</div>
                         </div>
                     </div>
-                    <div class="course-meta">
+                    <div class="course-footer">
                         <div class="difficulty">
                             <i class="fas fa-signal"></i>
                             <i class="fas fa-signal"></i>
                             <span>Intermediate</span>
                         </div>
-                        <a href="courses/defi-mastery.html" class="course-button">Start Learning</a>
+                        <a href="courses/defi-mastery.html" class="start-learning">Start Learning</a>
                     </div>
                 </div>
             </div>
@@ -452,10 +444,10 @@
                 <div class="course-content">
                     <h2 class="course-title">NFT & Web3</h2>
                     <p class="course-description">Explore the world of NFTs, digital collectibles, and Web3 technology.</p>
-                    <div class="course-topics">
-                        <span class="topic-tag">NFT Trading</span>
-                        <span class="topic-tag">Marketplaces</span>
-                        <span class="topic-tag">Web3</span>
+                    <div class="tags">
+                        <span class="tag">NFT Trading</span>
+                        <span class="tag">Marketplaces</span>
+                        <span class="tag">Web3</span>
                     </div>
                     <div class="course-stats">
                         <div class="stat-item">
@@ -467,13 +459,13 @@
                             <div class="stat-label">Duration</div>
                         </div>
                     </div>
-                    <div class="course-meta">
+                    <div class="course-footer">
                         <div class="difficulty">
                             <i class="fas fa-signal"></i>
                             <i class="fas fa-signal"></i>
                             <span>Intermediate</span>
                         </div>
-                        <a href="courses/nft-web3.html" class="course-button">Start Learning</a>
+                        <a href="courses/nft-web3.html" class="start-learning">Start Learning</a>
                     </div>
                 </div>
             </div>
@@ -485,10 +477,10 @@
                 <div class="course-content">
                     <h2 class="course-title">Technical Analysis</h2>
                     <p class="course-description">Master the art of reading charts and identifying profitable trading opportunities.</p>
-                    <div class="course-topics">
-                        <span class="topic-tag">Market Cycles</span>
-                        <span class="topic-tag">Research</span>
-                        <span class="topic-tag">Analysis</span>
+                    <div class="tags">
+                        <span class="tag">Market Cycles</span>
+                        <span class="tag">Research</span>
+                        <span class="tag">Analysis</span>
                     </div>
                     <div class="course-stats">
                         <div class="stat-item">
@@ -500,17 +492,32 @@
                             <div class="stat-label">Duration</div>
                         </div>
                     </div>
-                    <div class="course-meta">
+                    <div class="course-footer">
                         <div class="difficulty">
                             <i class="fas fa-signal"></i>
                             <i class="fas fa-signal"></i>
                             <span>Intermediate</span>
                         </div>
-                        <a href="courses/technical-analysis.html" class="course-button">Start Learning</a>
+                        <a href="courses/technical-analysis.html" class="start-learning">Start Learning</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.menu-toggle').addEventListener('click', () => {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            const nav = document.querySelector('nav');
+            const navLinks = document.querySelector('.nav-links');
+            if (!nav.contains(e.target) && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+            }
+        });
+    </script>
 </body>
 </html>

@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crypto Fundamentals - CryptoMoose Learning</title>
     <link rel="stylesheet" href="../css/members-new.css">
+    <link rel="stylesheet" href="../css/responsive.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         .course-container {
             max-width: 1000px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: var(--container-padding-desktop);
         }
 
         .course-header {
@@ -50,145 +51,96 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .lesson h2 {
-            color: #f0b90b;
-            margin-bottom: 1rem;
-        }
-
-        .lesson-content {
-            color: #fff;
-            line-height: 1.6;
-        }
-
-        .key-points {
-            background: rgba(240, 185, 11, 0.1);
-            padding: 1rem;
-            border-radius: 10px;
-            margin: 1rem 0;
-        }
-
-        .key-points h3 {
-            color: #f0b90b;
-            margin-bottom: 0.5rem;
-        }
-
-        .key-points ul {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .key-points li {
-            padding-left: 1.5rem;
-            position: relative;
-            margin: 0.5rem 0;
-        }
-
-        .key-points li:before {
-            content: "→";
-            color: #f0b90b;
-            position: absolute;
-            left: 0;
-        }
-
-        .quiz {
+        .quiz-container {
             background: rgba(255, 255, 255, 0.08);
-            padding: 1.5rem;
             border-radius: 10px;
-            margin-top: 2rem;
+            padding: 1.5rem;
+            margin: 2rem 0;
         }
 
-        .quiz h3 {
-            color: #f0b90b;
-            margin-bottom: 1rem;
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
         }
 
         .quiz-option {
-            padding: 1rem;
-            margin: 0.5rem 0;
             background: rgba(255, 255, 255, 0.05);
-            border-radius: 5px;
+            padding: 1rem;
+            border-radius: 8px;
             cursor: pointer;
-            transition: background 0.3s ease;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .quiz-option:hover {
             background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
         }
 
-        .next-lesson {
-            display: inline-block;
-            background: #f0b90b;
-            color: black;
-            padding: 0.8rem 1.5rem;
-            border-radius: 5px;
-            text-decoration: none;
-            margin-top: 2rem;
-            font-weight: 500;
-            transition: background 0.3s ease;
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
         }
 
-        .next-lesson:hover {
-            background: #d4a409;
+        .resource-card {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 1.5rem;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+            height: 100%;
         }
 
-        header.glass {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 1rem 2rem;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+        .resource-card:hover {
+            transform: translateY(-5px);
         }
 
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
+        @media screen and (max-width: 768px) {
+            .course-container {
+                padding: var(--container-padding-mobile);
+            }
+
+            .lesson {
+                padding: 1.5rem;
+            }
+
+            .quiz-container {
+                padding: 1rem;
+            }
+
+            .quiz-options {
+                grid-template-columns: 1fr;
+            }
+
+            .resource-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
         }
 
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
+        @media screen and (max-width: 480px) {
+            .course-container {
+                padding: 0.75rem;
+            }
 
-        .logo img {
-            height: 40px;
-            width: auto;
-        }
+            .lesson {
+                padding: 1rem;
+            }
 
-        .logo span {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #f0b90b;
-        }
+            .quiz-option {
+                padding: 0.75rem;
+            }
 
-        .nav-controls {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-        }
+            .resource-card {
+                padding: 1rem;
+            }
 
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .nav-link {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            transition: all 0.3s ease;
-        }
-
-        .nav-link:hover {
-            background: rgba(240, 185, 11, 0.2);
-            color: #f0b90b;
+            .course-progress {
+                padding: 0.75rem;
+            }
         }
     </style>
 </head>
@@ -245,12 +197,14 @@
                         <li>The block is added to the chain, creating a permanent record</li>
                     </ol>
 
-                    <div class="quiz">
+                    <div class="quiz-container">
                         <h3>Quick Quiz</h3>
-                        <div class="quiz-option" onclick="checkAnswer(1)">1. Blockchain is a centralized database controlled by banks</div>
-                        <div class="quiz-option" onclick="checkAnswer(2)">2. Blockchain is a decentralized, immutable ledger</div>
-                        <div class="quiz-option" onclick="checkAnswer(3)">3. Blockchain is just another name for Bitcoin</div>
-                        <div class="quiz-option" onclick="checkAnswer(4)">4. Blockchain is a private network for governments</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option" onclick="checkAnswer(1)">1. Blockchain is a centralized database controlled by banks</div>
+                            <div class="quiz-option" onclick="checkAnswer(2)">2. Blockchain is a decentralized, immutable ledger</div>
+                            <div class="quiz-option" onclick="checkAnswer(3)">3. Blockchain is just another name for Bitcoin</div>
+                            <div class="quiz-option" onclick="checkAnswer(4)">4. Blockchain is a private network for governments</div>
+                        </div>
                     </div>
                 </div>
                 <a href="fundamentals-2.html" class="next-lesson">Next Lesson: Understanding Bitcoin →</a>

@@ -78,55 +78,88 @@ class IndicatorSignals {
             const orderFlow = this.analyzeOrderFlow(klines);
             const liquidity = this.analyzeLiquidity(klines);
 
-            // Update RSI signal
-            let rsiSignal = 'Neutral';
-            if (rsi > 70) rsiSignal = 'Overbought';
-            else if (rsi < 30) rsiSignal = 'Oversold';
-            this.updateIndicatorUI(this.indicators.rsi, rsiSignal);
+            // Calculate weighted signals
+            const signals = {
+                volume: { signal: volumeSignal, weight: 1.0 },
+                rsi: { signal: rsi > 70 ? 'Bearish' : rsi < 30 ? 'Bullish' : 'Neutral', weight: 1.5 },
+                ema: { signal: lastPrice > ema.ema50 && ema.ema50 > ema.ema200 ? 'Bullish' : lastPrice < ema.ema50 && ema.ema50 < ema.ema200 ? 'Bearish' : 'Neutral', weight: 2.0 },
+                macd: { signal: macd.histogram > 0 && macd.macd > macd.signal ? 'Bullish' : macd.histogram < 0 && macd.macd < macd.signal ? 'Bearish' : 'Neutral', weight: 1.5 },
+                bb: { signal: lastPrice > bb.upper ? 'Bearish' : lastPrice < bb.lower ? 'Bullish' : 'Neutral', weight: 1.0 },
+                atr: { signal: atr.value > atr.average * 1.5 ? 'High' : atr.value < atr.average * 0.5 ? 'Low' : 'Neutral', weight: 0.5 },
+                orderflow: { signal: orderFlow, weight: 2.0 }
+            };
 
-            // Update Bollinger Bands signal
-            let bbSignal = 'Neutral';
-            if (lastPrice > bb.upper) bbSignal = 'Overbought';
-            else if (lastPrice < bb.lower) bbSignal = 'Oversold';
-            this.updateIndicatorUI(this.indicators.bb, bbSignal);
+            // Calculate overall sentiment and position probability
+            let bullishScore = 0;
+            let bearishScore = 0;
+            let totalWeight = 0;
 
-            // Update MACD signal
-            let macdSignal = 'Neutral';
-            if (macd.histogram > 0 && macd.macd > macd.signal) macdSignal = 'Bullish';
-            else if (macd.histogram < 0 && macd.macd < macd.signal) macdSignal = 'Bearish';
-            this.updateIndicatorUI(this.indicators.macd, macdSignal);
+            for (const [key, value] of Object.entries(signals)) {
+                const weight = value.weight;
+                totalWeight += weight;
 
-            // Update EMA signal
-            let emaSignal = 'Neutral';
-            if (lastPrice > ema.ema50 && ema.ema50 > ema.ema200) emaSignal = 'Bullish';
-            else if (lastPrice < ema.ema50 && ema.ema50 < ema.ema200) emaSignal = 'Bearish';
-            this.updateIndicatorUI(this.indicators.ema, emaSignal);
+                if (value.signal === 'Bullish') {
+                    bullishScore += weight;
+                } else if (value.signal === 'Bearish') {
+                    bearishScore += weight;
+                }
+            }
 
-            // Update Volume signal
+            // Calculate probabilities
+            const bullishProbability = (bullishScore / totalWeight) * 100;
+            const bearishProbability = (bearishScore / totalWeight) * 100;
+            const neutralProbability = 100 - (bullishProbability + bearishProbability);
+
+            // Determine overall sentiment
+            let overallSentiment;
+            let positionRecommendation;
+            let probability;
+
+            if (bullishProbability > bearishProbability && bullishProbability > neutralProbability) {
+                overallSentiment = 'Bullish';
+                positionRecommendation = 'Long';
+                probability = bullishProbability;
+            } else if (bearishProbability > bullishProbability && bearishProbability > neutralProbability) {
+                overallSentiment = 'Bearish';
+                positionRecommendation = 'Short';
+                probability = bearishProbability;
+            } else {
+                overallSentiment = 'Neutral';
+                positionRecommendation = 'Wait';
+                probability = neutralProbability;
+            }
+
+            // Update UI elements
+            const marketSentimentElement = document.querySelector('#marketSentiment .sentiment-value');
+            if (marketSentimentElement) {
+                marketSentimentElement.className = 'sentiment-value ' + overallSentiment.toLowerCase();
+                marketSentimentElement.textContent = overallSentiment;
+            }
+
+            const positionElement = document.querySelector('#positionRecommendation .position-value');
+            if (positionElement) {
+                positionElement.className = 'position-value ' + overallSentiment.toLowerCase();
+                const positionText = positionElement.querySelector('.position-text');
+                const positionProbability = positionElement.querySelector('.position-probability');
+                
+                if (positionText) positionText.textContent = positionRecommendation;
+                if (positionProbability) positionProbability.textContent = `(${Math.round(probability)}%)`;
+                
+                // Remove loading spinner if present
+                const spinner = positionElement.querySelector('.fa-spin');
+                if (spinner) spinner.remove();
+            }
+
+            // Update individual indicators
+            this.updateIndicatorUI(this.indicators.rsi, signals.rsi.signal);
+            this.updateIndicatorUI(this.indicators.bb, signals.bb.signal);
+            this.updateIndicatorUI(this.indicators.macd, signals.macd.signal);
+            this.updateIndicatorUI(this.indicators.ema, signals.ema.signal);
             this.updateIndicatorUI(this.indicators.volume, volumeSignal);
-
-            // Update ATR signal
-            let atrSignal = 'Neutral';
-            if (atr.value > atr.average * 1.5) atrSignal = 'High';
-            else if (atr.value < atr.average * 0.5) atrSignal = 'Low';
-            this.updateIndicatorUI(this.indicators.atr, atrSignal);
-
-            // Update Pivot Points signal
-            let pivotSignal = 'Neutral';
-            if (lastPrice > pivot.r1) pivotSignal = 'Bullish';
-            else if (lastPrice < pivot.s1) pivotSignal = 'Bearish';
-            this.updateIndicatorUI(this.indicators.pivot, pivotSignal);
-
-            // Update VWAP signal
-            let vwapSignal = 'Neutral';
-            if (lastPrice > vwap.value * 1.02) vwapSignal = 'Bullish';
-            else if (lastPrice < vwap.value * 0.98) vwapSignal = 'Bearish';
-            this.updateIndicatorUI(this.indicators.vwap, vwapSignal);
-
-            // Update Order Flow signal
+            this.updateIndicatorUI(this.indicators.atr, signals.atr.signal);
+            this.updateIndicatorUI(this.indicators.pivot, lastPrice > pivot.r1 ? 'Bullish' : lastPrice < pivot.s1 ? 'Bearish' : 'Neutral');
+            this.updateIndicatorUI(this.indicators.vwap, lastPrice > vwap.value * 1.02 ? 'Bullish' : lastPrice < vwap.value * 0.98 ? 'Bearish' : 'Neutral');
             this.updateIndicatorUI(this.indicators.orderflow, orderFlow);
-
-            // Update Liquidity signal
             this.updateIndicatorUI(this.indicators.liquidity, liquidity);
 
         } catch (error) {

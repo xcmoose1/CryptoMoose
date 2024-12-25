@@ -241,3 +241,153 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.error('Error initializing application:', error);
     }
 });
+
+// On-Chain Analytics Functions
+async function loadOnChainData(timeframe = '24h') {
+    try {
+        // Simulated data for now - replace with actual API calls later
+        const networkData = {
+            activeAddresses: '125,432',
+            activeAddressesChange: '+5.2%',
+            transactionCount: '892,156',
+            transactionCountChange: '+3.8%',
+            hashRate: '245.3 EH/s',
+            hashRateChange: '+2.1%'
+        };
+
+        const exchangeData = {
+            netFlow: '-12,345 BTC',
+            netFlowChange: '-2.5%',
+            exchangeBalance: '2.1M BTC',
+            exchangeBalanceChange: '-1.3%',
+            stablecoinInflow: '$892M',
+            stablecoinInflowChange: '+4.7%'
+        };
+
+        const whaleData = {
+            largeTransactions: '456',
+            largeTransactionsChange: '+6.9%',
+            whaleBalance: '8.2M BTC',
+            whaleBalanceChange: '+0.8%',
+            accumulationScore: '7.8',
+            accumulationScoreChange: '+3.2%'
+        };
+
+        // Update Network Activity
+        document.getElementById('activeAddresses').textContent = networkData.activeAddresses;
+        document.getElementById('activeAddressesChange').textContent = networkData.activeAddressesChange;
+        document.getElementById('transactionCount').textContent = networkData.transactionCount;
+        document.getElementById('transactionCountChange').textContent = networkData.transactionCountChange;
+        document.getElementById('hashRate').textContent = networkData.hashRate;
+        document.getElementById('hashRateChange').textContent = networkData.hashRateChange;
+
+        // Update Exchange Flows
+        document.getElementById('netFlow').textContent = exchangeData.netFlow;
+        document.getElementById('netFlowChange').textContent = exchangeData.netFlowChange;
+        document.getElementById('exchangeBalance').textContent = exchangeData.exchangeBalance;
+        document.getElementById('exchangeBalanceChange').textContent = exchangeData.exchangeBalanceChange;
+        document.getElementById('stablecoinInflow').textContent = exchangeData.stablecoinInflow;
+        document.getElementById('stablecoinInflowChange').textContent = exchangeData.stablecoinInflowChange;
+
+        // Update Whale Activity
+        document.getElementById('largeTransactions').textContent = whaleData.largeTransactions;
+        document.getElementById('largeTransactionsChange').textContent = whaleData.largeTransactionsChange;
+        document.getElementById('whaleBalance').textContent = whaleData.whaleBalance;
+        document.getElementById('whaleBalanceChange').textContent = whaleData.whaleBalanceChange;
+        document.getElementById('accumulationScore').textContent = whaleData.accumulationScore;
+        document.getElementById('accumulationScoreChange').textContent = whaleData.accumulationScoreChange;
+
+        // Initialize charts
+        initializeCharts();
+
+    } catch (error) {
+        console.error('Error loading on-chain data:', error);
+    }
+}
+
+function initializeCharts() {
+    // Network Activity Chart
+    const networkChart = LightweightCharts.createChart(
+        document.getElementById('networkActivityChart'),
+        chartOptions
+    );
+    
+    // Exchange Flows Chart
+    const exchangeChart = LightweightCharts.createChart(
+        document.getElementById('exchangeFlowChart'),
+        chartOptions
+    );
+    
+    // Whale Activity Heatmap
+    const whaleChart = LightweightCharts.createChart(
+        document.getElementById('whaleActivityHeatmap'),
+        chartOptions
+    );
+
+    // Add sample data to charts
+    addSampleDataToChart(networkChart);
+    addSampleDataToChart(exchangeChart);
+    addSampleDataToChart(whaleChart);
+}
+
+// Historical Patterns Functions
+async function loadHistoricalPatterns() {
+    try {
+        // Simulated data for pattern recognition
+        const patternData = {
+            currentPattern: 'Bull Flag Formation',
+            confidence: '78%',
+            projection: '+12% potential upside'
+        };
+
+        const cycleData = {
+            currentPhase: 'Accumulation',
+            duration: '45 days',
+            strength: 'Strong'
+        };
+
+        const similarPatterns = [
+            { date: 'Dec 2020', accuracy: '89%', outcome: '+125%' },
+            { date: 'Jul 2019', accuracy: '76%', outcome: '+65%' },
+            { date: 'Mar 2019', accuracy: '82%', outcome: '+85%' }
+        ];
+
+        // Update Pattern Recognition
+        document.querySelector('#pattern-recognition .current-pattern').textContent = patternData.currentPattern;
+        document.querySelector('#pattern-recognition .confidence').textContent = patternData.confidence;
+        document.querySelector('#pattern-recognition .projection').textContent = patternData.projection;
+
+        // Update Market Cycles
+        document.querySelector('#market-cycles .current-phase').textContent = cycleData.currentPhase;
+        document.querySelector('#market-cycles .duration').textContent = cycleData.duration;
+        document.querySelector('#market-cycles .strength').textContent = cycleData.strength;
+
+        // Update Similar Patterns
+        const similarPatternsContainer = document.querySelector('#similar-patterns .patterns-list');
+        similarPatternsContainer.innerHTML = similarPatterns.map(pattern => `
+            <div class="pattern-item">
+                <span class="date">${pattern.date}</span>
+                <span class="accuracy">${pattern.accuracy}</span>
+                <span class="outcome">${pattern.outcome}</span>
+            </div>
+        `).join('');
+
+    } catch (error) {
+        console.error('Error loading historical patterns:', error);
+    }
+}
+
+// Initialize both sections
+document.addEventListener('DOMContentLoaded', () => {
+    loadOnChainData();
+    loadHistoricalPatterns();
+
+    // Add timeframe button listeners
+    document.querySelectorAll('.timeframe-btn').forEach(button => {
+        button.addEventListener('click', (e) => {
+            document.querySelectorAll('.timeframe-btn').forEach(btn => btn.classList.remove('active'));
+            e.target.classList.add('active');
+            loadOnChainData(e.target.dataset.timeframe);
+        });
+    });
+});

@@ -214,12 +214,13 @@ nav {
 
 .chart-container {
     position: relative;
-    width: 100%;
-    height: 700px !important;
+    width: 95%;
+    height: 1092px !important;
     padding: 10px;
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
     border-radius: 12px;
+    margin: 0 auto;
 }
 
 .chart-container canvas {
@@ -591,39 +592,42 @@ nav {
 
 /* Enhanced Altcoin Analysis Section */
 .altcoin-analysis-section {
-    margin-top: 30px;
-    padding: 25px;
+    margin-top: 20px;
+    padding: 15px;
 }
 
 .section-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 25px;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.section-header h2 {
+    font-size: 1.1em;
+    margin: 0;
 }
 
 .market-phase {
-    background: var(--glass-bg);
-    padding: 8px 15px;
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.phase-value {
-    color: var(--primary-color);
-    font-weight: 600;
+    font-size: 0.9em;
 }
 
 .altcoin-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
 }
 
 .altcoin-panel {
-    padding: 20px;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.altcoin-panel h3 {
+    font-size: 0.95em;
+    margin: 0 0 10px 0;
 }
 
 /* AI Summary in Altcoin Section */
@@ -1979,4 +1983,231 @@ nav {
     border: 1px solid var(--glass-border);
     border-radius: 8px;
     min-height: 100px;
+}
+
+/* Altcoin Analysis Section Styles */
+.altcoin-analysis-section.glass {
+    margin-top: 30px;
+    padding: 20px;
+}
+
+.altcoin-analysis-section .section-header {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.altcoin-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.altcoin-panel.glass {
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.03);
+}
+
+/* Market Insights Panel */
+.ai-analysis-content .market-insight {
+    position: relative;
+    padding: 15px 0;
+    margin-bottom: 15px;
+}
+
+.ai-analysis-content .market-insight:not(:last-child) {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Market Metrics Panel */
+.market-metrics-grid {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.trading-strategy {
+    padding-top: 15px;
+}
+
+/* Market Trends Panel */
+.trends-grid .trend-category {
+    padding: 15px 0;
+    position: relative;
+}
+
+.trends-grid .trend-category:not(:last-child) {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.trend-category h4 {
+    margin-bottom: 10px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.trend-metrics {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+}
+
+/* Crypto Market Analysis Panel */
+.crypto-market-chart {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Altcoin Analysis Section Styles */
+.altcoin-analysis-section.glass {
+    margin-top: 30px;
+    padding: 20px;
+}
+
+.altcoin-analysis-section .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.altcoin-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+/* Make panels more compact and horizontal */
+.altcoin-panel.glass {
+    flex: 1;
+    min-width: 300px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.03);
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+/* Market Insights Panel */
+.ai-analysis-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.ai-analysis-content .market-insight {
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.market-insight h4 {
+    font-size: 0.9em;
+    margin-bottom: 5px;
+}
+
+.market-insight .insight-text {
+    font-size: 0.85em;
+    line-height: 1.4;
+}
+
+/* Market Metrics Panel */
+.market-metrics-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.metric-card {
+    flex: 1;
+    min-width: 120px;
+    padding: 10px;
+    text-align: center;
+}
+
+.metric-card .metric-label {
+    font-size: 0.8em;
+    opacity: 0.8;
+}
+
+.metric-card .metric-value {
+    font-size: 1.1em;
+    font-weight: 500;
+}
+
+.trading-strategy {
+    padding-top: 10px;
+}
+
+.trading-strategy h4 {
+    font-size: 0.9em;
+    margin-bottom: 5px;
+}
+
+.trading-strategy .strategy-text {
+    font-size: 0.85em;
+    line-height: 1.4;
+}
+
+/* Market Trends Panel */
+.trends-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.trend-category {
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.trend-category h4 {
+    font-size: 0.9em;
+    margin-bottom: 5px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.trend-metrics {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.trend-value {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.85em;
+}
+
+/* Scrollbar styling */
+.altcoin-panel::-webkit-scrollbar {
+    width: 4px;
+}
+
+.altcoin-panel::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.altcoin-panel::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1400px) {
+    .altcoin-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    .altcoin-grid {
+        grid-template-columns: 1fr;
+    }
 }

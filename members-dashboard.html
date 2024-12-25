@@ -7,8 +7,131 @@
     <link rel="stylesheet" href="css/members-new.css">
     <link rel="stylesheet" href="css/chart.css">
     <link rel="stylesheet" href="css/market-metrics.css">
+    <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--container-padding-desktop);
+        }
+
+        .market-metrics-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .metric-box {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            transition: transform 0.3s ease;
+        }
+
+        .metric-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .chart-container {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+        }
+
+        .chart-controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .timeframe-selector, .pair-selector {
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--color-text);
+            cursor: pointer;
+        }
+
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .analysis-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            height: 100%;
+        }
+
+        @media screen and (max-width: 1024px) {
+            .container {
+                padding: var(--container-padding-mobile);
+            }
+
+            .market-metrics-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .market-metrics-container {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .metric-box {
+                padding: 1rem;
+            }
+
+            .chart-controls {
+                flex-direction: column;
+            }
+
+            .timeframe-selector, .pair-selector {
+                width: 100%;
+            }
+
+            .analysis-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .container {
+                padding: 0.75rem;
+            }
+
+            .metric-box {
+                padding: 0.75rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            h3 {
+                font-size: 1.2rem;
+            }
+
+            .metric-value {
+                font-size: 1.1rem;
+            }
+
+            .chart-container {
+                padding: 1rem;
+                margin-top: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -50,16 +173,16 @@
         <!-- Market Analysis Section -->
         <section class="market-analysis glass">
             <h2>Market Analysis</h2>
-            <div class="market-analysis-container">
-                <div class="analysis-box">
+            <div class="analysis-grid">
+                <div class="analysis-card">
                     <h3>Market Overview</h3>
                     <div id="marketOverview" class="analysis-text">Loading market overview...</div>
                 </div>
-                <div class="analysis-box">
+                <div class="analysis-card">
                     <h3>Market Correlations</h3>
                     <div id="marketCorrelations" class="analysis-text">Loading correlations...</div>
                 </div>
-                <div class="analysis-box">
+                <div class="analysis-card">
                     <h3>Trading Strategy</h3>
                     <div id="tradingStrategy" class="analysis-text">Loading trading strategy...</div>
                 </div>

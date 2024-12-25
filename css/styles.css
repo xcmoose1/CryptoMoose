@@ -1,0 +1,270 @@
+/* Navigation Styles */
+.scroll-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 280px;
+    height: 100vh;
+    overflow-y: auto;
+    z-index: 100;
+}
+
+.scroll-nav-content {
+    padding: 20px;
+}
+
+.scroll-nav-content h3 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    color: #fff;
+    font-size: 1.2rem;
+}
+
+.scroll-nav-content h3 i {
+    color: #4CAF50;
+}
+
+.section-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.section-nav ul li {
+    margin-bottom: 10px;
+}
+
+.section-nav ul li a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.section-nav ul li a:hover,
+.section-nav ul li a.active {
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+}
+
+.section-nav ul li a i {
+    width: 20px;
+    text-align: center;
+    color: #4CAF50;
+}
+
+.section-nav ul li a span {
+    flex: 1;
+}
+
+.sub-items {
+    margin-top: 5px;
+    padding-left: 30px;
+    display: none;
+}
+
+.section-nav ul li a:hover .sub-items,
+.section-nav ul li a.active .sub-items {
+    display: block;
+}
+
+.sub-items a {
+    padding: 8px 10px;
+    font-size: 0.9em;
+    color: rgba(255, 255, 255, 0.7);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sub-items a:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.sub-items a i {
+    font-size: 0.9em;
+}
+
+/* Responsive Navigation */
+@media (max-width: 1200px) {
+    .scroll-nav {
+        width: 250px;
+    }
+
+    .main-content {
+        margin-left: 250px;
+    }
+}
+
+@media (max-width: 992px) {
+    .scroll-nav {
+        left: -280px;
+        transition: left 0.3s ease;
+    }
+
+    .scroll-nav.active {
+        left: 0;
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+
+    .nav-toggle {
+        display: block;
+        position: fixed;
+        left: 20px;
+        top: 20px;
+        z-index: 1001;
+        background: rgba(76, 175, 80, 0.2);
+        border: 1px solid rgba(76, 175, 80, 0.5);
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .nav-toggle:hover {
+        background: rgba(76, 175, 80, 0.3);
+    }
+}
+
+@media (max-width: 768px) {
+    .scroll-nav {
+        width: 100%;
+        left: -100%;
+    }
+
+    .sub-items {
+        padding-left: 20px;
+    }
+
+    .section-nav ul li a,
+    .sub-items a {
+        padding: 8px;
+        font-size: 0.9em;
+    }
+}
+
+/* Glass Morphism Effect */
+.glass {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Loading Animation */
+@keyframes shimmer {
+    0% {
+        background-position: -468px 0;
+    }
+    100% {
+        background-position: 468px 0;
+    }
+}
+
+.loading-placeholder {
+    animation: shimmer 1.5s linear infinite;
+    background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0.05) 8%,
+        rgba(255, 255, 255, 0.1) 18%,
+        rgba(255, 255, 255, 0.05) 33%
+    );
+    background-size: 800px 104px;
+}
+
+/* Scrollbar Styles */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(76, 175, 80, 0.3);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(76, 175, 80, 0.5);
+}
+
+/* Main Content Responsive Styles */
+.main-content {
+    transition: margin-left 0.3s ease;
+}
+
+@media (max-width: 1400px) {
+    .markets-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 992px) {
+    .markets-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .market-panel {
+        padding: 15px;
+    }
+
+    .chart-container {
+        height: 180px;
+    }
+
+    .correlation-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 576px) {
+    .section-header {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+    }
+
+    .market-controls {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .timeframe-selector {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .timeframe-btn {
+        flex: 1;
+        text-align: center;
+    }
+
+    .correlation-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .insight-card {
+        padding: 12px;
+    }
+
+    .insight-header {
+        font-size: 0.9em;
+    }
+
+    .insight-body {
+        font-size: 0.85em;
+    }
+}

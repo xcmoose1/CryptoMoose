@@ -559,6 +559,14 @@ app.get('/api/indicators', async (req, res) => {
     }
 });
 
+// Import routes
+import klineRoutes from './routes/klines.js';
+import advancedTARoutes from './routes/advanced-ta.js';
+
+// Use routes
+app.use('/api/klines', klineRoutes);
+app.use('/api/advanced-ta', advancedTARoutes);
+
 async function fetchSectorMetrics(sector) {
     // Implement sector metrics fetching logic here
     // This would typically involve aggregating data from multiple sources
