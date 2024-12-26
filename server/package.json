@@ -2,6 +2,7 @@
   "name": "cryptomoose-proxy",
   "version": "1.0.0",
   "description": "Proxy server for CryptoMoose",
+  "type": "module",
   "main": "proxy-server.js",
   "scripts": {
     "start": "node proxy-server.js"
