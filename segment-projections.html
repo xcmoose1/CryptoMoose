@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoMoose VIP - Segment Projections</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/ai-projections.css">
+    <link rel="stylesheet" href="css/segment-projections.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Dashboard Nav -->
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="nav-left">
+                <a href="https://t.me/CryptoMooseAlpha" target="_blank" class="btn btn-telegram">
+                    <i class="fab fa-telegram"></i>
+                    Alpha Signals
+                </a>
+            </div>
+            <div class="nav-center">
+                <a href="/" class="logo">CryptoMoose</a>
+            </div>
+            <div class="nav-right">
+                <a href="https://x.com/CryptoMoose_" target="_blank" class="btn btn-twitter">
+                    <i class="fab fa-x-twitter"></i>
+                    Follow on X
+                </a>
+                <a href="/dashboard" class="btn btn-vip">
+                    <i class="fas fa-chart-line"></i>
+                    Dashboard
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Disclaimer Overlay -->
+    <div class="disclaimer-overlay" id="disclaimerOverlay">
+        <div class="disclaimer-content">
+            <div class="disclaimer-header">
+                <h2><i class="fas fa-exclamation-triangle"></i> Important Disclaimer</h2>
+                <p>Please read carefully before proceeding</p>
+            </div>
+            <div class="disclaimer-body">
+                <p><strong>High-Risk Warning:</strong> Cryptocurrency segment predictions, including AI-generated projections, are inherently speculative and should not be considered as financial advice.</p>
+                <p><strong>No Guarantees:</strong> Past performance does not guarantee future results. AI projections are based on historical data and market patterns but cannot predict future market movements with certainty.</p>
+                <p><strong>Use at Your Own Risk:</strong> Any decisions made based on these projections are solely your responsibility. CryptoMoose and its team are not responsible for any financial losses incurred.</p>
+                <p><strong>Educational Purpose:</strong> This tool is designed for educational and research purposes only. Always conduct your own research and consider consulting with a financial advisor before making investment decisions.</p>
+                <p><strong>Data Limitations:</strong> AI projections are generated using publicly available data and may not account for all market factors, news events, or regulatory changes that could impact prices.</p>
+            </div>
+            <div class="disclaimer-footer">
+                <div class="disclaimer-checkbox">
+                    <input type="checkbox" id="agreeCheckbox">
+                    <label for="agreeCheckbox">I understand and accept the risks involved</label>
+                </div>
+                <button id="agreeButton" class="agree-btn">Proceed to Segment Projections</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <header class="page-header">
+            <h1><i class="fas fa-layer-group"></i> Segment Projections</h1>
+            <p class="header-description">AI-powered price predictions for major crypto segments</p>
+        </header>
+
+        <!-- Segment Navigation -->
+        <div class="segment-navigation">
+            <button class="segment-btn active" data-segment="top">Top</button>
+            <button class="segment-btn" data-segment="defi">DeFi</button>
+            <button class="segment-btn" data-segment="layer1">Layer 1</button>
+            <button class="segment-btn" data-segment="gaming">Gaming</button>
+            <button class="segment-btn" data-segment="infrastructure">Infrastructure</button>
+            <button class="segment-btn" data-segment="ai">AI & Data</button>
+            <button class="segment-btn" data-segment="memes">Meme Coins</button>
+            <button class="segment-btn" data-segment="depin">DePIN</button>
+            <button class="segment-btn" data-segment="rwa">Real World</button>
+        </div>
+
+        <div class="content">
+            <!-- Top Segment -->
+            <div class="segment-section active" id="top-segment">
+                <div class="segment-header">
+                    <h2>Top Cryptocurrencies</h2>
+                    <p>Market Leaders and Major Assets</p>
+                </div>
+                <div class="projection-grid">
+                    <!-- Projection cards will be added here -->
+                </div>
+            </div>
+
+            <!-- DeFi Segment -->
+            <div class="segment-section" id="defi-segment">
+                <div class="segment-header">
+                    <h2>DeFi Protocols</h2>
+                    <p>Decentralized Finance protocols and platforms</p>
+                </div>
+                <div class="projection-grid">
+                    <!-- Projection cards will be added here -->
+                </div>
+            </div>
+
+            <!-- Layer 1 Segment -->
+            <div class="segment-section" id="layer1-segment">
+                <div class="segment-header">
+                    <h2>Layer 1 Networks</h2>
+                    <p>Base layer blockchain protocols</p>
+                </div>
+                <div class="projection-grid">
+                    <!-- Projection cards will be added here -->
+                </div>
+            </div>
+
+            <!-- Gaming Segment -->
+            <div class="segment-section" id="gaming-segment">
+                <div class="segment-header">
+                    <h2>Gaming & Metaverse</h2>
+                    <p>Gaming, NFT, and metaverse projects</p>
+                </div>
+                <div class="projection-grid">
+                    <!-- Projection cards will be added here -->
+                </div>
+            </div>
+
+            <!-- Infrastructure Segment -->
+            <div class="segment-section" id="infrastructure-segment">
+                <div class="segment-header">
+                    <h2>Infrastructure</h2>
+                    <p>Blockchain infrastructure and scaling solutions</p>
+                </div>
+                <div class="projection-grid">
+                    <!-- Projection cards will be added here -->
+                </div>
+            </div>
+
+            <!-- AI Segment -->
+            <div class="segment-section" id="ai-segment">
+                <div class="segment-header">
+                    <h2>AI & Data</h2>
+                    <p>Artificial Intelligence and data protocols</p>
+                </div>
+                <div class="projection-grid">
+                    <!-- Projection cards will be added here -->
+                </div>
+            </div>
+
+            <!-- Meme Coins Segment -->
+            <div class="segment-section" id="memes-segment">
+                <div class="segment-header">
+                    <h2>Meme Coins</h2>
+                    <p>Community-driven tokens and viral sensations</p>
+                </div>
+                <div class="projection-grid">
+                    <!-- Projection cards will be added here -->
+                </div>
+            </div>
+
+            <!-- DePIN Segment -->
+            <div class="segment-section" id="depin-segment">
+                <div class="segment-header">
+                    <h2>DePIN</h2>
+                    <p>Decentralized Physical Infrastructure Networks</p>
+                </div>
+                <div class="projection-grid">
+                    <!-- Projection cards will be added here -->
+                </div>
+            </div>
+
+            <!-- Real World Assets Segment -->
+            <div class="segment-section" id="rwa-segment">
+                <div class="segment-header">
+                    <h2>Real World Assets</h2>
+                    <p>Tokenized Real-World Assets and Securities</p>
+                </div>
+                <div class="projection-grid">
+                    <!-- Projection cards will be added here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/segment-projections.js"></script>
+</body>
+</html>

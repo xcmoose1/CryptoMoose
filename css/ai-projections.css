@@ -1,0 +1,220 @@
+.disclaimer-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.disclaimer-content {
+    background: var(--color-background);
+    border-radius: 12px;
+    padding: 2rem;
+    max-width: 600px;
+    width: 90%;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.disclaimer-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.disclaimer-header h2 {
+    color: #ff4444;
+    margin-bottom: 0.5rem;
+}
+
+.disclaimer-body {
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.disclaimer-body p {
+    margin-bottom: 1rem;
+    color: var(--color-text-secondary);
+}
+
+.disclaimer-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+}
+
+.disclaimer-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.agree-btn {
+    background: linear-gradient(45deg, #ff4444, #ff8800);
+    color: white;
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.agree-btn.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.agree-btn:hover {
+    transform: translateY(-2px);
+}
+
+.projection-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.projection-card {
+    background: var(--color-glass);
+    border-radius: 12px;
+    padding: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.token-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+
+.token-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.token-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}
+
+.token-name {
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.token-price {
+    font-family: monospace;
+    color: var(--color-text-secondary);
+}
+
+.projection-chart {
+    position: relative;
+    height: 200px !important;
+    width: 100% !important;
+    margin: 1rem 0;
+    flex: 0 0 auto;
+}
+
+.projection-chart canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.projection-metrics {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1rem;
+    flex: 0 0 auto;
+}
+
+.metric {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.75rem;
+    border-radius: 8px;
+}
+
+.metric-label {
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 0.25rem;
+}
+
+.metric-value {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.confidence-level {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    padding: 0.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+}
+
+.confidence-bar {
+    flex-grow: 1;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+}
+
+.confidence-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #ff4444, #ff8800);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+}
+
+.confidence-value {
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+}
+
+.timeframe-selector {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.timeframe-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    color: var(--color-text);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.timeframe-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.timeframe-btn.active {
+    background: linear-gradient(45deg, rgba(255, 68, 68, 0.2), rgba(255, 136, 0, 0.2));
+    color: #ff8800;
+}

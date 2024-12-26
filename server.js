@@ -6,6 +6,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import fetch from 'node-fetch';
 import axios from 'axios'; // Import axios
+import opportunitiesRouter from './routes/opportunities.js';
 
 dotenv.config();
 
@@ -13,17 +14,18 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-app.use(cors());
-app.use(express.json());
 
-// Serve static files
+// Middleware
+app.use(cors({
+    origin: ['http://localhost:8001', 'http://127.0.0.1:8001'],
+    methods: ['GET', 'POST'],
+    credentials: true
+}));
+app.use(express.json());
 app.use(express.static(path.join(__dirname)));
 
-// Serve course files
-app.get('/courses/:course', (req, res) => {
-    const courseName = req.params.course;
-    res.sendFile(path.join(__dirname, 'courses', courseName));
-});
+// Routes
+app.use('/api/opportunities', opportunitiesRouter);
 
 // Serve HTML files
 app.get('/', (req, res) => {
@@ -40,6 +42,10 @@ app.get('/dashboard', (req, res) => {
 
 app.get('/members', (req, res) => {
     res.sendFile(path.join(__dirname, 'members.html'));
+});
+
+app.get('/ido-calendar', (req, res) => {
+    res.sendFile(path.join(__dirname, 'ido-calendar.html'));
 });
 
 // Initialize OpenAI
@@ -408,6 +414,16 @@ app.get('/api/mexc/klines', async (req, res) => {
         const { symbol, interval, limit } = req.query;
         console.log('Received request with params:', { symbol, interval, limit });
         
+        // Set CORS headers
+        res.header('Access-Control-Allow-Origin', '*');
+        res.header('Access-Control-Allow-Methods', 'GET, OPTIONS');
+        res.header('Access-Control-Allow-Headers', 'Content-Type');
+        
+        // Handle preflight request
+        if (req.method === 'OPTIONS') {
+            return res.status(200).end();
+        }
+        
         // Validate inputs
         if (!symbol || !interval) {
             return res.status(400).json({ error: 'Missing required parameters' });
@@ -444,10 +460,20 @@ app.get('/api/mexc/klines', async (req, res) => {
         const mexcUrl = `https://api.mexc.com/api/v3/klines?symbol=${symbol.toUpperCase()}&interval=${mexcInterval}&limit=${limit || 100}`;
         console.log('Fetching from MEXC:', mexcUrl);
         
-        const response = await axios.get(mexcUrl);
-        const klines = response.data;
+        const response = await fetch(mexcUrl);
+        console.log('MEXC API Response Status:', response.status);
+        
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error('MEXC API Error Response:', errorText);
+            throw new Error(`MEXC API responded with status ${response.status}: ${errorText}`);
+        }
+
+        const klines = await response.json();
+        console.log('MEXC API Response Data:', klines);
         
         if (!Array.isArray(klines)) {
+            console.error('Invalid klines data format:', klines);
             return res.status(500).json({ error: 'Invalid response from MEXC' });
         }
         
@@ -455,8 +481,12 @@ app.get('/api/mexc/klines', async (req, res) => {
         res.json(klines);
         
     } catch (error) {
-        console.error('Error fetching from MEXC:', error.response?.data || error.message);
-        res.status(error.response?.status || 500).json({ error: error.message });
+        console.error('Detailed error in /api/mexc/klines:', {
+            message: error.message,
+            stack: error.stack,
+            cause: error.cause
+        });
+        res.status(500).json({ error: error.message });
     }
 });
 
@@ -469,6 +499,19 @@ app.get('/api/mexc/ticker/24hr', async (req, res) => {
     } catch (error) {
         console.error('Error fetching ticker data:', error);
         res.status(404).json({ error: error.message });
+    }
+});
+
+// MEXC order book endpoint
+app.get('/api/mexc/depth', async (req, res) => {
+    try {
+        const { symbol, limit } = req.query;
+        const response = await fetch(`https://api.mexc.com/api/v3/depth?symbol=${symbol}&limit=${limit || 100}`);
+        const data = await response.json();
+        res.json(data);
+    } catch (error) {
+        console.error('Error fetching order book:', error);
+        res.status(500).json({ error: 'Failed to fetch order book data' });
     }
 });
 
@@ -509,8 +552,11 @@ app.get('/api/indicators', async (req, res) => {
         const klinesUrl = `https://api.mexc.com/api/v3/klines?symbol=${symbol.toUpperCase()}&interval=${mexcTimeframe}&limit=100`;
         console.log('Fetching from MEXC:', klinesUrl);
         
-        const response = await axios.get(klinesUrl);
-        const klines = response.data;
+        const response = await fetch(klinesUrl);
+        if (!response.ok) {
+            throw new Error(`MEXC API responded with status ${response.status}`);
+        }
+        const klines = await response.json();
         
         if (!Array.isArray(klines) || klines.length === 0) {
             return res.status(500).json({ error: 'Invalid response from MEXC' });
@@ -562,10 +608,82 @@ app.get('/api/indicators', async (req, res) => {
 // Import routes
 import klineRoutes from './routes/klines.js';
 import advancedTARoutes from './routes/advanced-ta.js';
+import dailyDigestRouter from './routes/daily-digest.js';
+import { getAllOpportunities, fetchIDOCalendar } from './api/investment-opportunities.js';
+import { getAllRegulatoryData, getHighRiskAlerts } from './api/regulatory-tracking.js';
 
 // Use routes
 app.use('/api/klines', klineRoutes);
 app.use('/api/advanced-ta', advancedTARoutes);
+app.use('/api/daily-digest', dailyDigestRouter);
+
+// IDO Calendar endpoint
+app.get('/api/ido-calendar', async (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    try {
+        const data = await fetchIDOCalendar();
+        res.json(data);
+    } catch (error) {
+        console.error('Error in IDO calendar endpoint:', error);
+        res.status(500).json({ error: 'Failed to fetch IDO calendar data' });
+    }
+});
+
+// Filtered IDO Calendar endpoint
+app.get('/api/ido-calendar/filtered', async (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    try {
+        const { platform, riskLevel, startDate, endDate } = req.query;
+        let data = await fetchIDOCalendar();
+
+        // Apply filters
+        if (platform) {
+            data = data.filter(item => item.platform?.toLowerCase() === platform.toLowerCase());
+        }
+        if (riskLevel) {
+            data = data.filter(item => item.riskAssessment.level === riskLevel);
+        }
+        if (startDate) {
+            data = data.filter(item => new Date(item.startDate) >= new Date(startDate));
+        }
+        if (endDate) {
+            data = data.filter(item => new Date(item.endDate) <= new Date(endDate));
+        }
+
+        res.json(data);
+    } catch (error) {
+        console.error('Error in filtered IDO calendar endpoint:', error);
+        res.status(500).json({ error: 'Failed to fetch filtered IDO calendar data' });
+    }
+});
+
+// Regulatory tracking endpoint
+app.get('/api/regulatory', async (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    try {
+        const data = await getAllRegulatoryData();
+        res.json(data);
+    } catch (error) {
+        console.error('Error in regulatory endpoint:', error);
+        res.status(500).json({ error: 'Failed to fetch regulatory data' });
+    }
+});
+
+// High risk alerts endpoint
+app.get('/api/regulatory/high-risk', async (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    try {
+        const alerts = await getHighRiskAlerts();
+        res.json(alerts);
+    } catch (error) {
+        console.error('Error fetching high risk alerts:', error);
+        res.status(500).json({ error: 'Failed to fetch risk alerts' });
+    }
+});
 
 async function fetchSectorMetrics(sector) {
     // Implement sector metrics fetching logic here
@@ -584,10 +702,21 @@ async function fetchSectorAssets(sector) {
     return [];
 }
 
+// Error handling middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({ error: 'Something broke!' });
+});
+
+// Handle 404
+app.use((req, res) => {
+    res.status(404).json({ error: 'Not Found' });
+});
+
 // Start server
-const PORT = process.env.PORT || 8001;  
+const PORT = process.env.PORT || 8001;
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+    console.log(`Server is running on port ${PORT}`);
 });
 
 // Calculate RSI

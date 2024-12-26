@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoMoose - Daily Digest</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .digest-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .digest-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .digest-header h1 {
+            font-size: 3rem;
+            background: linear-gradient(45deg, #00ff88, #00a1ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .digest-header p {
+            color: var(--color-text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .digest-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 2rem;
+        }
+
+        .digest-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .digest-card h3 {
+            color: #00ff88;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .digest-content {
+            color: var(--color-text);
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .big-picture {
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 161, 255, 0.1));
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+
+        .key-development {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .key-development:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .moose-take {
+            background: rgba(0, 255, 136, 0.1);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-top: 1rem;
+            position: relative;
+        }
+
+        .moose-take::before {
+            content: '"';
+            position: absolute;
+            top: -0.5rem;
+            left: 1rem;
+            font-size: 4rem;
+            color: rgba(0, 255, 136, 0.3);
+            font-family: Georgia, serif;
+        }
+
+        .moose-take p {
+            margin: 0;
+            font-style: italic;
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid transparent;
+            border-top-color: #00ff88;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .refresh-button {
+            background: linear-gradient(45deg, #00ff88, #00a1ff);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 2rem auto;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .refresh-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+        }
+
+        .refresh-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .countdown {
+            color: var(--color-text-secondary);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="nav-left">
+                <a href="https://t.me/CryptoMooseAlpha" target="_blank" class="btn btn-telegram">
+                    <i class="fab fa-telegram"></i>
+                    Alpha Signals
+                </a>
+                <a href="https://twitter.com/CryptoMoose_" target="_blank" class="btn btn-twitter">
+                    <i class="fab fa-twitter"></i>
+                    Follow on X
+                </a>
+            </div>
+            <div class="nav-center">
+                <a href="dashboard.html" class="logo">CryptoMoose</a>
+            </div>
+            <div class="nav-right">
+                <div class="nav-links">
+                    <a href="dashboard.html" class="nav-link">
+                        <i class="fas fa-chart-line"></i>
+                        Dashboard
+                    </a>
+                </div>
+                <button class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="digest-container">
+        <div class="digest-header">
+            <h1>Daily Digest</h1>
+            <p>CryptoMoose's curated summary of what matters in crypto today</p>
+        </div>
+
+        <button id="refreshButton" class="refresh-button">
+            <i class="fas fa-sync-alt"></i>
+            Update Digest
+        </button>
+        <div id="countdown" class="countdown"></div>
+
+        <div id="digestContent">
+            <!-- Content will be dynamically inserted here -->
+        </div>
+
+        <div class="last-updated">
+            Last updated: <span id="lastUpdated">Never</span>
+        </div>
+    </div>
+
+    <script>
+        const STORAGE_KEY = 'cryptomoose_digest';
+        const COOLDOWN_KEY = 'cryptomoose_digest_cooldown';
+        
+        async function fetchDigestData() {
+            try {
+                const response = await fetch('http://localhost:8001/api/daily-digest', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    mode: 'cors',
+                    credentials: 'include'
+                });
+                
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || 'Failed to fetch digest data');
+                }
+                
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('Error fetching digest:', error);
+                throw error;
+            }
+        }
+
+        function createDigestCard(title, icon, content, className = '') {
+            const card = document.createElement('div');
+            card.className = 'digest-card';
+            
+            let formattedContent = content;
+            if (className) {
+                formattedContent = `<div class="${className}">${content}</div>`;
+            }
+
+            card.innerHTML = `
+                <h3><i class="fas fa-${icon}"></i> ${title}</h3>
+                <div class="digest-content">${formattedContent}</div>
+            `;
+            return card;
+        }
+
+        function updateUI(data) {
+            if (!data) {
+                console.error('No data received');
+                return;
+            }
+
+            const digestContent = document.getElementById('digestContent');
+            digestContent.innerHTML = '';
+
+            // The Big Picture
+            const overviewCard = createDigestCard(
+                'The Big Picture',
+                'globe',
+                data.big_picture || 'Loading latest market overview...',
+                'big-picture'
+            );
+            digestContent.appendChild(overviewCard);
+
+            // Key Developments
+            const developmentsHtml = data.key_developments ? 
+                data.key_developments.split('\n')
+                    .filter(item => item.trim())
+                    .map(item => `<div class="key-development">${item}</div>`)
+                    .join('') :
+                'Loading latest developments...';
+
+            const developmentsCard = createDigestCard(
+                'Key Developments',
+                'newspaper',
+                developmentsHtml,
+                ''
+            );
+            digestContent.appendChild(developmentsCard);
+
+            // CryptoMoose's Take
+            const takeCard = createDigestCard(
+                "CryptoMoose's Take",
+                'brain',
+                data.moose_take || 'Analyzing market conditions...',
+                'moose-take'
+            );
+            digestContent.appendChild(takeCard);
+
+            document.getElementById('lastUpdated').textContent = new Date().toLocaleString();
+        }
+
+        async function loadDigest() {
+            try {
+                const response = await fetch('http://localhost:8001/api/daily-digest');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                updateUI(data);
+            } catch (error) {
+                console.error('Error loading digest:', error);
+                // Show error state in UI
+                const digestContent = document.getElementById('digestContent');
+                digestContent.innerHTML = `
+                    <div class="digest-card error">
+                        <h3><i class="fas fa-exclamation-circle"></i> Connection Error</h3>
+                        <div class="digest-content">
+                            Unable to load the daily digest. Please check your connection and try again.
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function updateCooldown() {
+            const cooldown = localStorage.getItem(COOLDOWN_KEY);
+            const button = document.getElementById('refreshButton');
+            const countdown = document.getElementById('countdown');
+            
+            if (cooldown) {
+                const timeLeft = parseInt(cooldown) - Date.now();
+                if (timeLeft > 0) {
+                    button.disabled = true;
+                    const hours = Math.floor(timeLeft / (1000 * 60 * 60));
+                    const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                    countdown.textContent = `Next update available in: ${hours}h ${minutes}m`;
+                    return true;
+                }
+            }
+            
+            button.disabled = false;
+            countdown.textContent = '';
+            return false;
+        }
+
+        // Load digest on page load
+        loadDigest();
+
+        // Refresh button handler
+        document.getElementById('refreshButton').addEventListener('click', async () => {
+            const button = document.getElementById('refreshButton');
+            const countdown = document.getElementById('countdown');
+            
+            // Check cooldown
+            if (updateCooldown()) {
+                return;
+            }
+
+            button.disabled = true;
+            button.innerHTML = '<i class="fas fa-sync-alt fa-spin"></i> Updating...';
+            
+            try {
+                await loadDigest();
+                // Set cooldown
+                localStorage.setItem(COOLDOWN_KEY, (Date.now() + 24 * 60 * 60 * 1000).toString());
+                updateCooldown();
+            } catch (error) {
+                console.error('Error refreshing digest:', error);
+            } finally {
+                button.innerHTML = '<i class="fas fa-sync-alt"></i> Update Digest';
+                button.disabled = false;
+            }
+        });
+
+        // Update countdown every minute
+        setInterval(updateCooldown, 60000);
+    </script>
+</body>
+</html>

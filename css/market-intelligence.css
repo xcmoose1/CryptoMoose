@@ -1,0 +1,193 @@
+.market-intelligence-section {
+    margin-top: 2rem;
+    padding: 1.5rem;
+}
+
+.monitoring-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.monitoring-panel {
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    background: var(--color-glass);
+}
+
+.monitoring-panel h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    color: var(--color-text);
+}
+
+.metric-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.metric-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+}
+
+.metric-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.metric-title {
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+}
+
+.metric-value {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--color-text);
+}
+
+.metric-change {
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.change-positive {
+    background: rgba(0, 255, 0, 0.1);
+    color: #00ff88;
+}
+
+.change-negative {
+    background: rgba(255, 0, 0, 0.1);
+    color: #ff4444;
+}
+
+.whale-alert {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+}
+
+.alert-icon {
+    font-size: 1.2rem;
+    color: #ffd700;
+}
+
+.alert-details {
+    flex-grow: 1;
+}
+
+.alert-time {
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+}
+
+.liquidation-bar {
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    margin-top: 0.5rem;
+}
+
+.liquidation-progress {
+    height: 100%;
+    background: linear-gradient(90deg, #ff4444, #ff8800);
+    border-radius: 3px;
+    transition: width 0.3s ease;
+}
+
+.smart-money-flow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+}
+
+.flow-token {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.flow-amount {
+    font-weight: 500;
+    color: var(--color-text);
+}
+
+.flow-direction {
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+}
+
+.flow-in {
+    background: rgba(0, 255, 0, 0.1);
+    color: #00ff88;
+}
+
+.flow-out {
+    background: rgba(255, 0, 0, 0.1);
+    color: #ff4444;
+}
+
+.futures-details {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+}
+
+.oi-value {
+    color: var(--color-text-secondary);
+}
+
+.funding-rate {
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+}
+
+.funding-rate.positive {
+    background: rgba(0, 255, 0, 0.1);
+    color: #00ff88;
+}
+
+.funding-rate.negative {
+    background: rgba(255, 0, 0, 0.1);
+    color: #ff4444;
+}
+
+.price-spread {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+}
+
+.spread-arrow {
+    opacity: 0.5;
+}
+
+.bid-price, .ask-price {
+    font-family: monospace;
+}

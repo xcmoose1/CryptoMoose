@@ -4,19 +4,104 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CryptoMoose VIP - Market Analysis</title>
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/market-analysis.css">
     <link rel="stylesheet" href="css/members.css">
     <link rel="stylesheet" href="css/indicator-boxes.css">
     <link rel="stylesheet" href="css/ai-insights.css">
     <link rel="stylesheet" href="css/traditional-markets.css">
     <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/market-intelligence.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/toxicity"></script>
+    <script src="js/market-intelligence.js"></script>
     <style>
+        body {
+            padding-top: 0;  /* Keep this to maintain proper spacing with the nav */
+        }
+
+        /* Nav Styles */
+        .nav {
+            background: rgba(18, 18, 18, 0.8);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-left, .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-center .logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+            background: linear-gradient(45deg, #00ff88, #00a1ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-telegram {
+            background: rgba(0, 136, 204, 0.1);
+        }
+
+        .btn-twitter {
+            background: rgba(29, 161, 242, 0.1);
+        }
+
+        .btn-vip {
+            background: linear-gradient(45deg, rgba(0, 255, 136, 0.2), rgba(0, 161, 255, 0.2));
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-telegram:hover {
+            background: rgba(0, 136, 204, 0.2);
+        }
+
+        .btn-twitter:hover {
+            background: rgba(29, 161, 242, 0.2);
+        }
+
+        .btn-vip:hover {
+            background: linear-gradient(45deg, rgba(0, 255, 136, 0.3), rgba(0, 161, 255, 0.3));
+        }
+
         .container {
             max-width: 1400px;
             margin: 0 auto;
@@ -140,10 +225,6 @@
         @media screen and (max-width: 480px) {
             .container {
                 padding: 0.75rem;
-            }
-
-            .indicator-boxes {
-                grid-template-columns: 1fr;
             }
 
             h2 {
@@ -482,29 +563,489 @@
         .sub-items a:hover {
             color: #fff;
         }
+
+        /* Sidebar Styles */
+        .sidebar {
+            position: fixed;
+            left: 2rem;
+            top: 100px;
+            width: 260px;
+            background: rgba(30, 30, 30, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 100;
+        }
+
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .nav-section {
+            margin-bottom: 1rem;
+        }
+
+        .nav-section-title {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            color: var(--color-secondary);
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            padding-left: 0.5rem;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.6rem 0.75rem;
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--color-text);
+            transform: translateX(5px);
+        }
+
+        .nav-link.active {
+            background: linear-gradient(45deg, rgba(0, 255, 136, 0.1), rgba(0, 161, 255, 0.1));
+            color: var(--color-text);
+            font-weight: 500;
+        }
+
+        .nav-link i {
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+
+        .sub-nav-link {
+            padding-left: 2.5rem;
+            font-size: 0.85rem;
+        }
+
+        /* Adjust main content to make room for sidebar */
+        .container {
+            margin-left: 300px;
+            max-width: calc(1400px - 300px);
+        }
+
+        @media (max-width: 1200px) {
+            .sidebar {
+                left: 1rem;
+                width: 240px;
+            }
+            .container {
+                margin-left: 280px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .sidebar {
+                display: none;
+            }
+            .container {
+                margin-left: auto;
+                max-width: 1400px;
+            }
+        }
+
+        /* Base styles */
+        :root {
+            --sidebar-width: 260px;
+            --container-max-width: 1400px;
+            --grid-gap: 1.5rem;
+            --card-padding: 1.5rem;
+        }
+
+        body {
+            padding-top: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Container Responsive Layout */
+        .container {
+            width: 100%;
+            padding: 0 1.5rem;
+            margin-left: calc(var(--sidebar-width) + 2rem);
+            max-width: calc(var(--container-max-width) - var(--sidebar-width));
+            transition: margin-left 0.3s ease;
+        }
+
+        /* Grid Layout */
+        .market-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--grid-gap);
+            padding: 2rem 0;
+        }
+
+        .chart-container {
+            min-height: 300px;
+            width: 100%;
+        }
+
+        /* Card Styles */
+        .card {
+            background: rgba(30, 30, 30, 0.8);
+            border-radius: 16px;
+            padding: var(--card-padding);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            height: 100%;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Responsive Typography */
+        h1, h2, h3, h4, h5, h6 {
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        h1 { font-size: clamp(1.875rem, 3vw, 2.5rem); }
+        h2 { font-size: clamp(1.5rem, 2.5vw, 2rem); }
+        h3 { font-size: clamp(1.25rem, 2vw, 1.75rem); }
+        h4 { font-size: clamp(1.125rem, 1.5vw, 1.5rem); }
+
+        /* Table Responsive */
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        table {
+            width: 100%;
+            min-width: 600px;
+        }
+
+        /* Navigation Responsive */
+        @media (max-width: 1400px) {
+            :root {
+                --sidebar-width: 240px;
+            }
+            
+            .container {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .market-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+
+            .card {
+                padding: 1.25rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            :root {
+                --sidebar-width: 0px;
+            }
+
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+
+            .container {
+                margin-left: 0;
+                padding: 0 1rem;
+            }
+
+            .nav-content {
+                flex-wrap: wrap;
+                gap: 0.75rem;
+            }
+
+            .nav-left, .nav-right {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .card {
+                padding: 1rem;
+            }
+
+            .chart-container {
+                min-height: 250px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                padding: 0.75rem 0;
+            }
+
+            .nav-content {
+                flex-wrap: wrap;
+                gap: 0.75rem;
+            }
+
+            .nav-left, .nav-right {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .card {
+                padding: 1rem;
+            }
+
+            .chart-container {
+                min-height: 200px;
+            }
+
+            .btn {
+                padding: 0.4rem 0.75rem;
+                font-size: 0.875rem;
+            }
+        }
+
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-menu-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 992px) {
+            .mobile-menu-toggle {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+
+        /* Additional styles for Volume & Profile Tools */
+        .volume-profile-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .volume-panel {
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            background: var(--color-glass);
+        }
+
+        .volume-panel h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .poc-info, .vwap-info, .depth-info {
+            display: grid;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+        }
+
+        .info-item .label {
+            color: var(--color-secondary);
+            font-size: 0.9rem;
+        }
+
+        #pocChart, #vwapChart, #depthHeatmap {
+            height: 300px;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        @media screen and (max-width: 768px) {
+            .volume-profile-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Section Container Styles */
+        .section-container {
+            margin-bottom: 3rem;
+        }
+
+        .section-header {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .section-description {
+            color: var(--color-text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .metric-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+            gap: 1rem;
+        }
+
+        .metric {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.75rem;
+            border-radius: 8px;
+            flex: 1;
+        }
+
+        .metric .label {
+            display: block;
+            font-size: 0.875rem;
+            color: var(--color-text-secondary);
+            margin-bottom: 0.25rem;
+        }
+
+        .metric .value {
+            font-size: 1.125rem;
+            font-weight: 500;
+            color: var(--color-text);
+        }
+
+        .sentiment-legend {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .color-box {
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+        }
+
+        .color-box.bullish {
+            background: linear-gradient(45deg, #00ff88, #00ff88aa);
+        }
+
+        .color-box.bearish {
+            background: linear-gradient(45deg, #ff4444, #ff4444aa);
+        }
+
+        #depthHeatmap {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header class="glass-header">
-            <nav>
-                <a href="index.html" class="logo">
-                    <img src="images/Moose.png" alt="CryptoMoose">
-                    <span>CryptoMoose</span>
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="nav-left">
+                <a href="https://t.me/CryptoMooseAlpha" target="_blank" class="btn btn-telegram">
+                    <i class="fab fa-telegram"></i>
+                    Alpha Signals
                 </a>
-                <button class="menu-toggle" aria-label="Toggle navigation menu">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <div class="nav-links">
-                    <a href="index.html" class="nav-link">Home</a>
-                    <a href="learning.html" class="nav-link">Learning</a>
-                    <a href="members.html" class="nav-link active">Signals</a>
-                    <a href="dashboard.html" class="nav-link">Dashboard</a>
-                    <a href="x_analysis.html" class="nav-link">Analysis</a>
-                </div>
-            </nav>
-        </header>
+            </div>
+            <div class="nav-center">
+                <a href="/" class="logo">CryptoMoose</a>
+            </div>
+            <div class="nav-right">
+                <a href="https://x.com/CryptoMoose_" target="_blank" class="btn btn-twitter">
+                    <i class="fab fa-x-twitter"></i>
+                    Follow on X
+                </a>
+                <a href="/dashboard" class="btn btn-vip">
+                    <i class="fas fa-chart-line"></i>
+                    Dashboard
+                </a>
+            </div>
+        </div>
+    </nav>
 
+    <div class="sidebar">
+        <div class="sidebar-nav">
+            <div class="nav-section">
+                <div class="nav-section-title">Navigation</div>
+                <a href="#chart-section" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    Market Analysis
+                </a>
+                <a href="#altcoin-analysis" class="nav-link">
+                    <i class="fas fa-chart-pie"></i>
+                    Altcoin Analysis
+                </a>
+                <a href="#sector-analysis" class="nav-link">
+                    <i class="fas fa-layer-group"></i>
+                    Sector Analysis
+                </a>
+                <a href="#onchain-analysis" class="nav-link">
+                    <i class="fas fa-link"></i>
+                    On-Chain Analytics
+                </a>
+                <a href="#historical-patterns" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    Historical Patterns
+                </a>
+                <a href="#advanced-ta" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    Advanced Technical Analysis
+                </a>
+                <a href="#traditional-markets" class="nav-link">
+                    <i class="fas fa-landmark"></i>
+                    Traditional Markets
+                </a>
+                <a href="#volume-profile" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    Volume & Profile Tools
+                </a>
+                <a href="#market-intelligence" class="nav-link">
+                    <i class="fas fa-brain"></i>
+                    Market Intelligence
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
         <main class="market-grid" id="chart-section">
             <!-- Left Column -->
             <section class="chart-section">
@@ -1239,6 +1780,79 @@
                 </div>
             </div>
         </div>
+        <!-- Volume and Profile Tools Section -->
+        <section id="volume-profile" class="section-container">
+            <div class="section-header">
+                <h2>Volume & Profile Tools</h2>
+                <p class="section-description">Advanced volume analysis and market profile tools for deeper market insights</p>
+            </div>
+
+            <div class="volume-profile-grid">
+                <!-- POC Card -->
+                <div class="volume-panel">
+                    <h3>Point of Control (POC)</h3>
+                    <div class="poc-info">
+                        <div class="info-item">
+                            <span class="label">Current POC:</span>
+                            <span id="currentPOC" class="value">Loading...</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Volume at POC:</span>
+                            <span id="pocVolume" class="value">Loading...</span>
+                        </div>
+                    </div>
+                    <div id="pocChart" class="chart-container"></div>
+                </div>
+
+                <!-- VWAP Card -->
+                <div class="volume-panel">
+                    <h3>VWAP Analysis</h3>
+                    <div class="vwap-info">
+                        <div class="info-item">
+                            <span class="label">Daily VWAP:</span>
+                            <span id="dailyVWAP" class="value">Loading...</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Weekly VWAP:</span>
+                            <span id="weeklyVWAP" class="value">Loading...</span>
+                        </div>
+                    </div>
+                    <div id="vwapChart" class="chart-container"></div>
+                </div>
+
+                <!-- Market Depth Heatmap -->
+                <div class="volume-panel">
+                    <h3>Order Book Heatmap</h3>
+                    <div class="depth-info">
+                        <div class="info-item">
+                            <span class="label">Buy Wall:</span>
+                            <span id="buyWall" class="value">Loading...</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Sell Wall:</span>
+                            <span id="sellWall" class="value">Loading...</span>
+                        </div>
+                    </div>
+                    <div id="depthHeatmap" class="chart-container"></div>
+                </div>
+
+                <!-- Geo-Sentiment Map -->
+                <div class="volume-panel">
+                    <h3>Global Sentiment Map</h3>
+                    <div class="sentiment-legend">
+                        <div class="legend-item">
+                            <span class="color-box bullish"></span>
+                            <span>Bullish</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="color-box bearish"></span>
+                            <span>Bearish</span>
+                        </div>
+                    </div>
+                    <div id="geoSentimentMap" class="chart-container"></div>
+                </div>
+            </div>
+        </section>
         <!-- Traditional Markets Section -->
         <section class="traditional-markets-section glass" id="traditional-markets">
             <div class="section-header">
@@ -1402,7 +2016,160 @@
                 </div>
             </div>
         </section>
+        <!-- Market Intelligence Section -->
+        <section class="market-intelligence-section glass" id="market-intelligence">
+            <div class="section-header">
+                <h2><i class="fas fa-brain"></i> Market Intelligence</h2>
+                <div class="timeframe-selector">
+                    <button class="timeframe-btn active" data-timeframe="24h">24H</button>
+                    <button class="timeframe-btn" data-timeframe="7d">7D</button>
+                    <button class="timeframe-btn" data-timeframe="30d">30D</button>
+                </div>
+            </div>
+            
+            <div class="monitoring-grid">
+                <!-- Stablecoin Supply Monitoring -->
+                <div class="monitoring-panel">
+                    <h3><i class="fas fa-coins"></i> Stablecoin Supply</h3>
+                    <div class="metric-list" id="stablecoin-metrics">
+                        <!-- Populated by JavaScript -->
+                    </div>
+
+                </div><!-- Futures Data -->
+                <div class="monitoring-panel">
+                    <h3><i class="fas fa-chart-line"></i> Futures Data</h3>
+                    <div class="metric-list" id="futures-data">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Whale Alerts -->
+                <div class="monitoring-panel">
+                    <h3><i class="fas fa-whale"></i> Whale Alerts</h3>
+                    <div class="metric-list" id="whale-alerts">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Liquidation Tracking -->
+                <div class="monitoring-panel">
+                    <h3><i class="fas fa-chart-bar"></i> Liquidation Events</h3>
+                    <div class="metric-list" id="liquidation-data">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Smart Money Flow -->
+                <div class="monitoring-panel">
+                    <h3><i class="fas fa-money-bill-wave"></i> Smart Money Flow</h3>
+                    <div class="metric-list" id="smart-money-flow">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Market Intelligence Insights -->
+        <div class="ai-insights-panel glass">
+            <div class="panel-header">
+                <h3><i class="fas fa-robot"></i> AI Market Intelligence Insights</h3>
+            </div>
+            <div class="ai-insights-content" id="market-intelligence-ai-insights">
+                <div class="insight-card">
+                    <div class="insight-header">
+                        <i class="fas fa-lightbulb"></i>
+                        <span>Supply Analysis</span>
+                    </div>
+                    <p>Loading stablecoin supply analysis...</p>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-header">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Whale Activity</span>
+                    </div>
+                    <p>Loading whale activity analysis...</p>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-header">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>Risk Assessment</span>
+                    </div>
+                    <p>Loading market risk analysis...</p>
+                </div>
+            </div>
+        </div>
     </div>
+    <button class="mobile-menu-toggle">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <script>
+        // Mobile menu functionality
+        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+        const sidebar = document.querySelector('.sidebar');
+        
+        if (mobileMenuToggle && sidebar) {
+            mobileMenuToggle.addEventListener('click', () => {
+                sidebar.classList.toggle('active');
+                const isOpen = sidebar.classList.contains('active');
+                mobileMenuToggle.innerHTML = isOpen ? 
+                    '<i class="fas fa-times"></i>' : 
+                    '<i class="fas fa-bars"></i>';
+            });
+
+            // Close sidebar when clicking outside
+            document.addEventListener('click', (e) => {
+                if (sidebar.classList.contains('active') && 
+                    !sidebar.contains(e.target) && 
+                    !mobileMenuToggle.contains(e.target)) {
+                    sidebar.classList.remove('active');
+                    mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
+        }
+
+        // Existing scroll functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('section[id], div[id]');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.3
+            };
+
+            function callback(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Remove active class from all links
+                        navLinks.forEach(link => link.classList.remove('active'));
+                        
+                        // Add active class to corresponding link
+                        const activeLink = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+                        if (activeLink) {
+                            activeLink.classList.add('active');
+                        }
+                    }
+                });
+            }
+
+            const observer = new IntersectionObserver(callback, observerOptions);
+            sections.forEach(section => observer.observe(section));
+
+            // Smooth scroll to sections
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    if (targetSection) {
+                        targetSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+        });
+    </script>
     <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script type="module" src="js/mexc-data.js"></script>
@@ -1483,5 +2250,49 @@
             });
         });
     </script>
+    <script>
+        // Highlight active section in sidebar as user scrolls
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('section[id], div[id]');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.3
+            };
+
+            function callback(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Remove active class from all links
+                        navLinks.forEach(link => link.classList.remove('active'));
+                        
+                        // Add active class to corresponding link
+                        const activeLink = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+                        if (activeLink) {
+                            activeLink.classList.add('active');
+                        }
+                    }
+                });
+            }
+
+            const observer = new IntersectionObserver(callback, observerOptions);
+            sections.forEach(section => observer.observe(section));
+
+            // Smooth scroll to sections
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    if (targetSection) {
+                        targetSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+        });
+    </script>
+    <script src="js/volume-profile.js" type="module"></script>
 </body>
 </html>
