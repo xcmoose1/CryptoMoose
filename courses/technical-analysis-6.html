@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technical Analysis - Final Project - CryptoMoose Learning</title>
+    <link rel="stylesheet" href="../css/course-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="nav-left">
+                <a href="../index.html" class="logo-container">
+                    <img src="../images/Moose.png" alt="CryptoMoose Logo">
+                </a>
+                <a href="https://t.me/CryptoMooseAlpha" target="_blank" class="btn btn-telegram">
+                    <i class="fab fa-telegram"></i> Join Telegram
+                </a>
+            </div>
+            <div class="nav-right">
+                <a href="../dashboard.html" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="https://x.com/XCryptoMoose" target="_blank" class="nav-link">
+                    <i class="fab fa-x-twitter"></i>
+                    <span>Follow Alpha</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="course-container">
+        <div class="course-header">
+            <h1>Final Project: Market Analysis</h1>
+            <p>Apply everything you've learned to analyze real market conditions</p>
+        </div>
+
+        <div class="course-progress">
+            <div class="progress-text">Course Progress: 100%</div>
+            <div class="progress-bar">
+                <div class="progress" style="width: 100%"></div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>1. Market Analysis Project</h2>
+            <div class="project-container">
+                <div class="chart-container">
+                    <canvas id="projectChart"></canvas>
+                    <div class="chart-controls">
+                        <button class="chart-control active" onclick="showTimeframe('1h')">1H</button>
+                        <button class="chart-control" onclick="showTimeframe('4h')">4H</button>
+                        <button class="chart-control" onclick="showTimeframe('1d')">1D</button>
+                    </div>
+                </div>
+                
+                <div class="analysis-form">
+                    <h3>Your Analysis</h3>
+                    <div class="form-group">
+                        <label>Market Structure</label>
+                        <select id="marketStructure" class="form-control">
+                            <option value="uptrend">Uptrend</option>
+                            <option value="downtrend">Downtrend</option>
+                            <option value="ranging">Ranging</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Key Support Levels</label>
+                        <input type="text" id="supportLevels" class="form-control" placeholder="Enter price levels">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Key Resistance Levels</label>
+                        <input type="text" id="resistanceLevels" class="form-control" placeholder="Enter price levels">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Technical Indicators</label>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" value="rsi"> RSI</label>
+                            <label><input type="checkbox" value="macd"> MACD</label>
+                            <label><input type="checkbox" value="ma"> Moving Averages</label>
+                            <label><input type="checkbox" value="volume"> Volume Profile</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Trade Setup</label>
+                        <textarea id="tradeSetup" class="form-control" rows="4" 
+                            placeholder="Describe your trade setup including:
+- Entry price
+- Stop loss
+- Take profit
+- Risk:Reward ratio"></textarea>
+                    </div>
+                    
+                    <button onclick="submitAnalysis()" class="btn-submit">Submit Analysis</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>2. Course Completion</h2>
+            <div class="completion-container">
+                <div class="completion-card">
+                    <div class="completion-header">
+                        <i class="fas fa-trophy"></i>
+                        <h3>Congratulations!</h3>
+                    </div>
+                    <p>You've completed the Technical Analysis course! You now have the knowledge to:</p>
+                    <ul>
+                        <li>Identify chart patterns and trends</li>
+                        <li>Use technical indicators effectively</li>
+                        <li>Manage risk and emotions</li>
+                        <li>Create comprehensive trade setups</li>
+                    </ul>
+                    <div class="next-steps">
+                        <h4>Next Steps:</h4>
+                        <ul>
+                            <li>Join our Telegram community</li>
+                            <li>Practice in our paper trading simulator</li>
+                            <li>Start the Advanced Trading course</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="course-navigation">
+            <a href="technical-analysis-5.html" class="nav-button">
+                <i class="fas fa-arrow-left"></i> Previous Lesson
+            </a>
+            <a href="../courses.html" class="nav-button">
+                Back to Courses <i class="fas fa-graduation-cap"></i>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Initialize project chart
+        function initializeProjectChart() {
+            const ctx = document.getElementById('projectChart').getContext('2d');
+            window.projectChart = new Chart(ctx, {
+                type: 'candlestick',
+                data: {
+                    labels: Array.from({length: 20}, (_, i) => i + 1),
+                    datasets: [{
+                        label: 'BTC/USD',
+                        data: generateCandlestickData('1h'),
+                        borderColor: '#00ff9d',
+                        backgroundColor: '#00ff9d20',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            labels: {
+                                color: '#ffffff'
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#ffffff'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#ffffff'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Generate candlestick data
+        function generateCandlestickData(timeframe) {
+            let basePrice = 45000;
+            let volatility = timeframe === '1h' ? 100 : timeframe === '4h' ? 200 : 500;
+            
+            return Array.from({length: 20}, () => {
+                let open = basePrice + (Math.random() - 0.5) * volatility;
+                let close = basePrice + (Math.random() - 0.5) * volatility;
+                let high = Math.max(open, close) + Math.random() * volatility * 0.5;
+                let low = Math.min(open, close) - Math.random() * volatility * 0.5;
+                
+                basePrice = close;
+                return { open, high, low, close };
+            });
+        }
+
+        // Update timeframe
+        function showTimeframe(timeframe) {
+            const buttons = document.querySelectorAll('.chart-control');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            window.projectChart.data.datasets[0].data = generateCandlestickData(timeframe);
+            window.projectChart.update();
+        }
+
+        // Submit analysis
+        function submitAnalysis() {
+            const analysis = {
+                structure: document.getElementById('marketStructure').value,
+                support: document.getElementById('supportLevels').value,
+                resistance: document.getElementById('resistanceLevels').value,
+                indicators: Array.from(document.querySelectorAll('.checkbox-group input:checked')).map(cb => cb.value),
+                setup: document.getElementById('tradeSetup').value
+            };
+
+            // In a real application, this would be sent to a server
+            alert('Analysis submitted successfully! Our team will review your work.');
+        }
+
+        // Initialize everything
+        initializeProjectChart();
+    </script>
+</body>
+</html>

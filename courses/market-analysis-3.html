@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Analysis - Volume Analysis - CryptoMoose Learning</title>
+    <link rel="stylesheet" href="../css/course-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="nav-left">
+                <a href="../index.html" class="logo-container">
+                    <img src="../images/Moose.png" alt="CryptoMoose Logo">
+                </a>
+                <a href="https://t.me/CryptoMooseAlpha" target="_blank" class="btn btn-telegram">
+                    <i class="fab fa-telegram"></i> Join Telegram
+                </a>
+            </div>
+            <div class="nav-right">
+                <a href="../dashboard.html" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="https://x.com/XCryptoMoose" target="_blank" class="nav-link">
+                    <i class="fab fa-x-twitter"></i>
+                    <span>Follow Alpha</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="course-container">
+        <div class="course-header">
+            <h1>Volume Analysis</h1>
+            <p>Learn how to analyze trading volume for better market insights</p>
+        </div>
+
+        <div class="course-progress">
+            <div class="progress-text">Course Progress: 50%</div>
+            <div class="progress-bar">
+                <div class="progress" style="width: 50%"></div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>1. Understanding Volume</h2>
+            <div class="chart-container">
+                <canvas id="volumeChart"></canvas>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-header">
+                            <i class="fas fa-chart-bar"></i>
+                            <h3>Volume Indicators</h3>
+                        </div>
+                        <ul>
+                            <li>Volume Profile</li>
+                            <li>On-Balance Volume (OBV)</li>
+                            <li>Volume Weighted Average Price (VWAP)</li>
+                            <li>Money Flow Index (MFI)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>2. Volume Analysis Techniques</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-header">
+                        <i class="fas fa-arrow-up"></i>
+                        <h3>Bullish Volume Signals</h3>
+                    </div>
+                    <ul>
+                        <li>Rising price with rising volume</li>
+                        <li>Volume climax after downtrend</li>
+                        <li>Positive volume divergence</li>
+                        <li>High volume breakouts</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <div class="info-header">
+                        <i class="fas fa-arrow-down"></i>
+                        <h3>Bearish Volume Signals</h3>
+                    </div>
+                    <ul>
+                        <li>Falling price with rising volume</li>
+                        <li>Volume climax after uptrend</li>
+                        <li>Negative volume divergence</li>
+                        <li>Low volume rallies</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>3. Practice Exercise</h2>
+            <div class="quiz-container">
+                <h3>Volume Analysis Quiz</h3>
+                <div class="quiz-question">
+                    <p>What does rising price with falling volume typically indicate?</p>
+                    <div class="quiz-option" onclick="checkAnswer(1, this)">
+                        A) Weak trend likely to reverse
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(2, this)">
+                        B) Strong trend continuation
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(3, this)">
+                        C) No significant meaning
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(4, this)">
+                        D) Market manipulation
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="course-navigation">
+            <a href="market-analysis-2.html" class="nav-button">
+                <i class="fas fa-arrow-left"></i> Previous Lesson
+            </a>
+            <a href="market-analysis-4.html" class="nav-button">
+                Next Lesson <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Initialize volume chart
+        function initializeVolumeChart() {
+            const ctx = document.getElementById('volumeChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: Array.from({length: 10}, (_, i) => `Day ${i + 1}`),
+                    datasets: [{
+                        label: 'Price',
+                        data: [100, 105, 103, 107, 110, 108, 112, 115, 113, 118],
+                        type: 'line',
+                        borderColor: '#00ff9d',
+                        tension: 0.4,
+                        fill: false,
+                        yAxisID: 'y'
+                    }, {
+                        label: 'Volume',
+                        data: [500, 600, 400, 700, 800, 300, 900, 1000, 400, 600],
+                        backgroundColor: 'rgba(0, 255, 157, 0.3)',
+                        borderColor: '#00ff9d',
+                        borderWidth: 1,
+                        yAxisID: 'y1'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            labels: {
+                                color: '#ffffff'
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            type: 'linear',
+                            position: 'left',
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#ffffff'
+                            }
+                        },
+                        y1: {
+                            type: 'linear',
+                            position: 'right',
+                            grid: {
+                                drawOnChartArea: false
+                            },
+                            ticks: {
+                                color: '#ffffff'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#ffffff'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Quiz functionality
+        function checkAnswer(option, element) {
+            const options = document.querySelectorAll('.quiz-option');
+            options.forEach(opt => {
+                opt.classList.remove('correct', 'wrong');
+                opt.style.pointerEvents = 'none';
+            });
+
+            if(option === 1) {
+                element.classList.add('correct');
+            } else {
+                element.classList.add('wrong');
+                options[0].classList.add('correct');
+            }
+        }
+
+        // Initialize chart
+        initializeVolumeChart();
+    </script>
+</body>
+</html>

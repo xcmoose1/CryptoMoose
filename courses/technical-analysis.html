@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technical Analysis - Chart Patterns - CryptoMoose Learning</title>
+    <link rel="stylesheet" href="../css/course-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .nav {
+            height: 60px;
+        }
+        .logo-container img {
+            height: 32px;
+            width: auto;
+        }
+        .nav-content {
+            height: 100%;
+            padding: 0 2rem;
+        }
+        .nav-left, .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .btn-telegram {
+            background: rgba(0, 136, 204, 0.1);
+            border: 1px solid rgba(0, 136, 204, 0.2);
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        .btn-telegram:hover {
+            background: rgba(0, 136, 204, 0.2);
+        }
+        .nav-link {
+            color: var(--color-text);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="nav-left">
+                <a href="../index.html" class="logo-container">
+                    <img src="../images/moose.png" alt="CryptoMoose" style="height: 32px; width: auto;">
+                    <span>CryptoMoose</span>
+                </a>
+                <a href="../dashboard.html" class="nav-link">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="../signals.html" class="nav-link">
+                    <i class="fas fa-signal"></i>
+                    <span>Signals</span>
+                </a>
+                <a href="../segment-projections.html" class="nav-link">
+                    <i class="fas fa-layer-group"></i>
+                    <span>Segment Projections</span>
+                </a>
+                <a href="../members.html" class="nav-link">
+                    <i class="fas fa-robot"></i>
+                    <span>AI Market Insights</span>
+                </a>
+            </div>
+            <div class="nav-right">
+                <a href="https://t.me/cryptomoose" target="_blank" class="btn-telegram">
+                    <i class="fab fa-telegram"></i>
+                    <span>Get Live Signals on Telegram</span>
+                </a>
+                <a href="https://x.com/XCryptoMoose" target="_blank" class="nav-link twitter">
+                    <img src="../images/x-logo.svg" alt="X (Twitter)" style="height: 16px; width: 16px;">
+                    <span>Follow Alpha</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="course-container">
+        <div class="course-header">
+            <h1>Technical Analysis Fundamentals</h1>
+            <p>Master the art of reading and interpreting chart patterns</p>
+        </div>
+
+        <div class="course-progress">
+            <div class="progress-text">Course Progress: 0%</div>
+            <div class="progress-bar">
+                <div class="progress"></div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>1. Introduction to Chart Patterns</h2>
+            <p>Chart patterns are graphical representations of trader psychology and market movements. Understanding these patterns is crucial for predicting potential price movements.</p>
+            
+            <div class="chart-container">
+                <canvas id="patternChart"></canvas>
+                <div class="chart-controls">
+                    <button class="chart-control active" onclick="showPattern('head-shoulders')">Head & Shoulders</button>
+                    <button class="chart-control" onclick="showPattern('double-top')">Double Top</button>
+                    <button class="chart-control" onclick="showPattern('triangle')">Triangle</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>2. Support and Resistance</h2>
+            <p>Support and resistance levels are key concepts in technical analysis that help identify potential price reversal points.</p>
+            
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-header">
+                        <i class="fas fa-arrow-down"></i>
+                        <h3>Support Levels</h3>
+                    </div>
+                    <p>Price levels where downward trends tend to pause due to concentrated demand</p>
+                    <ul>
+                        <li>Historical price bottoms</li>
+                        <li>Psychological round numbers</li>
+                        <li>Moving averages</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <div class="info-header">
+                        <i class="fas fa-arrow-up"></i>
+                        <h3>Resistance Levels</h3>
+                    </div>
+                    <p>Price levels where upward trends tend to pause due to concentrated supply</p>
+                    <ul>
+                        <li>Previous price peaks</li>
+                        <li>Fibonacci retracement levels</li>
+                        <li>Trend lines</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>3. Practice Exercise</h2>
+            <p>Test your understanding of basic chart patterns and support/resistance levels:</p>
+
+            <div class="quiz-container">
+                <h3>Pattern Recognition Quiz</h3>
+                <div class="quiz-question">
+                    <p>Which pattern typically indicates a trend reversal?</p>
+                    <div class="quiz-option" onclick="checkAnswer(1, this)">
+                        A) Head and Shoulders
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(2, this)">
+                        B) Ascending Triangle
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(3, this)">
+                        C) Bull Flag
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(4, this)">
+                        D) Rising Wedge
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="course-navigation">
+            <a href="../learning.html" class="nav-button">
+                <i class="fas fa-arrow-left"></i> Back to Courses
+            </a>
+            <a href="technical-analysis-2.html" class="nav-button">
+                Next Lesson <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Initialize chart
+        function initializeChart() {
+            const ctx = document.getElementById('patternChart').getContext('2d');
+            window.patternChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: Array.from({length: 20}, (_, i) => i + 1),
+                    datasets: [{
+                        label: 'Price',
+                        data: generateHeadAndShoulders(),
+                        borderColor: '#00ff9d',
+                        tension: 0.4,
+                        fill: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            labels: {
+                                color: '#ffffff'
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#ffffff'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#ffffff'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Generate pattern data
+        function generateHeadAndShoulders() {
+            return [10, 12, 15, 13, 11, 14, 18, 16, 13, 15, 12, 10];
+        }
+
+        function generateDoubleTop() {
+            return [10, 13, 16, 18, 16, 14, 15, 18, 16, 13, 11, 9];
+        }
+
+        function generateTriangle() {
+            return [10, 16, 13, 15, 12, 14, 11, 13, 11, 12, 11, 11];
+        }
+
+        // Update chart pattern
+        function showPattern(pattern) {
+            const buttons = document.querySelectorAll('.chart-control');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            let data;
+            switch(pattern) {
+                case 'head-shoulders':
+                    data = generateHeadAndShoulders();
+                    break;
+                case 'double-top':
+                    data = generateDoubleTop();
+                    break;
+                case 'triangle':
+                    data = generateTriangle();
+                    break;
+            }
+            
+            window.patternChart.data.datasets[0].data = data;
+            window.patternChart.update();
+        }
+
+        // Quiz functionality
+        function checkAnswer(option, element) {
+            const options = document.querySelectorAll('.quiz-option');
+            options.forEach(opt => {
+                opt.classList.remove('correct', 'wrong');
+                opt.style.pointerEvents = 'none';
+            });
+
+            if(option === 1) {
+                element.classList.add('correct');
+            } else {
+                element.classList.add('wrong');
+                options[0].classList.add('correct');
+            }
+        }
+
+        // Initialize everything
+        initializeChart();
+    </script>
+</body>
+</html>

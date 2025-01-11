@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeFi Strategies - DEX Trading - CryptoMoose Learning</title>
+    <link rel="stylesheet" href="../css/course-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="nav-left">
+                <a href="../index.html" class="logo-container">
+                    <img src="../images/Moose.png" alt="CryptoMoose Logo">
+                </a>
+                <a href="https://t.me/CryptoMooseAlpha" target="_blank" class="btn btn-telegram">
+                    <i class="fab fa-telegram"></i> Join Telegram
+                </a>
+            </div>
+            <div class="nav-right">
+                <a href="../dashboard.html" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="https://x.com/XCryptoMoose" target="_blank" class="nav-link">
+                    <i class="fab fa-x-twitter"></i>
+                    <span>Follow Alpha</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="course-container">
+        <div class="course-header">
+            <h1>DEX Trading and Liquidity</h1>
+            <p>Master decentralized exchange trading and liquidity provision</p>
+        </div>
+
+        <div class="course-progress">
+            <div class="progress-text">Course Progress: 33%</div>
+            <div class="progress-bar">
+                <div class="progress" style="width: 33%"></div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>1. Understanding DEX Trading</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-header">
+                        <i class="fas fa-exchange-alt"></i>
+                        <h3>DEX Mechanics</h3>
+                    </div>
+                    <ul>
+                        <li>Price Impact</li>
+                        <li>Slippage Tolerance</li>
+                        <li>Gas Optimization</li>
+                        <li>Trading Pairs</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <div class="info-header">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Trading Strategies</h3>
+                    </div>
+                    <ul>
+                        <li>Token Swaps</li>
+                        <li>Arbitrage</li>
+                        <li>Flash Swaps</li>
+                        <li>Multi-hop Trades</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>2. Liquidity Provision</h2>
+            <div class="chart-container">
+                <canvas id="lpReturnsChart"></canvas>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-header">
+                            <i class="fas fa-water"></i>
+                            <h3>LP Fundamentals</h3>
+                        </div>
+                        <ul>
+                            <li>Impermanent Loss</li>
+                            <li>Trading Fees</li>
+                            <li>Pool Share</li>
+                            <li>Rebalancing</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>3. Practice Exercise</h2>
+            <div class="quiz-container">
+                <h3>DEX Trading Quiz</h3>
+                <div class="quiz-question">
+                    <p>What is impermanent loss in liquidity provision?</p>
+                    <div class="quiz-option" onclick="checkAnswer(1, this)">
+                        A) Loss compared to holding tokens separately
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(2, this)">
+                        B) Loss due to network fees
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(3, this)">
+                        C) Loss from failed transactions
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(4, this)">
+                        D) Loss from market manipulation
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="course-navigation">
+            <a href="defi-strategies.html" class="nav-button">
+                <i class="fas fa-arrow-left"></i> Previous Lesson
+            </a>
+            <a href="defi-strategies-3.html" class="nav-button">
+                Next Lesson <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Initialize LP returns chart
+        function initializeLPReturnsChart() {
+            const ctx = document.getElementById('lpReturnsChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Day 1', 'Day 5', 'Day 10', 'Day 15', 'Day 20', 'Day 25', 'Day 30'],
+                    datasets: [{
+                        label: 'LP Returns',
+                        data: [100, 105, 108, 112, 115, 118, 122],
+                        borderColor: '#00ff9d',
+                        backgroundColor: 'rgba(0, 255, 157, 0.1)',
+                        fill: true
+                    }, {
+                        label: 'HODL Returns',
+                        data: [100, 103, 106, 109, 112, 115, 118],
+                        borderColor: '#ff6b6b',
+                        backgroundColor: 'rgba(255, 107, 107, 0.1)',
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            labels: {
+                                color: '#ffffff'
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#ffffff'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#ffffff'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Quiz functionality
+        function checkAnswer(option, element) {
+            const options = document.querySelectorAll('.quiz-option');
+            options.forEach(opt => {
+                opt.classList.remove('correct', 'wrong');
+                opt.style.pointerEvents = 'none';
+            });
+
+            if(option === 1) {
+                element.classList.add('correct');
+            } else {
+                element.classList.add('wrong');
+                options[0].classList.add('correct');
+            }
+        }
+
+        // Initialize chart
+        initializeLPReturnsChart();
+    </script>
+</body>
+</html>

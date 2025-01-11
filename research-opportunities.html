@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoMoose - Research Opportunities</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --color-bg: #0a0b0c;
+            --color-surface: #16181a;
+            --color-primary: #00ff9d;
+            --color-secondary: #94a3b8;
+            --color-text: #ffffff;
+            --color-text-dim: rgba(255, 255, 255, 0.7);
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding-top: 80px;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Nav Styles */
+        .nav {
+            background: rgba(18, 18, 18, 0.8);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-left, .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-link {
+            color: var(--color-text);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-link i {
+            font-size: 1rem;
+        }
+
+        .nav-link span {
+            font-size: 0.9rem;
+        }
+
+        .btn-telegram {
+            background: #0088cc;
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-telegram:hover {
+            background: #0099e6;
+            transform: translateY(-1px);
+        }
+
+        .nav-link.active {
+            background: rgba(0, 255, 157, 0.1);
+            color: var(--color-primary);
+        }
+
+        .nav-link.active i {
+            color: var(--color-primary);
+        }
+    </style>
+</head>
+<body class="dark-theme">
+    <div class="nav">
+        <div class="nav-content">
+            <div class="nav-left">
+                <a href="https://t.me/CryptoMooseAlpha" target="_blank" class="btn btn-telegram">
+                    <i class="fab fa-telegram"></i> Join Telegram
+                </a>
+            </div>
+            <div class="nav-right">
+                <a href="dashboard.html" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="members.html" class="nav-link">
+                    <i class="fas fa-user"></i>
+                    <span>Members</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar">
+            <div class="h-logo">
+                <a href="index.html">
+                    <img src="img/logo.png" alt="CryptoMoose Logo">
+                </a>
+            </div>
+        </nav>
+
+        <div class="content">
+            <div class="container-xxl flex-grow-1 container-p-y">
+                <!-- Latest Research Reports -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h4 class="mb-0">Latest Research Reports</h4>
+                                <div class="filters">
+                                    <select id="categoryFilter" class="form-select">
+                                        <option value="">All Categories</option>
+                                        <option value="fundamental">Fundamental</option>
+                                        <option value="technical">Technical</option>
+                                        <option value="market">Market Research</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row" id="researchReports">
+                                    <!-- Research reports will be loaded here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Market Insights -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="mb-0">Market Insights</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
+                                        <div class="insight-card">
+                                            <h6>Market Trends</h6>
+                                            <div id="trendChart"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-4">
+                                        <div class="insight-card">
+                                            <h6>Sector Performance</h6>
+                                            <div id="sectorChart"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Analysis -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="mb-0">Project Analysis</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Project</th>
+                                                <th>Category</th>
+                                                <th>Score</th>
+                                                <th>Market Cap</th>
+                                                <th>Growth Potential</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="projectAnalysisTable">
+                                            <!-- Project analysis will be loaded here -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Research Report Modal -->
+    <div class="modal" id="researchModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Research Report</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h6 id="reportTitle"></h6>
+                            <p><strong>Author:</strong> <span id="reportAuthor"></span></p>
+                            <p><strong>Published:</strong> <span id="reportDate"></span></p>
+                            <p><strong>Category:</strong> <span id="reportCategory"></span></p>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <h6>Executive Summary</h6>
+                            <p id="reportSummary"></p>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <h6>Key Findings</h6>
+                            <ul id="keyFindings"></ul>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <a id="fullReportLink" href="#" target="_blank" class="btn btn-primary">Read Full Report</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            loadResearchData();
+            document.getElementById('categoryFilter').addEventListener('change', loadResearchData);
+        });
+
+        async function loadResearchData() {
+            try {
+                const response = await fetch('/api/opportunities');
+                const data = await response.json();
+                
+                // Load research reports
+                loadResearchReports(data.research?.reports || []);
+                
+                // Load market insights
+                loadMarketInsights(data.research?.insights || {});
+                
+                // Load project analysis
+                loadProjectAnalysis(data.research?.projects || []);
+            } catch (error) {
+                console.error('Error loading research data:', error);
+            }
+        }
+
+        function loadResearchReports(reports) {
+            const container = document.getElementById('researchReports');
+            container.innerHTML = '';
+
+            reports.forEach(report => {
+                const col = document.createElement('div');
+                col.className = 'col-md-4 mb-4';
+                col.innerHTML = `
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">${report.title}</h5>
+                            <p class="card-text">${report.summary}</p>
+                            <button class="btn btn-primary" onclick='showResearchReport(${JSON.stringify(report)})'>
+                                Read More
+                            </button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(col);
+            });
+        }
+
+        function loadMarketInsights(insights) {
+            // Create Trend Chart
+            const trendCtx = document.getElementById('trendChart').getContext('2d');
+            new Chart(trendCtx, {
+                type: 'line',
+                data: {
+                    labels: insights.trends?.labels || [],
+                    datasets: [{
+                        label: 'Market Trend',
+                        data: insights.trends?.values || [],
+                        borderColor: '#00FF87',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+
+            // Create Sector Chart
+            const sectorCtx = document.getElementById('sectorChart').getContext('2d');
+            new Chart(sectorCtx, {
+                type: 'bar',
+                data: {
+                    labels: insights.sectors?.labels || [],
+                    datasets: [{
+                        label: 'Sector Performance',
+                        data: insights.sectors?.values || [],
+                        backgroundColor: '#00FF87'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+        }
+
+        function loadProjectAnalysis(projects) {
+            const tbody = document.getElementById('projectAnalysisTable');
+            tbody.innerHTML = '';
+
+            projects.forEach(project => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${project.name}</td>
+                    <td>${project.category}</td>
+                    <td>${project.score}/100</td>
+                    <td>$${formatNumber(project.marketCap)}</td>
+                    <td>${project.growthPotential}</td>
+                    <td>
+                        <button class="btn btn-primary btn-sm" onclick='showResearchReport(${JSON.stringify(project)})'>
+                            View Analysis
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function formatNumber(num) {
+            return new Intl.NumberFormat('en-US', {
+                maximumFractionDigits: 2,
+                minimumFractionDigits: 2
+            }).format(num);
+        }
+
+        function showResearchReport(report) {
+            document.getElementById('reportTitle').textContent = report.title;
+            document.getElementById('reportAuthor').textContent = report.author;
+            document.getElementById('reportDate').textContent = report.date;
+            document.getElementById('reportCategory').textContent = report.category;
+            document.getElementById('reportSummary').textContent = report.summary;
+
+            const keyFindings = document.getElementById('keyFindings');
+            keyFindings.innerHTML = '';
+            (report.keyFindings || []).forEach(finding => {
+                const li = document.createElement('li');
+                li.textContent = finding;
+                keyFindings.appendChild(li);
+            });
+
+            document.getElementById('fullReportLink').href = report.fullReportUrl || '#';
+
+            // Show modal
+            new bootstrap.Modal(document.getElementById('researchModal')).show();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Analysis - Technical Analysis - CryptoMoose Learning</title>
+    <link rel="stylesheet" href="../css/course-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="nav-left">
+                <a href="../index.html" class="logo-container">
+                    <img src="../images/Moose.png" alt="CryptoMoose Logo">
+                </a>
+                <a href="https://t.me/CryptoMooseAlpha" target="_blank" class="btn btn-telegram">
+                    <i class="fab fa-telegram"></i> Join Telegram
+                </a>
+            </div>
+            <div class="nav-right">
+                <a href="../dashboard.html" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="https://x.com/XCryptoMoose" target="_blank" class="nav-link">
+                    <i class="fab fa-x-twitter"></i>
+                    <span>Follow Alpha</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="course-container">
+        <div class="course-header">
+            <h1>Technical Analysis Fundamentals</h1>
+            <p>Master the art of reading charts and identifying patterns</p>
+        </div>
+
+        <div class="course-progress">
+            <div class="progress-text">Course Progress: 33%</div>
+            <div class="progress-bar">
+                <div class="progress" style="width: 33%"></div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>1. Chart Patterns</h2>
+            <div class="chart-container">
+                <canvas id="patternChart"></canvas>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-header">
+                            <i class="fas fa-chart-line"></i>
+                            <h3>Bullish Patterns</h3>
+                        </div>
+                        <ul>
+                            <li>Double Bottom</li>
+                            <li>Ascending Triangle</li>
+                            <li>Cup and Handle</li>
+                            <li>Inverse Head & Shoulders</li>
+                        </ul>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-header">
+                            <i class="fas fa-chart-line fa-rotate-180"></i>
+                            <h3>Bearish Patterns</h3>
+                        </div>
+                        <ul>
+                            <li>Double Top</li>
+                            <li>Descending Triangle</li>
+                            <li>Rising Wedge</li>
+                            <li>Head & Shoulders</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>2. Technical Indicators</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-header">
+                        <i class="fas fa-chart-bar"></i>
+                        <h3>Trend Indicators</h3>
+                    </div>
+                    <ul>
+                        <li>Moving Averages (MA)</li>
+                        <li>MACD</li>
+                        <li>Bollinger Bands</li>
+                        <li>ADX</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <div class="info-header">
+                        <i class="fas fa-wave-square"></i>
+                        <h3>Momentum Indicators</h3>
+                    </div>
+                    <ul>
+                        <li>RSI</li>
+                        <li>Stochastic</li>
+                        <li>CCI</li>
+                        <li>Williams %R</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>3. Practice Exercise</h2>
+            <div class="quiz-container">
+                <h3>Technical Analysis Quiz</h3>
+                <div class="quiz-question">
+                    <p>Which indicator is best for identifying overbought and oversold conditions?</p>
+                    <div class="quiz-option" onclick="checkAnswer(1, this)">
+                        A) RSI (Relative Strength Index)
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(2, this)">
+                        B) Moving Average
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(3, this)">
+                        C) MACD
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(4, this)">
+                        D) Volume
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="course-navigation">
+            <a href="market-analysis.html" class="nav-button">
+                <i class="fas fa-arrow-left"></i> Previous Lesson
+            </a>
+            <a href="market-analysis-3.html" class="nav-button">
+                Next Lesson <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Initialize pattern chart
+        function initializePatternChart() {
+            const ctx = document.getElementById('patternChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: Array.from({length: 20}, (_, i) => i + 1),
+                    datasets: [{
+                        label: 'Head & Shoulders Pattern',
+                        data: [10, 12, 11, 15, 13, 16, 14, 12, 10, 11, 9],
+                        borderColor: '#00ff9d',
+                        tension: 0.4,
+                        fill: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            labels: {
+                                color: '#ffffff'
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#ffffff'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#ffffff'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Quiz functionality
+        function checkAnswer(option, element) {
+            const options = document.querySelectorAll('.quiz-option');
+            options.forEach(opt => {
+                opt.classList.remove('correct', 'wrong');
+                opt.style.pointerEvents = 'none';
+            });
+
+            if(option === 1) {
+                element.classList.add('correct');
+            } else {
+                element.classList.add('wrong');
+                options[0].classList.add('correct');
+            }
+        }
+
+        // Initialize chart
+        initializePatternChart();
+    </script>
+</body>
+</html>

@@ -1,0 +1,185 @@
+<![CDATA[<div class="traditional-markets-section glass">
+    <div class="section-header">
+        <h3><i class="fas fa-chart-pie"></i> Traditional Markets</h3>
+        <div class="market-controls">
+            <div class="market-selector">
+                <select id="marketType">
+                    <option value="stocks">Stock Markets</option>
+                    <option value="commodities">Commodities</option>
+                    <option value="forex">Forex</option>
+                    <option value="bonds">Bonds</option>
+                </select>
+            </div>
+            <div class="timeframe-selector">
+                <button class="timeframe-btn active" data-timeframe="1d">1D</button>
+                <button class="timeframe-btn" data-timeframe="1w">1W</button>
+                <button class="timeframe-btn" data-timeframe="1m">1M</button>
+                <button class="timeframe-btn" data-timeframe="3m">3M</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="markets-content">
+        <!-- Market Overview -->
+        <div class="markets-panel glass">
+            <h4>Market Overview</h4>
+            <div class="overview-grid">
+                <!-- Stock Markets -->
+                <div class="market-card">
+                    <div class="market-header">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Stock Markets</span>
+                    </div>
+                    <div class="market-items">
+                        <div class="market-item">
+                            <span class="item-name">S&P 500</span>
+                            <span id="sp500Price" class="item-price">Loading...</span>
+                            <span id="sp500Change" class="item-change">...</span>
+                        </div>
+                        <div class="market-item">
+                            <span class="item-name">NASDAQ</span>
+                            <span id="nasdaqPrice" class="item-price">Loading...</span>
+                            <span id="nasdaqChange" class="item-change">...</span>
+                        </div>
+                        <div class="market-item">
+                            <span class="item-name">DOW</span>
+                            <span id="dowPrice" class="item-price">Loading...</span>
+                            <span id="dowChange" class="item-change">...</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Commodities -->
+                <div class="market-card">
+                    <div class="market-header">
+                        <i class="fas fa-coins"></i>
+                        <span>Commodities</span>
+                    </div>
+                    <div class="market-items">
+                        <div class="market-item">
+                            <span class="item-name">Gold</span>
+                            <span id="goldPrice" class="item-price">Loading...</span>
+                            <span id="goldChange" class="item-change">...</span>
+                        </div>
+                        <div class="market-item">
+                            <span class="item-name">Silver</span>
+                            <span id="silverPrice" class="item-price">Loading...</span>
+                            <span id="silverChange" class="item-change">...</span>
+                        </div>
+                        <div class="market-item">
+                            <span class="item-name">Oil (WTI)</span>
+                            <span id="oilPrice" class="item-price">Loading...</span>
+                            <span id="oilChange" class="item-change">...</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Forex -->
+                <div class="market-card">
+                    <div class="market-header">
+                        <i class="fas fa-dollar-sign"></i>
+                        <span>Forex</span>
+                    </div>
+                    <div class="market-items">
+                        <div class="market-item">
+                            <span class="item-name">EUR/USD</span>
+                            <span id="eurusdPrice" class="item-price">Loading...</span>
+                            <span id="eurusdChange" class="item-change">...</span>
+                        </div>
+                        <div class="market-item">
+                            <span class="item-name">GBP/USD</span>
+                            <span id="gbpusdPrice" class="item-price">Loading...</span>
+                            <span id="gbpusdChange" class="item-change">...</span>
+                        </div>
+                        <div class="market-item">
+                            <span class="item-name">USD/JPY</span>
+                            <span id="usdjpyPrice" class="item-price">Loading...</span>
+                            <span id="usdjpyChange" class="item-change">...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Correlation Analysis -->
+        <div class="markets-panel glass">
+            <h4>Correlation Analysis</h4>
+            <div class="correlation-content">
+                <div class="correlation-chart" id="correlationChart">
+                    <div class="loading">Loading correlation data...</div>
+                </div>
+                <div class="correlation-metrics">
+                    <div class="correlation-card">
+                        <h5>Stock Market Correlation</h5>
+                        <div id="stockCorrelation" class="correlation-value">
+                            <span class="correlation-score">Loading...</span>
+                            <span class="correlation-trend">...</span>
+                        </div>
+                    </div>
+                    <div class="correlation-card">
+                        <h5>Gold Correlation</h5>
+                        <div id="goldCorrelation" class="correlation-value">
+                            <span class="correlation-score">Loading...</span>
+                            <span class="correlation-trend">...</span>
+                        </div>
+                    </div>
+                    <div class="correlation-card">
+                        <h5>Dollar Index Correlation</h5>
+                        <div id="dxyCorrelation" class="correlation-value">
+                            <span class="correlation-score">Loading...</span>
+                            <span class="correlation-trend">...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Market Events -->
+        <div class="markets-panel glass">
+            <h4>Market Events</h4>
+            <div class="events-content">
+                <div class="events-filters">
+                    <button class="event-btn active" data-event="all">All</button>
+                    <button class="event-btn" data-event="economic">Economic</button>
+                    <button class="event-btn" data-event="earnings">Earnings</button>
+                    <button class="event-btn" data-event="policy">Policy</button>
+                </div>
+                <div id="eventsContainer" class="events-container">
+                    <div class="loading">Loading events...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Market Impact Analysis -->
+        <div class="markets-panel glass">
+            <h4>Market Impact Analysis</h4>
+            <div class="impact-content">
+                <div class="impact-chart" id="impactChart">
+                    <div class="loading">Loading impact analysis...</div>
+                </div>
+                <div class="impact-insights">
+                    <div class="insight-card">
+                        <h5>🎯 Key Drivers</h5>
+                        <p id="marketDrivers" class="insight-text">Analyzing market drivers...</p>
+                    </div>
+                    <div class="insight-card">
+                        <h5>📊 Risk Assessment</h5>
+                        <p id="riskAssessment" class="insight-text">Analyzing risks...</p>
+                    </div>
+                    <div class="insight-card">
+                        <h5>🔄 Market Rotation</h5>
+                        <p id="marketRotation" class="insight-text">Analyzing rotation...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Import required scripts -->
+<script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+
+<script type="module">
+    import { traditionalMarkets } from './traditional-markets.js';
+    traditionalMarkets.init().catch(console.error);
+</script>

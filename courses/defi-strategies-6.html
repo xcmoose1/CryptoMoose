@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeFi Strategies - Final Project - CryptoMoose Learning</title>
+    <link rel="stylesheet" href="../css/course-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="nav-left">
+                <a href="../index.html" class="logo-container">
+                    <img src="../images/Moose.png" alt="CryptoMoose Logo">
+                </a>
+                <a href="https://t.me/CryptoMooseAlpha" target="_blank" class="btn btn-telegram">
+                    <i class="fab fa-telegram"></i> Join Telegram
+                </a>
+            </div>
+            <div class="nav-right">
+                <a href="../dashboard.html" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="https://x.com/XCryptoMoose" target="_blank" class="nav-link">
+                    <i class="fab fa-x-twitter"></i>
+                    <span>Follow Alpha</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="course-container">
+        <div class="course-header">
+            <h1>DeFi Strategy Builder</h1>
+            <p>Create your comprehensive DeFi investment strategy</p>
+        </div>
+
+        <div class="course-progress">
+            <div class="progress-text">Course Progress: 100%</div>
+            <div class="progress-bar">
+                <div class="progress" style="width: 100%"></div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>Final Project: Build Your DeFi Portfolio</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-header">
+                        <i class="fas fa-tasks"></i>
+                        <h3>Project Requirements</h3>
+                    </div>
+                    <ul>
+                        <li>Protocol Selection</li>
+                        <li>Risk Assessment</li>
+                        <li>Yield Strategy</li>
+                        <li>Portfolio Allocation</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <div class="info-header">
+                        <i class="fas fa-check-circle"></i>
+                        <h3>Evaluation Criteria</h3>
+                    </div>
+                    <ul>
+                        <li>Risk Management</li>
+                        <li>Diversification</li>
+                        <li>Strategy Viability</li>
+                        <li>Expected Returns</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>Portfolio Builder</h2>
+            <div class="project-form">
+                <div class="form-section">
+                    <h3>1. Protocol Selection</h3>
+                    <div class="protocol-selector">
+                        <div class="protocol-option">
+                            <input type="checkbox" id="uniswap" name="protocols">
+                            <label for="uniswap">Uniswap (DEX)</label>
+                        </div>
+                        <div class="protocol-option">
+                            <input type="checkbox" id="aave" name="protocols">
+                            <label for="aave">Aave (Lending)</label>
+                        </div>
+                        <div class="protocol-option">
+                            <input type="checkbox" id="curve" name="protocols">
+                            <label for="curve">Curve (Stablecoin)</label>
+                        </div>
+                        <div class="protocol-option">
+                            <input type="checkbox" id="yearn" name="protocols">
+                            <label for="yearn">Yearn (Yield)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>2. Risk Level</h3>
+                    <div class="risk-selector">
+                        <input type="range" id="risk-level" min="1" max="5" value="3">
+                        <div class="risk-labels">
+                            <span>Conservative</span>
+                            <span>Balanced</span>
+                            <span>Aggressive</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>3. Strategy Description</h3>
+                    <textarea id="strategy" rows="4" placeholder="Describe your DeFi investment strategy..."></textarea>
+                </div>
+
+                <div class="form-section">
+                    <h3>4. Portfolio Allocation</h3>
+                    <div class="chart-container">
+                        <canvas id="portfolioChart"></canvas>
+                    </div>
+                </div>
+
+                <button class="submit-button" onclick="submitStrategy()">
+                    Submit Strategy
+                </button>
+            </div>
+        </div>
+
+        <div class="course-navigation">
+            <a href="defi-strategies-5.html" class="nav-button">
+                <i class="fas fa-arrow-left"></i> Previous Lesson
+            </a>
+            <a href="../learning.html" class="nav-button">
+                Complete Course <i class="fas fa-check"></i>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Initialize portfolio chart
+        function initializePortfolioChart() {
+            const ctx = document.getElementById('portfolioChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['DEX Trading', 'Lending', 'Yield Farming', 'Stablecoin LP'],
+                    datasets: [{
+                        data: [25, 25, 25, 25],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.8)',
+                            'rgba(54, 162, 235, 0.8)',
+                            'rgba(255, 206, 86, 0.8)',
+                            'rgba(0, 255, 157, 0.8)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(0, 255, 157, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: '#ffffff'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Strategy submission
+        function submitStrategy() {
+            const protocols = Array.from(document.querySelectorAll('input[name="protocols"]:checked'))
+                .map(input => input.id);
+            const riskLevel = document.getElementById('risk-level').value;
+            const strategy = document.getElementById('strategy').value;
+
+            if (protocols.length === 0 || !strategy.trim()) {
+                alert('Please complete all sections of the strategy builder.');
+                return;
+            }
+
+            alert('Congratulations! Your DeFi strategy has been submitted. You have completed the DeFi Strategies course!');
+            window.location.href = '../learning.html';
+        }
+
+        // Initialize portfolio chart
+        initializePortfolioChart();
+
+        // Update chart on risk level change
+        document.getElementById('risk-level').addEventListener('input', function(e) {
+            const value = parseInt(e.target.value);
+            const chart = Chart.getChart('portfolioChart');
+            
+            // Adjust allocations based on risk level
+            let allocations;
+            switch(value) {
+                case 1: // Very Conservative
+                    allocations = [10, 20, 20, 50];
+                    break;
+                case 2: // Conservative
+                    allocations = [20, 20, 20, 40];
+                    break;
+                case 3: // Balanced
+                    allocations = [25, 25, 25, 25];
+                    break;
+                case 4: // Aggressive
+                    allocations = [30, 30, 30, 10];
+                    break;
+                case 5: // Very Aggressive
+                    allocations = [40, 30, 25, 5];
+                    break;
+            }
+            
+            chart.data.datasets[0].data = allocations;
+            chart.update();
+        });
+    </script>
+</body>
+</html>

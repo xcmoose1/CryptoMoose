@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Risk Management - Portfolio Management - CryptoMoose Learning</title>
+    <link rel="stylesheet" href="../css/course-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="nav-left">
+                <a href="../index.html" class="logo-container">
+                    <img src="../images/Moose.png" alt="CryptoMoose Logo">
+                </a>
+                <a href="https://t.me/CryptoMooseAlpha" target="_blank" class="btn btn-telegram">
+                    <i class="fab fa-telegram"></i> Join Telegram
+                </a>
+            </div>
+            <div class="nav-right">
+                <a href="../dashboard.html" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="https://x.com/XCryptoMoose" target="_blank" class="nav-link">
+                    <i class="fab fa-x-twitter"></i>
+                    <span>Follow Alpha</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="course-container">
+        <div class="course-header">
+            <h1>Portfolio Management</h1>
+            <p>Learn how to manage risk across multiple positions</p>
+        </div>
+
+        <div class="course-progress">
+            <div class="progress-text">Course Progress: 66%</div>
+            <div class="progress-bar">
+                <div class="progress" style="width: 66%"></div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>1. Portfolio Diversification</h2>
+            <div class="chart-container">
+                <canvas id="portfolioChart"></canvas>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-header">
+                            <i class="fas fa-layer-group"></i>
+                            <h3>Diversification Strategies</h3>
+                        </div>
+                        <ul>
+                            <li>Asset Class Distribution</li>
+                            <li>Market Cap Allocation</li>
+                            <li>Sector Distribution</li>
+                            <li>Geographic Exposure</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>2. Correlation Management</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-header">
+                        <i class="fas fa-link"></i>
+                        <h3>Positive Correlation</h3>
+                    </div>
+                    <ul>
+                        <li>Similar price movements</li>
+                        <li>Increased portfolio risk</li>
+                        <li>Example: BTC & Large caps</li>
+                        <li>Risk multiplication</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <div class="info-header">
+                        <i class="fas fa-unlink"></i>
+                        <h3>Negative Correlation</h3>
+                    </div>
+                    <ul>
+                        <li>Opposite price movements</li>
+                        <li>Risk reduction</li>
+                        <li>Example: BTC & Stablecoins</li>
+                        <li>Portfolio hedging</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>3. Practice Exercise</h2>
+            <div class="quiz-container">
+                <h3>Portfolio Management Quiz</h3>
+                <div class="quiz-question">
+                    <p>What's the main benefit of portfolio diversification?</p>
+                    <div class="quiz-option" onclick="checkAnswer(1, this)">
+                        A) Risk reduction
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(2, this)">
+                        B) Higher returns
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(3, this)">
+                        C) Lower trading fees
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(4, this)">
+                        D) Faster execution
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="course-navigation">
+            <a href="risk-management-3.html" class="nav-button">
+                <i class="fas fa-arrow-left"></i> Previous Lesson
+            </a>
+            <a href="risk-management-5.html" class="nav-button">
+                Next Lesson <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Initialize portfolio chart
+        function initializePortfolioChart() {
+            const ctx = document.getElementById('portfolioChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Large Caps', 'Mid Caps', 'Small Caps', 'Stablecoins', 'DeFi', 'GameFi'],
+                    datasets: [{
+                        data: [30, 25, 15, 10, 10, 10],
+                        backgroundColor: [
+                            '#00ff9d',
+                            '#00e68a',
+                            '#00cc77',
+                            '#00b366',
+                            '#009955',
+                            '#008044'
+                        ],
+                        borderColor: '#ffffff',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'right',
+                            labels: {
+                                color: '#ffffff'
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Sample Portfolio Distribution',
+                            color: '#ffffff'
+                        }
+                    }
+                }
+            });
+        }
+
+        // Quiz functionality
+        function checkAnswer(option, element) {
+            const options = document.querySelectorAll('.quiz-option');
+            options.forEach(opt => {
+                opt.classList.remove('correct', 'wrong');
+                opt.style.pointerEvents = 'none';
+            });
+
+            if(option === 1) {
+                element.classList.add('correct');
+            } else {
+                element.classList.add('wrong');
+                options[0].classList.add('correct');
+            }
+        }
+
+        // Initialize chart
+        initializePortfolioChart();
+    </script>
+</body>
+</html>

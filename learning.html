@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoMoose Learning Hub</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --color-bg: #0a0b0c;
+            --color-surface: #16181a;
+            --color-primary: #00ff9d;
+            --color-secondary: #94a3b8;
+            --color-text: #ffffff;
+            --color-text-dim: rgba(255, 255, 255, 0.7);
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding-top: 80px;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .nav {
+            background: rgba(18, 18, 18, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #fff;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .btn-telegram {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #0088cc;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .btn-telegram:hover {
+            background: #0099e6;
+        }
+
+        .btn-telegram i {
+            font-size: 1rem;
+        }
+
+        .nav-link.twitter {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-link.twitter:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Learning Page Specific Styles */
+        .learning-container {
+            max-width: 1200px;
+            margin: 6rem auto 2rem;
+            padding: 0 2rem;
+        }
+
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .course-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: block;
+            color: inherit;
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .course-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--color-primary);
+        }
+
+        .course-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+
+        .course-description {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .course-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+        }
+
+        .course-meta i {
+            font-size: 0.8rem;
+        }
+
+        .course-progress {
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            margin-top: 1rem;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--color-primary);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="nav-left">
+                <a href="index.html" class="logo-container">
+                    <img src="images/moose.png" alt="CryptoMoose" style="height: 32px; width: auto;">
+                    <span>CryptoMoose</span>
+                </a>
+                <a href="dashboard.html" class="nav-link">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="signals.html" class="nav-link">
+                    <i class="fas fa-signal"></i>
+                    <span>Signals</span>
+                </a>
+                <a href="segment-projections.html" class="nav-link">
+                    <i class="fas fa-layer-group"></i>
+                    <span>Segment Projections</span>
+                </a>
+                <a href="members.html" class="nav-link">
+                    <i class="fas fa-robot"></i>
+                    <span>AI Market Insights</span>
+                </a>
+            </div>
+            <div class="nav-right">
+                <a href="https://t.me/cryptomoose" target="_blank" class="btn-telegram">
+                    <i class="fab fa-telegram"></i>
+                    <span>Get Live Signals on Telegram</span>
+                </a>
+                <a href="https://x.com/XCryptoMoose" target="_blank" class="nav-link twitter">
+                    <img src="images/x-logo.svg" alt="X (Twitter)" style="height: 16px; width: 16px;">
+                    <span>Follow Alpha</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="learning-container">
+        <h1>Learning Hub</h1>
+        <div class="course-grid">
+            <!-- Crypto Basics Course -->
+            <a href="courses/crypto-basics.html" class="course-card">
+                <i class="fas fa-coins course-icon"></i>
+                <h2 class="course-title">Crypto Basics</h2>
+                <p class="course-description">Learn the fundamentals of cryptocurrency, blockchain technology, and digital assets.</p>
+                <div class="course-meta">
+                    <span><i class="far fa-clock"></i> 2 hours</span>
+                    <span><i class="far fa-file-alt"></i> 8 lessons</span>
+                </div>
+                <div class="course-progress">
+                    <div class="progress-bar" style="width: 100%;"></div>
+                </div>
+            </a>
+
+            <!-- Technical Analysis -->
+            <a href="courses/technical-analysis.html" class="course-card">
+                <i class="fas fa-chart-line course-icon"></i>
+                <h2 class="course-title">Technical Analysis</h2>
+                <p class="course-description">Master chart patterns, indicators, and market analysis techniques.</p>
+                <div class="course-meta">
+                    <span><i class="far fa-clock"></i> 4 hours</span>
+                    <span><i class="far fa-file-alt"></i> 12 lessons</span>
+                </div>
+                <div class="course-progress">
+                    <div class="progress-bar" style="width: 75%;"></div>
+                </div>
+            </a>
+
+            <!-- Trading Psychology -->
+            <a href="courses/trading-psychology.html" class="course-card">
+                <i class="fas fa-brain course-icon"></i>
+                <h2 class="course-title">Trading Psychology</h2>
+                <p class="course-description">Develop the mindset of successful traders and manage emotions effectively.</p>
+                <div class="course-meta">
+                    <span><i class="far fa-clock"></i> 3 hours</span>
+                    <span><i class="far fa-file-alt"></i> 10 lessons</span>
+                </div>
+                <div class="course-progress">
+                    <div class="progress-bar" style="width: 50%;"></div>
+                </div>
+            </a>
+
+            <!-- Risk Management -->
+            <a href="courses/risk-management.html" class="course-card">
+                <i class="fas fa-shield-alt course-icon"></i>
+                <h2 class="course-title">Risk Management</h2>
+                <p class="course-description">Learn essential strategies to protect your capital and maximize returns.</p>
+                <div class="course-meta">
+                    <span><i class="far fa-clock"></i> 2.5 hours</span>
+                    <span><i class="far fa-file-alt"></i> 6 lessons</span>
+                </div>
+                <div class="course-progress">
+                    <div class="progress-bar" style="width: 25%;"></div>
+                </div>
+            </a>
+
+            <!-- DeFi Fundamentals -->
+            <a href="courses/defi-mastery.html" class="course-card">
+                <i class="fas fa-project-diagram course-icon"></i>
+                <h2 class="course-title">DeFi Fundamentals</h2>
+                <p class="course-description">Explore decentralized finance protocols, yield farming, and liquidity provision.</p>
+                <div class="course-meta">
+                    <span><i class="far fa-clock"></i> 5 hours</span>
+                    <span><i class="far fa-file-alt"></i> 15 lessons</span>
+                </div>
+                <div class="course-progress">
+                    <div class="progress-bar" style="width: 0%;"></div>
+                </div>
+            </a>
+
+            <!-- Market Analysis -->
+            <a href="courses/market-analysis.html" class="course-card">
+                <i class="fas fa-palette course-icon"></i>
+                <h2 class="course-title">Market Analysis</h2>
+                <p class="course-description">Understanding market analysis, trends, and trading strategies.</p>
+                <div class="course-meta">
+                    <span><i class="far fa-clock"></i> 3.5 hours</span>
+                    <span><i class="far fa-file-alt"></i> 9 lessons</span>
+                </div>
+                <div class="course-progress">
+                    <div class="progress-bar" style="width: 0%;"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

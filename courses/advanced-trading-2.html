@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Trading - Order Flow Analysis - CryptoMoose Learning</title>
+    <link rel="stylesheet" href="../css/members-new.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .course-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .course-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .lesson {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .order-flow-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .order-flow-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .order-flow-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .order-flow-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .order-flow-icon {
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            color: #f0b90b;
+        }
+
+        .heatmap {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 2px;
+        }
+
+        .heatmap-cell {
+            aspect-ratio: 1;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .heatmap-cell:hover {
+            transform: scale(1.1);
+        }
+
+        .buy-pressure { background: rgba(76, 175, 80, 0.3); }
+        .sell-pressure { background: rgba(244, 67, 54, 0.3); }
+
+        .order-book {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .order-column {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 1rem;
+            border-radius: 10px;
+        }
+
+        .order-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .buy { color: #4CAF50; }
+        .sell { color: #f44336; }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+
+        .nav-button {
+            background: rgba(240, 185, 11, 0.2);
+            color: #f0b90b;
+            border: 1px solid #f0b90b;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .nav-button:hover {
+            background: rgba(240, 185, 11, 0.3);
+        }
+
+        .volume-profile {
+            height: 300px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .volume-bar {
+            position: absolute;
+            bottom: 0;
+            width: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            transition: height 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="glass">
+            <nav>
+                <div class="logo">
+                    <img src="../images/moose.png" alt="CryptoMoose">
+                    <span>CryptoMoose Learning</span>
+                </div>
+                <div class="nav-controls">
+                    <div class="nav-links">
+                        <a href="../index.html" class="nav-link">Home</a>
+                        <a href="../learning.html" class="nav-link">Courses</a>
+                        <a href="../members.html" class="nav-link">Signals</a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <div class="course-container">
+            <div class="course-header">
+                <h1>Advanced Trading - Order Flow Analysis</h1>
+            </div>
+
+            <div class="lesson">
+                <h2>2. Understanding Order Flow</h2>
+
+                <div class="order-flow-grid">
+                    <div class="order-flow-card">
+                        <div class="order-flow-header">
+                            <i class="fas fa-stream order-flow-icon"></i>
+                            <h3>Order Book Analysis</h3>
+                        </div>
+                        <p>Understanding buy and sell pressure through order book depth.</p>
+                        <h4>Key Metrics:</h4>
+                        <ul>
+                            <li>Bid-Ask Spread</li>
+                            <li>Order Book Imbalance</li>
+                            <li>Large Orders (Walls)</li>
+                        </ul>
+                    </div>
+
+                    <div class="order-flow-card">
+                        <div class="order-flow-header">
+                            <i class="fas fa-chart-bar order-flow-icon"></i>
+                            <h3>Volume Profile</h3>
+                        </div>
+                        <p>Analyzing trading activity at different price levels.</p>
+                        <h4>Important Zones:</h4>
+                        <ul>
+                            <li>Value Area High/Low</li>
+                            <li>Point of Control</li>
+                            <li>Low Volume Nodes</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Live Order Book Simulation</h3>
+                <div class="order-book">
+                    <div class="order-column">
+                        <h4>Bids (Buyers)</h4>
+                        <div id="bids"></div>
+                    </div>
+                    <div class="order-column">
+                        <h4>Asks (Sellers)</h4>
+                        <div id="asks"></div>
+                    </div>
+                </div>
+
+                <h3>Volume Profile Analysis</h3>
+                <div class="volume-profile" id="volumeProfile"></div>
+
+                <h3>Order Flow Heatmap</h3>
+                <div class="heatmap" id="heatmap"></div>
+
+                <div class="navigation-buttons">
+                    <a href="advanced-trading.html" class="nav-button">← Previous Lesson</a>
+                    <a href="advanced-trading-3.html" class="nav-button">Next Lesson →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simulate order book
+        function updateOrderBook() {
+            const bids = document.getElementById('bids');
+            const asks = document.getElementById('asks');
+            
+            bids.innerHTML = '';
+            asks.innerHTML = '';
+
+            const basePrice = 40000;
+            
+            // Generate bids
+            for(let i = 0; i < 10; i++) {
+                const price = (basePrice - (i * 10)).toFixed(2);
+                const size = (Math.random() * 2 + 0.1).toFixed(3);
+                bids.innerHTML += `
+                    <div class="order-row">
+                        <span class="buy">${price}</span>
+                        <span>${size} BTC</span>
+                    </div>
+                `;
+            }
+
+            // Generate asks
+            for(let i = 0; i < 10; i++) {
+                const price = (basePrice + (i * 10)).toFixed(2);
+                const size = (Math.random() * 2 + 0.1).toFixed(3);
+                asks.innerHTML += `
+                    <div class="order-row">
+                        <span class="sell">${price}</span>
+                        <span>${size} BTC</span>
+                    </div>
+                `;
+            }
+        }
+
+        // Generate volume profile
+        function createVolumeProfile() {
+            const profile = document.getElementById('volumeProfile');
+            profile.innerHTML = '';
+            
+            for(let i = 0; i < 50; i++) {
+                const height = Math.random() * 100;
+                const bar = document.createElement('div');
+                bar.className = 'volume-bar';
+                bar.style.left = (i * 2) + '%';
+                bar.style.height = height + '%';
+                profile.appendChild(bar);
+            }
+        }
+
+        // Generate heatmap
+        function createHeatmap() {
+            const heatmap = document.getElementById('heatmap');
+            heatmap.innerHTML = '';
+            
+            for(let i = 0; i < 100; i++) {
+                const cell = document.createElement('div');
+                cell.className = 'heatmap-cell ' + 
+                    (Math.random() > 0.5 ? 'buy-pressure' : 'sell-pressure');
+                heatmap.appendChild(cell);
+            }
+        }
+
+        // Initialize and update every 2 seconds
+        updateOrderBook();
+        createVolumeProfile();
+        createHeatmap();
+        setInterval(updateOrderBook, 2000);
+        setInterval(createVolumeProfile, 5000);
+        setInterval(createHeatmap, 3000);
+    </script>
+</body>
+</html>

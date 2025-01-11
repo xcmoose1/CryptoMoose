@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoMoose Investment Opportunities</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --color-bg: #0a0b0c;
+            --color-surface: #16181a;
+            --color-primary: #00ff9d;
+            --color-secondary: #94a3b8;
+            --color-text: #ffffff;
+            --color-text-dim: rgba(255, 255, 255, 0.7);
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding-top: 80px;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Nav Styles */
+        .nav {
+            background: rgba(18, 18, 18, 0.8);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-left, .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #ffffff;
+            gap: 0.5rem;
+        }
+
+        .logo-container img {
+            height: 32px;
+            width: auto;
+        }
+
+        .nav-link {
+            color: var(--color-text);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-link i {
+            font-size: 1rem;
+        }
+
+        .nav-link span {
+            font-size: 0.9rem;
+        }
+
+        .nav-link.twitter {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            margin-left: 12px;
+        }
+
+        .nav-link.twitter:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-telegram {
+            background: #0088cc;
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-telegram:hover {
+            background: #0099e6;
+            transform: translateY(-1px);
+        }
+
+        .nav-link.active {
+            background: rgba(0, 255, 157, 0.1);
+            color: var(--color-primary);
+        }
+
+        .nav-link.active i {
+            color: var(--color-primary);
+        }
+
+        .opportunities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        .opp-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .opp-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .opp-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .opp-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #00ff88, #00a1ff);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #121212;
+        }
+
+        .opp-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #00ff88;
+        }
+
+        .opp-content {
+            color: var(--color-text);
+            line-height: 1.6;
+        }
+
+        .opp-list {
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0;
+        }
+
+        .opp-list li {
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .opp-list li i {
+            color: #00ff88;
+        }
+
+        .alert-badge {
+            background: rgba(0, 255, 136, 0.1);
+            color: #00ff88;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-left: auto;
+        }
+
+        .coming-soon {
+            opacity: 0.7;
+            position: relative;
+        }
+
+        .coming-soon::after {
+            content: 'Coming Soon';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="nav-left">
+                <a href="index.html" class="logo-container">
+                    <img src="images/moose.png" alt="CryptoMoose" style="height: 32px; width: auto;">
+                    <span>CryptoMoose</span>
+                </a>
+                <a href="dashboard.html" class="nav-link">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="signals.html" class="nav-link">
+                    <i class="fas fa-signal"></i>
+                    <span>Signals</span>
+                </a>
+                <a href="segment-projections.html" class="nav-link">
+                    <i class="fas fa-layer-group"></i>
+                    <span>Segment Projections</span>
+                </a>
+                <a href="members.html" class="nav-link">
+                    <i class="fas fa-robot"></i>
+                    <span>AI Market Insights</span>
+                </a>
+            </div>
+            <div class="nav-right">
+                <a href="https://t.me/cryptomoose" target="_blank" class="btn-telegram">
+                    <i class="fab fa-telegram"></i>
+                    <span>Get Live Signals on Telegram</span>
+                </a>
+                <a href="https://x.com/XCryptoMoose" target="_blank" class="nav-link twitter">
+                    <img src="images/x-logo.svg" alt="X (Twitter)" style="height: 16px; width: 16px;">
+                    <span>Follow Alpha</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="header">
+            <h1>Investment Opportunities</h1>
+            <p>Track and analyze the latest opportunities in the crypto ecosystem</p>
+        </div>
+
+        <div class="opportunities-grid">
+            <!-- IDO/ICO Card -->
+            <div class="opp-card" onclick="window.location.href='ido-calendar.html'" style="cursor: pointer;">
+                <div class="opp-header">
+                    <div class="opp-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3 class="opp-title">IDO/ICO Tracker</h3>
+                </div>
+                <div class="opp-content">
+                    <ul class="opp-list">
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            Binance Launchpad: PIXEL (Gaming)
+                            <span class="alert-badge">Live</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-clock"></i>
+                            ByBit: MetaFi (DeFi)
+                            <span class="alert-badge">2d 14h</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Staking Card -->
+            <div class="opp-card" onclick="window.location.href='staking-opportunities.html'" style="cursor: pointer;">
+                <div class="opp-header">
+                    <div class="opp-icon">
+                        <i class="fas fa-piggy-bank"></i>
+                    </div>
+                    <h3 class="opp-title">Staking Opportunities</h3>
+                </div>
+                <div class="opp-content">
+                    <ul class="opp-list">
+                        <li>
+                            <i class="fas fa-star"></i>
+                            ETH Staking: 4.8% APR
+                        </li>
+                        <li>
+                            <i class="fas fa-star"></i>
+                            SOL Staking: 6.2% APR
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Yield Farming Card -->
+            <div class="opp-card" onclick="window.location.href='defi-opportunities.html'" style="cursor: pointer;">
+                <div class="opp-header">
+                    <div class="opp-icon">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <h3 class="opp-title">Yield Farming</h3>
+                </div>
+                <div class="opp-content">
+                    <ul class="opp-list">
+                        <li>
+                            <i class="fas fa-chart-line"></i>
+                            AAVE: USDC/ETH - 12.5% APY
+                        </li>
+                        <li>
+                            <i class="fas fa-chart-line"></i>
+                            Curve: 3pool - 8.2% APY
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- NFT Analytics -->
+            <div class="opp-card" onclick="window.location.href='nft-opportunities.html'" style="cursor: pointer;">
+                <div class="opp-header">
+                    <div class="opp-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3 class="opp-title">NFT Analytics</h3>
+                </div>
+                <div class="opp-content">
+                    <ul class="opp-list">
+                        <li>
+                            <i class="fas fa-fire"></i>
+                            BAYC Floor: 32.5 ETH (+2.3%)
+                        </li>
+                        <li>
+                            <i class="fas fa-fire"></i>
+                            Azuki Volume: 250 ETH (24h)
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Governance Voting -->
+            <div class="opp-card" onclick="window.location.href='governance-voting.html'" style="cursor: pointer;">
+                <div class="opp-header">
+                    <div class="opp-icon">
+                        <i class="fas fa-vote-yea"></i>
+                    </div>
+                    <h3 class="opp-title">Governance Voting</h3>
+                </div>
+                <div class="opp-content">
+                    <ul class="opp-list">
+                        <li>
+                            <i class="fas fa-gavel"></i>
+                            Uniswap: Fee Structure Update
+                            <span class="alert-badge">2d left</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-gavel"></i>
+                            Aave: New Market Addition
+                            <span class="alert-badge">5d left</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- NFT Whitelist -->
+            <div class="opp-card" onclick="window.location.href='nft-whitelist.html'" style="cursor: pointer;">
+                <div class="opp-header">
+                    <div class="opp-icon">
+                        <i class="fas fa-list-alt"></i>
+                    </div>
+                    <h3 class="opp-title">NFT Whitelist Spots</h3>
+                </div>
+                <div class="opp-content">
+                    <ul class="opp-list">
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            DeGods Season 2
+                            <span class="alert-badge">Open</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-clock"></i>
+                            Moonbirds Pro
+                            <span class="alert-badge">Soon</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.menu-toggle').addEventListener('click', () => {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

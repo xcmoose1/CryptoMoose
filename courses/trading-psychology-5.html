@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trading Psychology - Stress Management - CryptoMoose Learning</title>
+    <link rel="stylesheet" href="../css/course-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="nav-left">
+                <a href="../index.html" class="logo-container">
+                    <img src="../images/Moose.png" alt="CryptoMoose Logo">
+                </a>
+                <a href="https://t.me/CryptoMooseAlpha" target="_blank" class="btn btn-telegram">
+                    <i class="fab fa-telegram"></i> Join Telegram
+                </a>
+            </div>
+            <div class="nav-right">
+                <a href="../dashboard.html" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="https://x.com/XCryptoMoose" target="_blank" class="nav-link">
+                    <i class="fab fa-x-twitter"></i>
+                    <span>Follow Alpha</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="course-container">
+        <div class="course-header">
+            <h1>Stress Management and Recovery</h1>
+            <p>Maintain mental clarity and resilience in trading</p>
+        </div>
+
+        <div class="course-progress">
+            <div class="progress-text">Course Progress: 83%</div>
+            <div class="progress-bar">
+                <div class="progress" style="width: 83%"></div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>1. Understanding Trading Stress</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-header">
+                        <i class="fas fa-brain"></i>
+                        <h3>Stress Triggers</h3>
+                    </div>
+                    <ul>
+                        <li>Market Volatility</li>
+                        <li>Losing Streaks</li>
+                        <li>Account Drawdowns</li>
+                        <li>Time Pressure</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <div class="info-header">
+                        <i class="fas fa-heart"></i>
+                        <h3>Recovery Methods</h3>
+                    </div>
+                    <ul>
+                        <li>Mindfulness Practice</li>
+                        <li>Physical Exercise</li>
+                        <li>Regular Breaks</li>
+                        <li>Sleep Hygiene</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>2. Stress Impact on Performance</h2>
+            <div class="chart-container">
+                <canvas id="stressPerformanceChart"></canvas>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-header">
+                            <i class="fas fa-balance-scale"></i>
+                            <h3>Balance Techniques</h3>
+                        </div>
+                        <ul>
+                            <li>Time Management</li>
+                            <li>Position Sizing</li>
+                            <li>Risk Control</li>
+                            <li>Mental Reset</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>3. Practice Exercise</h2>
+            <div class="quiz-container">
+                <h3>Stress Management Quiz</h3>
+                <div class="quiz-question">
+                    <p>What is the best response to a series of losing trades?</p>
+                    <div class="quiz-option" onclick="checkAnswer(1, this)">
+                        A) Take a break and review your strategy
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(2, this)">
+                        B) Increase position size to recover losses
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(3, this)">
+                        C) Trade more frequently
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(4, this)">
+                        D) Switch to a new strategy immediately
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="course-navigation">
+            <a href="trading-psychology-4.html" class="nav-button">
+                <i class="fas fa-arrow-left"></i> Previous Lesson
+            </a>
+            <a href="trading-psychology-6.html" class="nav-button">
+                Next Lesson <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Initialize stress performance chart
+        function initializeStressPerformanceChart() {
+            const ctx = document.getElementById('stressPerformanceChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'scatter',
+                data: {
+                    datasets: [{
+                        label: 'Performance vs Stress Level',
+                        data: [
+                            {x: 1, y: 90},
+                            {x: 2, y: 85},
+                            {x: 3, y: 75},
+                            {x: 4, y: 60},
+                            {x: 5, y: 40},
+                            {x: 6, y: 25},
+                            {x: 7, y: 15}
+                        ],
+                        backgroundColor: 'rgba(0, 255, 157, 0.6)',
+                        borderColor: '#00ff9d'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            labels: {
+                                color: '#ffffff'
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Performance',
+                                color: '#ffffff'
+                            },
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#ffffff'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Stress Level',
+                                color: '#ffffff'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#ffffff'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Quiz functionality
+        function checkAnswer(option, element) {
+            const options = document.querySelectorAll('.quiz-option');
+            options.forEach(opt => {
+                opt.classList.remove('correct', 'wrong');
+                opt.style.pointerEvents = 'none';
+            });
+
+            if(option === 1) {
+                element.classList.add('correct');
+            } else {
+                element.classList.add('wrong');
+                options[0].classList.add('correct');
+            }
+        }
+
+        // Initialize chart
+        initializeStressPerformanceChart();
+    </script>
+</body>
+</html>

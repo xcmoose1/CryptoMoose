@@ -1,0 +1,116 @@
+<![CDATA[<div class="altcoin-analysis-section glass">
+    <div class="section-header">
+        <h3><i class="fas fa-chart-pie"></i> Altcoin Market Analysis</h3>
+        <div class="market-phase">
+            <span class="phase-label">Market Phase:</span>
+            <span id="marketPhase" class="phase-value">Accumulation</span>
+        </div>
+    </div>
+
+    <div class="altcoin-grid">
+        <!-- AI Market Insights -->
+        <div class="altcoin-panel glass">
+            <h4><i class="fas fa-robot"></i> AI Market Insights</h4>
+            <div class="ai-analysis-content">
+                <div class="market-insight">
+                    <h5><i class="fas fa-chart-bar"></i> Market Overview</h5>
+                    <div id="marketOverview" class="insight-text">
+                        <div class="loading">Analyzing market conditions...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Market Metrics -->
+        <div class="altcoin-panel glass">
+            <h4><i class="fas fa-chart-bar"></i> Key Market Metrics</h4>
+            <div class="market-metrics-grid">
+                <div class="metric-card">
+                    <i class="fas fa-coins"></i>
+                    <span class="metric-label">Altcoin Dominance</span>
+                    <span id="altcoinDominance" class="metric-value">Loading...</span>
+                </div>
+                <div class="metric-card">
+                    <i class="fas fa-balance-scale"></i>
+                    <span class="metric-label">Altcoin Fear & Greed</span>
+                    <span id="altcoinFearGreed" class="metric-value">Loading...</span>
+                </div>
+                <div class="metric-card">
+                    <i class="fas fa-bolt"></i>
+                    <span class="metric-label">Market Volatility</span>
+                    <span id="marketVolatility" class="metric-value">Loading...</span>
+                </div>
+            </div>
+            <div class="trading-strategy">
+                <h5>⚡ Trading Strategy</h5>
+                <p id="tradingStrategy" class="strategy-text">Formulating strategy...</p>
+            </div>
+        </div>
+
+        <!-- Market Trends -->
+        <div class="altcoin-panel glass">
+            <h4><i class="fas fa-chart-line"></i> Market Trends</h4>
+            <div class="trends-grid">
+                <div class="trend-category">
+                    <h5>Large Cap (Top 20)</h5>
+                    <div class="trend-metrics">
+                        <div class="trend-metric">
+                            <span class="trend-label">Trend:</span>
+                            <span id="largecapTrend" class="trend-value">Loading...</span>
+                        </div>
+                        <div class="trend-metric">
+                            <span class="trend-label">24h Change:</span>
+                            <span id="largecap24h" class="trend-value">Loading...</span>
+                        </div>
+                        <div class="trend-metric">
+                            <span class="trend-label">7d Change:</span>
+                            <span id="largecap7d" class="trend-value">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="trend-category">
+                    <h5>Mid Cap (21-100)</h5>
+                    <div class="trend-metrics">
+                        <div class="trend-metric">
+                            <span class="trend-label">Trend:</span>
+                            <span id="midcapTrend" class="trend-value">Loading...</span>
+                        </div>
+                        <div class="trend-metric">
+                            <span class="trend-label">24h Change:</span>
+                            <span id="midcap24h" class="trend-value">Loading...</span>
+                        </div>
+                        <div class="trend-metric">
+                            <span class="trend-label">7d Change:</span>
+                            <span id="midcap7d" class="trend-value">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="trend-category">
+                    <h5>Small Cap (101-250)</h5>
+                    <div class="trend-metrics">
+                        <div class="trend-metric">
+                            <span class="trend-label">Trend:</span>
+                            <span id="smallcapTrend" class="trend-value">Loading...</span>
+                        </div>
+                        <div class="trend-metric">
+                            <span class="trend-label">24h Change:</span>
+                            <span id="smallcap24h" class="trend-value">Loading...</span>
+                        </div>
+                        <div class="trend-metric">
+                            <span class="trend-label">7d Change:</span>
+                            <span id="smallcap7d" class="trend-value">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Import required scripts -->
+<script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+
+<script type="module">
+    import { altcoinAnalysis } from './altcoin-analysis.js';
+    altcoinAnalysis.init().catch(console.error);
+</script>

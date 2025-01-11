@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: cryptomoose
+    env: node
+    buildCommand: npm install
+    startCommand: node server/server.js
+    runtime: node
+    nodeVersion: 18.x
+    rootDir: /
+    envVars:
+      - key: NODE_ENV
+        value: production

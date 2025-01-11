@@ -1,0 +1,22 @@
+{
+  "gems": [
+    {
+      "name": "Diamond castle",
+      "symbol": "DMCK",
+      "marketCap": 126110,
+      "volume24h": 48336636,
+      "priceChange24h": -14.49108,
+      "liquidity": 24168318,
+      "price": 0.00844226,
+      "url": "https://www.coingecko.com/en/coins/diamond-castle",
+      "score": 70,
+      "redFlags": [
+        "Suspicious volume (>5x market cap)"
+      ],
+      "insights": [
+        "⚠️ Warning: Extremely high volume (383.3x market cap) - Potential manipulation"
+      ]
+    }
+  ],
+  "lastUpdated": "2024-12-26T18:31:29.206Z"
+}

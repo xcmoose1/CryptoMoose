@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Risk Management - Final Project - CryptoMoose Learning</title>
+    <link rel="stylesheet" href="../css/course-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="nav-left">
+                <a href="../index.html" class="logo-container">
+                    <img src="../images/Moose.png" alt="CryptoMoose Logo">
+                </a>
+                <a href="https://t.me/CryptoMooseAlpha" target="_blank" class="btn btn-telegram">
+                    <i class="fab fa-telegram"></i> Join Telegram
+                </a>
+            </div>
+            <div class="nav-right">
+                <a href="../dashboard.html" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="https://x.com/XCryptoMoose" target="_blank" class="nav-link">
+                    <i class="fab fa-x-twitter"></i>
+                    <span>Follow Alpha</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="course-container">
+        <div class="course-header">
+            <h1>Final Project: Risk Management Plan</h1>
+            <p>Create a comprehensive risk management strategy</p>
+        </div>
+
+        <div class="course-progress">
+            <div class="progress-text">Course Progress: 100%</div>
+            <div class="progress-bar">
+                <div class="progress" style="width: 100%"></div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>1. Risk Management Template</h2>
+            <div class="template-container">
+                <form id="riskManagementForm" class="risk-form">
+                    <div class="form-section">
+                        <h3>1. Account Risk Parameters</h3>
+                        <div class="form-group">
+                            <label>Maximum Risk Per Trade (%)</label>
+                            <input type="number" class="form-control" placeholder="Enter percentage...">
+                        </div>
+                        <div class="form-group">
+                            <label>Maximum Portfolio Risk (%)</label>
+                            <input type="number" class="form-control" placeholder="Enter percentage...">
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>2. Position Sizing Strategy</h3>
+                        <div class="form-group">
+                            <label>Position Size Calculation Method</label>
+                            <select class="form-control">
+                                <option value="">Select method...</option>
+                                <option value="fixed">Fixed Percentage</option>
+                                <option value="volatility">Volatility Based</option>
+                                <option value="equity">Account Equity Based</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Risk-Reward Minimum Ratio</label>
+                            <input type="text" class="form-control" placeholder="e.g., 1:2, 1:3...">
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>3. Stop Loss Strategy</h3>
+                        <div class="form-group">
+                            <label>Stop Loss Type</label>
+                            <select class="form-control">
+                                <option value="">Select type...</option>
+                                <option value="fixed">Fixed Stop Loss</option>
+                                <option value="trailing">Trailing Stop Loss</option>
+                                <option value="volatility">Volatility Based</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Stop Loss Placement</label>
+                            <textarea class="form-control" rows="2" placeholder="Describe your stop loss placement strategy..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>4. Portfolio Management</h3>
+                        <div class="form-group">
+                            <label>Asset Allocation</label>
+                            <textarea class="form-control" rows="3" placeholder="Describe your portfolio allocation strategy..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Hedging Strategy</label>
+                            <textarea class="form-control" rows="2" placeholder="Describe your hedging approach..."></textarea>
+                        </div>
+                    </div>
+
+                    <button type="button" onclick="submitRiskPlan()" class="btn-submit">Submit Risk Management Plan</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>2. Course Completion</h2>
+            <div class="completion-container">
+                <div class="completion-card">
+                    <div class="completion-header">
+                        <i class="fas fa-trophy"></i>
+                        <h3>Congratulations!</h3>
+                    </div>
+                    <p>You've completed the Risk Management course! You now have the skills to:</p>
+                    <ul>
+                        <li>Calculate optimal position sizes</li>
+                        <li>Place effective stop losses</li>
+                        <li>Manage portfolio risk</li>
+                        <li>Implement hedging strategies</li>
+                        <li>Use advanced risk metrics</li>
+                    </ul>
+                    <div class="next-steps">
+                        <h4>Next Steps:</h4>
+                        <ul>
+                            <li>Apply risk management to demo trading</li>
+                            <li>Join our trading community</li>
+                            <li>Begin the Advanced Trading course</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="course-navigation">
+            <a href="risk-management-5.html" class="nav-button">
+                <i class="fas fa-arrow-left"></i> Previous Lesson
+            </a>
+            <a href="../learning.html" class="nav-button">
+                Back to Courses <i class="fas fa-graduation-cap"></i>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function submitRiskPlan() {
+            // Collect form data
+            const formData = new FormData(document.getElementById('riskManagementForm'));
+            const riskPlanData = {};
+            
+            for (let [key, value] of formData.entries()) {
+                riskPlanData[key] = value;
+            }
+
+            // In a real application, this would be sent to a server
+            alert('Risk Management Plan submitted successfully! Our team will review your plan.');
+            
+            // Show completion message
+            document.querySelector('.completion-container').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

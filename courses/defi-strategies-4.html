@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeFi Strategies - Yield Farming - CryptoMoose Learning</title>
+    <link rel="stylesheet" href="../css/course-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="nav-left">
+                <a href="../index.html" class="logo-container">
+                    <img src="../images/Moose.png" alt="CryptoMoose Logo">
+                </a>
+                <a href="https://t.me/CryptoMooseAlpha" target="_blank" class="btn btn-telegram">
+                    <i class="fab fa-telegram"></i> Join Telegram
+                </a>
+            </div>
+            <div class="nav-right">
+                <a href="../dashboard.html" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="https://x.com/XCryptoMoose" target="_blank" class="nav-link">
+                    <i class="fab fa-x-twitter"></i>
+                    <span>Follow Alpha</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="course-container">
+        <div class="course-header">
+            <h1>Yield Farming and Staking</h1>
+            <p>Master yield optimization and staking strategies</p>
+        </div>
+
+        <div class="course-progress">
+            <div class="progress-text">Course Progress: 66%</div>
+            <div class="progress-bar">
+                <div class="progress" style="width: 66%"></div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>1. Yield Farming Fundamentals</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-header">
+                        <i class="fas fa-seedling"></i>
+                        <h3>Farming Basics</h3>
+                    </div>
+                    <ul>
+                        <li>APY vs APR</li>
+                        <li>Token Emissions</li>
+                        <li>Reward Distribution</li>
+                        <li>Compounding Strategies</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <div class="info-header">
+                        <i class="fas fa-chart-bar"></i>
+                        <h3>Yield Metrics</h3>
+                    </div>
+                    <ul>
+                        <li>Total Value Locked (TVL)</li>
+                        <li>Reward Rate</li>
+                        <li>Pool Weight</li>
+                        <li>Inflation Rate</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>2. Advanced Farming Strategies</h2>
+            <div class="chart-container">
+                <canvas id="yieldComparisonChart"></canvas>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-header">
+                            <i class="fas fa-robot"></i>
+                            <h3>Optimization Techniques</h3>
+                        </div>
+                        <ul>
+                            <li>Auto-compounding</li>
+                            <li>Yield Aggregators</li>
+                            <li>Multi-protocol Farming</li>
+                            <li>Risk Hedging</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>3. Practice Exercise</h2>
+            <div class="quiz-container">
+                <h3>Yield Farming Quiz</h3>
+                <div class="quiz-question">
+                    <p>What's the main difference between APY and APR?</p>
+                    <div class="quiz-option" onclick="checkAnswer(1, this)">
+                        A) APY includes compound interest
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(2, this)">
+                        B) APR is always higher
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(3, this)">
+                        C) APY is only for staking
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(4, this)">
+                        D) They are the same thing
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="course-navigation">
+            <a href="defi-strategies-3.html" class="nav-button">
+                <i class="fas fa-arrow-left"></i> Previous Lesson
+            </a>
+            <a href="defi-strategies-5.html" class="nav-button">
+                Next Lesson <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Initialize yield comparison chart
+        function initializeYieldComparisonChart() {
+            const ctx = document.getElementById('yieldComparisonChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Basic Staking', 'LP Farming', 'Auto-compound', 'Multi-protocol'],
+                    datasets: [{
+                        label: 'Annual Yield %',
+                        data: [5, 15, 25, 35],
+                        backgroundColor: [
+                            'rgba(0, 255, 157, 0.2)',
+                            'rgba(0, 255, 157, 0.4)',
+                            'rgba(0, 255, 157, 0.6)',
+                            'rgba(0, 255, 157, 0.8)'
+                        ],
+                        borderColor: [
+                            'rgba(0, 255, 157, 1)',
+                            'rgba(0, 255, 157, 1)',
+                            'rgba(0, 255, 157, 1)',
+                            'rgba(0, 255, 157, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            labels: {
+                                color: '#ffffff'
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#ffffff'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#ffffff'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Quiz functionality
+        function checkAnswer(option, element) {
+            const options = document.querySelectorAll('.quiz-option');
+            options.forEach(opt => {
+                opt.classList.remove('correct', 'wrong');
+                opt.style.pointerEvents = 'none';
+            });
+
+            if(option === 1) {
+                element.classList.add('correct');
+            } else {
+                element.classList.add('wrong');
+                options[0].classList.add('correct');
+            }
+        }
+
+        // Initialize chart
+        initializeYieldComparisonChart();
+    </script>
+</body>
+</html>

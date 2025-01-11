@@ -1,0 +1,220 @@
+.historical-patterns-section {
+    padding: 2rem;
+    margin: 1rem 0;
+    border-radius: 12px;
+    background: rgba(22, 24, 29, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.patterns-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.pattern-panel {
+    background: rgba(28, 32, 38, 0.95);
+    border: 1px solid rgba(0, 255, 157, 0.1);
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+}
+
+.pattern-panel:hover {
+    transform: translateY(-2px);
+    border-color: rgba(0, 255, 157, 0.3);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.pattern-panel h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--color-primary);
+    font-size: 1.1rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pattern-panel h3 i {
+    color: var(--color-primary);
+    font-size: 1.2rem;
+}
+
+.pattern-info, .cycle-info {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.info-item {
+    background: rgba(17, 19, 23, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.info-item:hover {
+    border-color: rgba(0, 255, 157, 0.2);
+    background: rgba(22, 24, 29, 0.9);
+    transform: translateY(-2px);
+}
+
+.info-item .label {
+    color: #8a8d93;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.info-item .value {
+    color: #fff;
+    font-weight: 600;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.pattern-chart-container,
+.cycle-chart-container {
+    width: 100%;
+    height: 300px;
+    margin-top: 1rem;
+    background: rgba(17, 19, 23, 0.8);
+    border-radius: 8px;
+}
+
+.pattern-chart-container:hover,
+.cycle-chart-container:hover {
+    border-color: rgba(0, 255, 157, 0.3);
+}
+
+.similar-patterns-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    flex: 1;
+    margin-top: 1rem;
+}
+
+.similar-pattern-item {
+    background: rgba(17, 19, 23, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 1.25rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.similar-pattern-item:hover {
+    border-color: var(--color-primary);
+    background: rgba(0, 255, 157, 0.05);
+    transform: translateX(4px);
+}
+
+.pattern-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+}
+
+.pattern-name {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+.pattern-similarity {
+    font-size: 1.1rem;
+    color: var(--color-primary);
+}
+
+.pattern-date {
+    font-size: 0.9rem;
+    color: #8a8d93;
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.select-styled {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.select-styled:hover {
+    border-color: var(--color-primary);
+}
+
+.refresh-btn {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: var(--color-primary);
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.refresh-btn:hover {
+    border-color: var(--color-primary);
+    background: rgba(0, 255, 157, 0.1);
+    transform: rotate(180deg);
+}
+
+.refresh-btn i {
+    font-size: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 1400px) {
+    .patterns-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 1024px) {
+    .patterns-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .historical-patterns-section {
+        padding: 1rem;
+    }
+    
+    .pattern-info, .cycle-info {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .pattern-panel h3 {
+        font-size: 1rem;
+    }
+}

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Analysis - Final Project - CryptoMoose Learning</title>
+    <link rel="stylesheet" href="../css/course-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="nav-left">
+                <a href="../index.html" class="logo-container">
+                    <img src="../images/Moose.png" alt="CryptoMoose Logo">
+                </a>
+                <a href="https://t.me/CryptoMooseAlpha" target="_blank" class="btn btn-telegram">
+                    <i class="fab fa-telegram"></i> Join Telegram
+                </a>
+            </div>
+            <div class="nav-right">
+                <a href="../dashboard.html" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="https://x.com/XCryptoMoose" target="_blank" class="nav-link">
+                    <i class="fab fa-x-twitter"></i>
+                    <span>Follow Alpha</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="course-container">
+        <div class="course-header">
+            <h1>Final Project: Complete Market Analysis</h1>
+            <p>Apply all market analysis concepts to real trading scenarios</p>
+        </div>
+
+        <div class="course-progress">
+            <div class="progress-text">Course Progress: 100%</div>
+            <div class="progress-bar">
+                <div class="progress" style="width: 100%"></div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>1. Market Analysis Template</h2>
+            <div class="template-container">
+                <form id="analysisForm" class="analysis-form">
+                    <div class="form-section">
+                        <h3>1. Technical Analysis</h3>
+                        <div class="form-group">
+                            <label>Chart Pattern Analysis</label>
+                            <textarea class="form-control" rows="3" placeholder="Identify and describe any visible chart patterns..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Technical Indicators</label>
+                            <textarea class="form-control" rows="2" placeholder="List and interpret key technical indicators..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>2. Volume Analysis</h3>
+                        <div class="form-group">
+                            <label>Volume Profile</label>
+                            <textarea class="form-control" rows="2" placeholder="Analyze trading volume patterns..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Volume Indicators</label>
+                            <textarea class="form-control" rows="2" placeholder="Interpret OBV, VWAP, and other volume indicators..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>3. Market Structure</h3>
+                        <div class="form-group">
+                            <label>Support & Resistance</label>
+                            <textarea class="form-control" rows="2" placeholder="Identify key price levels..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Trend Analysis</label>
+                            <textarea class="form-control" rows="2" placeholder="Describe the current market structure..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>4. Trade Setup</h3>
+                        <div class="form-group">
+                            <label>Entry Points</label>
+                            <textarea class="form-control" rows="2" placeholder="Define potential entry levels..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Stop Loss & Take Profit</label>
+                            <textarea class="form-control" rows="2" placeholder="Set risk management levels..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Trade Direction</label>
+                            <select class="form-control">
+                                <option value="">Select direction...</option>
+                                <option value="long">Long</option>
+                                <option value="short">Short</option>
+                                <option value="neutral">Neutral</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button type="button" onclick="submitAnalysis()" class="btn-submit">Submit Analysis</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>2. Course Completion</h2>
+            <div class="completion-container">
+                <div class="completion-card">
+                    <div class="completion-header">
+                        <i class="fas fa-trophy"></i>
+                        <h3>Congratulations!</h3>
+                    </div>
+                    <p>You've completed the Market Analysis course! You now have the skills to:</p>
+                    <ul>
+                        <li>Identify and trade chart patterns</li>
+                        <li>Use technical indicators effectively</li>
+                        <li>Analyze volume and market structure</li>
+                        <li>Create comprehensive trade setups</li>
+                        <li>Manage risk in your trades</li>
+                    </ul>
+                    <div class="next-steps">
+                        <h4>Next Steps:</h4>
+                        <ul>
+                            <li>Practice on demo accounts</li>
+                            <li>Join our trading community</li>
+                            <li>Begin the Risk Management course</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="course-navigation">
+            <a href="market-analysis-5.html" class="nav-button">
+                <i class="fas fa-arrow-left"></i> Previous Lesson
+            </a>
+            <a href="../learning.html" class="nav-button">
+                Back to Courses <i class="fas fa-graduation-cap"></i>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function submitAnalysis() {
+            // Collect all form data
+            const formData = new FormData(document.getElementById('analysisForm'));
+            const analysisData = {};
+            
+            for (let [key, value] of formData.entries()) {
+                analysisData[key] = value;
+            }
+
+            // In a real application, this would be sent to a server
+            alert('Analysis submitted successfully! Our team will review your work.');
+            
+            // Show completion message
+            document.querySelector('.completion-container').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

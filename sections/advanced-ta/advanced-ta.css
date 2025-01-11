@@ -1,0 +1,341 @@
+.advanced-ta-section {
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    background: rgba(19, 23, 34, 0.5);
+    width: 100%;
+    max-width: 1400px;
+    margin: 30px auto;
+}
+
+.advanced-ta-section .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 20px;
+}
+
+.advanced-ta-section .section-header h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+    font-size: 1.25rem;
+    color: var(--color-text);
+}
+
+.advanced-ta-section .charts-container {
+    display: grid;
+    grid-template-rows: 70% 30%;
+    gap: 1px;
+    height: 800px;
+    margin: 1rem 0;
+    background: #131722;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.advanced-ta-section .main-chart,
+.advanced-ta-section .delta-flow-chart {
+    width: 100%;
+    height: 100%;
+    background: #131722;
+}
+
+.advanced-ta-section #advancedChart,
+.advanced-ta-section #deltaFlowChart {
+    width: 100%;
+    height: 100%;
+}
+
+.advanced-ta-section .analysis-results {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.advanced-ta-section .market-structure,
+.advanced-ta-section .smart-money,
+.advanced-ta-section .order-flow {
+    background: rgba(19, 23, 34, 0.5);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.advanced-ta-section .structure-item,
+.advanced-ta-section .level-item,
+.advanced-ta-section .flow-metric {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+    margin: 0.5rem 0;
+}
+
+.advanced-ta-section .label {
+    color: var(--color-text-dim);
+    font-size: 0.9rem;
+}
+
+.advanced-ta-section .value {
+    font-weight: 500;
+}
+
+.advanced-ta-section .smart-money-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 0.5rem;
+}
+
+.advanced-ta-section .tab-btn {
+    background: transparent;
+    border: none;
+    color: var(--color-text-dim);
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.advanced-ta-section .tab-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.advanced-ta-section .tab-btn.active {
+    color: var(--color-primary);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.advanced-ta-section .order-book-header {
+    margin: 1rem 0 0.5rem;
+}
+
+.advanced-ta-section .levels-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.advanced-ta-section .level-item {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 1rem;
+    align-items: center;
+}
+
+.advanced-ta-section .level-item .price {
+    font-weight: 500;
+}
+
+.advanced-ta-section .level-item .volume {
+    color: var(--color-text-dim);
+    font-size: 0.9rem;
+}
+
+.advanced-ta-section .flow-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.advanced-ta-section .metric {
+    text-align: center;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+}
+
+.advanced-ta-section .pressure-bar {
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    margin-top: 0.5rem;
+    overflow: hidden;
+}
+
+.advanced-ta-section .pressure-bar::after {
+    content: '';
+    display: block;
+    height: 100%;
+    width: var(--pressure, 0%);
+    background: var(--bar-color, var(--color-primary));
+    transition: width 0.3s ease;
+}
+
+.advanced-ta-section .buy-pressure .pressure-bar::after {
+    --bar-color: #26a69a;
+}
+
+.advanced-ta-section .sell-pressure .pressure-bar::after {
+    --bar-color: #ef5350;
+}
+
+.advanced-ta-section .trades-list {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.advanced-ta-section .trade-item {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 1rem;
+    padding: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.advanced-ta-section .bullish {
+    color: #26a69a;
+}
+
+.advanced-ta-section .bearish {
+    color: #ef5350;
+}
+
+.advanced-ta-section .glass-select {
+    background: rgba(19, 23, 34, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--color-text);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    outline: none;
+    cursor: pointer;
+}
+
+.advanced-ta-section .glass-select:hover {
+    background: rgba(19, 23, 34, 0.7);
+}
+
+.advanced-ta-section .chart-container {
+    width: 100%;
+    height: 600px;
+    margin: 1rem 0;
+    position: relative;
+    background: #131722;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.advanced-ta-section .imbalance-meter {
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    margin: 1rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.advanced-ta-section .imbalance-meter::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background: var(--color-primary);
+    transition: width 0.3s ease;
+}
+
+.advanced-ta-section .key-levels,
+.advanced-ta-section .liquidity-zones,
+.advanced-ta-section .institutional-activity {
+    margin-top: 1rem;
+}
+
+.advanced-ta-section .levels-list,
+.advanced-ta-section .zones-list,
+.advanced-ta-section .large-orders-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.advanced-ta-section .level-item,
+.advanced-ta-section .zone-item,
+.advanced-ta-section .order-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+}
+
+.advanced-ta-section .market-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1rem;
+}
+
+.advanced-ta-section .stat-item {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.advanced-ta-section .stat-item .label {
+    display: block;
+    color: var(--color-text-dim);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.advanced-ta-section .stat-item .value {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+/* Responsive Design */
+@media (max-width: 1400px) {
+    .advanced-ta-section {
+        margin: 30px 20px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .advanced-ta-section .analysis-results {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .advanced-ta-section {
+        margin: 20px 15px;
+        padding: 20px;
+    }
+    
+    .advanced-ta-section .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .advanced-ta-section .analysis-results {
+        grid-template-columns: 1fr;
+    }
+    
+    .advanced-ta-section .chart-container {
+        height: 400px;
+    }
+}
+
+@media (max-width: 576px) {
+    .advanced-ta-section {
+        margin: 15px 10px;
+        padding: 15px;
+    }
+    
+    .advanced-ta-section .chart-container {
+        height: 350px;
+    }
+}

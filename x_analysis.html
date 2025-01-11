@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoMoose - Social Metrics</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/members.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-bg: #0a0b0c;
+            --color-surface: #16181a;
+            --color-primary: #00ff9d;
+            --color-secondary: #94a3b8;
+            --color-text: #ffffff;
+            --color-text-dim: rgba(255, 255, 255, 0.7);
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding-top: 80px;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Nav Styles */
+        .nav {
+            background: rgba(18, 18, 18, 0.8);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-left, .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-link {
+            color: var(--color-text);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-link i {
+            font-size: 1rem;
+        }
+
+        .nav-link span {
+            font-size: 0.9rem;
+        }
+
+        .btn-telegram {
+            background: #0088cc;
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-telegram:hover {
+            background: #0099e6;
+            transform: translateY(-1px);
+        }
+
+        .nav-link.active {
+            background: rgba(0, 255, 157, 0.1);
+            color: var(--color-primary);
+        }
+
+        .nav-link.active i {
+            color: var(--color-primary);
+        }
+
+        /* Keep existing styles below */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            background: var(--color-surface);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            height: calc(100vh - 72px); /* Account for header height */
+            position: sticky;
+            top: 72px; /* Header height */
+            overflow-y: auto;
+        }
+
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .nav-section {
+            margin-bottom: 1rem;
+        }
+
+        .nav-title {
+            color: var(--color-text-dim);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-item a {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            color: var(--color-text);
+            text-decoration: none;
+            border-radius: var(--radius);
+            transition: all 0.2s;
+            font-size: 0.875rem;
+        }
+
+        .nav-item a:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateX(4px);
+        }
+
+        .nav-item a.active {
+            background: rgba(0, 255, 157, 0.1);
+            color: var(--color-primary);
+        }
+
+        .nav-item i {
+            font-size: 1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Main Content */
+        .main {
+            padding: 2rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--color-surface);
+            border-radius: var(--radius);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 1.25rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .card-header i {
+            color: var(--color-primary);
+        }
+
+        .card-title {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .card-body {
+            padding: 1.25rem;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 1.25rem;
+            border-radius: 8px;
+            transition: transform 0.2s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--color-text-dim);
+            font-size: 0.875rem;
+        }
+
+        /* Feed */
+        .feed {
+            grid-column: span 8;
+        }
+
+        .feed-item {
+            padding: 1.25rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .feed-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .feed-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--color-primary);
+        }
+
+        .feed-meta {
+            flex: 1;
+        }
+
+        .feed-author {
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .feed-time {
+            color: var(--color-text-dim);
+            font-size: 0.875rem;
+        }
+
+        /* Trends */
+        .trends {
+            grid-column: span 4;
+        }
+
+        .trend-item {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .trend-tag {
+            color: var(--color-primary);
+            font-size: 0.875rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .trend-count {
+            color: var(--color-text-dim);
+            font-size: 0.875rem;
+        }
+
+        /* Chart */
+        .chart {
+            grid-column: span 12;
+        }
+
+        .chart-container {
+            height: 300px;
+            padding: 1rem;
+        }
+
+        /* Metrics */
+        .metric-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: var(--radius);
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .metric-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .metric-title {
+            font-size: 0.875rem;
+            color: var(--color-text-dim);
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 600;
+        }
+
+        .metric-trend {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .metric-trend.up {
+            color: var(--color-primary);
+        }
+
+        .metric-trend.down {
+            color: #ff4444;
+        }
+
+        /* Social Elements */
+        .social-engagement {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+            color: var(--color-text-dim);
+            font-size: 0.875rem;
+        }
+
+        .social-engagement span {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .social-engagement i {
+            font-size: 0.75rem;
+        }
+
+        .social-reaction {
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .social-reaction:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--color-primary);
+        }
+
+        /* Influencer Card */
+        .influencer-card {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.2s;
+        }
+
+        .influencer-card:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .influencer-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--color-primary);
+            position: relative;
+        }
+
+        .influencer-avatar.verified::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            right: -2px;
+            width: 16px;
+            height: 16px;
+            background: var(--color-primary);
+            border-radius: 50%;
+            border: 2px solid var(--color-surface);
+        }
+
+        .influencer-info {
+            flex: 1;
+        }
+
+        .influencer-name {
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .influencer-handle {
+            color: var(--color-text-dim);
+            font-size: 0.875rem;
+        }
+
+        .influencer-stats {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--color-text-dim);
+        }
+
+        /* Community Pulse */
+        .pulse-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            padding: 1rem;
+        }
+
+        .pulse-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .pulse-value {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--color-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .pulse-label {
+            color: var(--color-text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .influencer-categories {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            padding: 0 1rem;
+            overflow-x: auto;
+        }
+
+        .category-tab {
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .category-tab.active {
+            background: var(--color-primary);
+            color: #000;
+        }
+
+        .feed-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            padding: 1rem;
+        }
+
+        .feed-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 12px;
+        }
+
+        .feed-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .feed-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--color-primary);
+        }
+
+        .feed-meta {
+            flex: 1;
+        }
+
+        .feed-author {
+            font-weight: 500;
+        }
+
+        .feed-time {
+            font-size: 0.875rem;
+            color: var(--color-text-secondary);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            padding: 1rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--color-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--color-text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .insight-section {
+            padding: 1rem;
+        }
+
+        .insight-section h3 {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .action-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .action-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .social-metrics-grid > div {
+                grid-column: span 12 !important;
+            }
+        }
+
+        /* Nav Styles */
+        .nav {
+            background: rgba(18, 18, 18, 0.8);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-left, .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-link {
+            color: var(--color-text);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-link i {
+            font-size: 1rem;
+        }
+
+        .nav-link span {
+            font-size: 0.9rem;
+        }
+
+        .btn-telegram {
+            background: #0088cc;
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-telegram:hover {
+            background: #0099e6;
+            transform: translateY(-1px);
+        }
+
+        /* Glass Header */
+        .glass-header {
+            background: rgba(42, 42, 42, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        .logo span {
+            font-size: 1.5rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--color-primary), #00FF87);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--color-text);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .nav-link.active {
+            background: linear-gradient(135deg, var(--color-primary), #00FF87);
+            color: white;
+        }
+
+        .nav-link.active i {
+            color: var(--color-primary);
+        }
+
+        /* Influencer Categories */
+        .influencer-categories {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+        }
+
+        .category-tab {
+            padding: 0.5rem 1rem;
+            border-radius: 100px;
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--color-text-dim);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+            font-size: 0.875rem;
+        }
+
+        .category-tab:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--color-text);
+        }
+
+        .category-tab.active {
+            background: rgba(0, 255, 157, 0.1);
+            color: var(--color-primary);
+        }
+
+        .influencer-group {
+            display: none;
+        }
+
+        .influencer-group.active {
+            display: block;
+        }
+
+        .influencer-success-rate {
+            background: rgba(0, 255, 157, 0.1);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            color: var(--color-primary);
+        }
+
+        .influencer-specialty {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.25rem 0.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 4px;
+            font-size: 0.75rem;
+            margin-top: 0.5rem;
+        }
+
+        .influencer-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.25rem;
+            margin-top: 0.5rem;
+        }
+
+        .influencer-tag {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--color-text-dim);
+        }
+
+        /* Social AI Insights Styles */
+        .loading {
+            color: rgba(255, 255, 255, 0.5);
+            text-align: center;
+            padding: 1rem;
+            font-style: italic;
+        }
+
+        .narrative-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .action-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .sentiment-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sentiment-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+        }
+
+        .signal-strength {
+            color: var(--color-primary);
+            margin-right: 0.5rem;
+            font-family: monospace;
+        }
+
+        .sentiment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .sentiment-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sentiment-header {
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sentiment-header.positive h4 {
+            color: #00ff9d;
+        }
+
+        .sentiment-header.negative h4 {
+            color: #ff4b4b;
+        }
+
+        .insight-section {
+            margin-bottom: 2rem;
+        }
+
+        .insight-section h3 {
+            color: var(--color-primary);
+            margin-bottom: 1rem;
+        }
+
+        .insight-section h3 i {
+            margin-right: 0.5rem;
+        }
+
+        @media (max-width: 1200px) {
+            .feed { grid-column: span 12; }
+            .trends { grid-column: span 12; }
+        }
+
+        @media (max-width: 768px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                display: none;
+            }
+        }
+
+        .social-metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1.5rem;
+            padding: 2rem;
+        }
+
+        .metrics-card {
+            background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metrics-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+        }
+
+        .metrics-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+
+        .metrics-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--color-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .sentiment-chart {
+            height: 300px;
+            margin-top: 1rem;
+        }
+
+        .sentiment-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--color-primary);
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--color-text-secondary);
+            margin-top: 0.25rem;
+        }
+
+        .news-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .news-item:last-child {
+            border-bottom: none;
+        }
+
+        .news-content {
+            flex: 1;
+        }
+
+        .news-title {
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .news-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.75rem;
+            color: var(--color-text-secondary);
+        }
+
+        .topic-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+        }
+
+        .trend-tag {
+            color: var(--color-primary);
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        @media (max-width: 1200px) {
+            .social-metrics-grid > div {
+                grid-column: span 12 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="nav-left">
+                <a href="index.html" class="logo-container">
+                    <img src="img/logo.png" alt="CryptoMoose Logo">
+                </a>
+                <a href="https://t.me/CryptoMooseAlpha" target="_blank" class="btn btn-telegram">
+                    <i class="fab fa-telegram"></i> Join Telegram
+                </a>
+            </div>
+            <div class="nav-right">
+                <a href="dashboard.html" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="members.html" class="nav-link">
+                    <i class="fas fa-user"></i>
+                    <span>Members</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="layout">
+        <div class="container">
+            <div class="social-metrics-grid">
+                <!-- Community Pulse -->
+                <div class="metrics-card" style="grid-column: span 12;">
+                    <div class="metrics-header">
+                        <h2 class="metrics-title">
+                            <i class="fas fa-heartbeat"></i>
+                            Community Pulse
+                        </h2>
+                    </div>
+                    <div class="pulse-grid">
+                        <div class="pulse-card">
+                            <div class="pulse-value">92%</div>
+                            <div class="pulse-label">Engagement Rate</div>
+                        </div>
+                        <div class="pulse-card">
+                            <div class="pulse-value">15.2K</div>
+                            <div class="pulse-label">Active Discussions</div>
+                        </div>
+                        <div class="pulse-card">
+                            <div class="pulse-value">78%</div>
+                            <div class="pulse-label">Positive Sentiment</div>
+                        </div>
+                        <div class="pulse-card">
+                            <div class="pulse-value">5.8K</div>
+                            <div class="pulse-label">New Contributors</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sentiment Chart -->
+                <div class="metrics-card" style="grid-column: span 8;">
+                    <div class="metrics-header">
+                        <h2 class="metrics-title">
+                            <i class="fas fa-chart-line"></i>
+                            Sentiment Trends
+                        </h2>
+                    </div>
+                    <div class="sentiment-chart">
+                        <canvas id="sentimentChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Top Influencers -->
+                <div class="metrics-card" style="grid-column: span 4;">
+                    <div class="metrics-header">
+                        <h2 class="metrics-title">
+                            <i class="fas fa-star"></i>
+                            Top Influencers
+                        </h2>
+                    </div>
+                    <div class="influencer-categories">
+                        <div class="category-tab active" data-category="all-stars">All Stars</div>
+                        <div class="category-tab" data-category="top-traders">Top Traders</div>
+                        <div class="category-tab" data-category="gem-hunters">Gem Hunters</div>
+                    </div>
+                    <div class="influencer-list">
+                        <!-- Will be populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Social Feed -->
+                <div class="metrics-card" style="grid-column: span 6;">
+                    <div class="metrics-header">
+                        <h2 class="metrics-title">
+                            <i class="fas fa-stream"></i>
+                            Community Feed
+                        </h2>
+                    </div>
+                    <div class="feed-list">
+                        <!-- Will be populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Latest News -->
+                <div class="metrics-card" style="grid-column: span 6;">
+                    <div class="metrics-header">
+                        <h2 class="metrics-title">
+                            <i class="fas fa-newspaper"></i>
+                            Latest News
+                        </h2>
+                    </div>
+                    <div class="news-list">
+                        <!-- Will be populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Hot Topics -->
+                <div class="metrics-card" style="grid-column: span 6;">
+                    <div class="metrics-header">
+                        <h2 class="metrics-title">
+                            <i class="fas fa-fire"></i>
+                            Trending Topics
+                        </h2>
+                    </div>
+                    <div class="topics-list">
+                        <!-- Will be populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Social AI Insights -->
+                <div class="metrics-card" style="grid-column: span 6;">
+                    <div class="metrics-header">
+                        <h2 class="metrics-title">
+                            <i class="fas fa-brain"></i>
+                            AI Insights
+                        </h2>
+                    </div>
+                    <div class="insight-section">
+                        <h3><i class="fas fa-lightbulb"></i> Suggested Actions</h3>
+                        <div class="action-cards">
+                            <!-- Will be populated by JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Community Stats -->
+                <div class="metrics-card" style="grid-column: span 12;">
+                    <div class="metrics-header">
+                        <h2 class="metrics-title">
+                            <i class="fas fa-chart-bar"></i>
+                            Community Overview
+                        </h2>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-value">125.4K</div>
+                            <div class="stat-label">Active Users</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">45.2K</div>
+                            <div class="stat-label">Posts Today</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">78%</div>
+                            <div class="stat-label">Positive Sentiment</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">12.3K</div>
+                            <div class="stat-label">New Members</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module" src="js/social-metrics.js"></script>
+</body>
+</html>

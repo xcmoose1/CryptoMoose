@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeFi Strategies - Introduction - CryptoMoose Learning</title>
+    <link rel="stylesheet" href="../css/course-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="nav-left">
+                <a href="../index.html" class="logo-container">
+                    <img src="../images/Moose.png" alt="CryptoMoose Logo">
+                </a>
+                <a href="https://t.me/CryptoMooseAlpha" target="_blank" class="btn btn-telegram">
+                    <i class="fab fa-telegram"></i> Join Telegram
+                </a>
+            </div>
+            <div class="nav-right">
+                <a href="../dashboard.html" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="https://x.com/XCryptoMoose" target="_blank" class="nav-link">
+                    <i class="fab fa-x-twitter"></i>
+                    <span>Follow Alpha</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="course-container">
+        <div class="course-header">
+            <h1>Introduction to DeFi Strategies</h1>
+            <p>Learn the fundamentals of decentralized finance and yield generation</p>
+        </div>
+
+        <div class="course-progress">
+            <div class="progress-text">Course Progress: 16%</div>
+            <div class="progress-bar">
+                <div class="progress" style="width: 16%"></div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>1. Understanding DeFi</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-header">
+                        <i class="fas fa-building-columns"></i>
+                        <h3>DeFi Fundamentals</h3>
+                    </div>
+                    <ul>
+                        <li>Smart Contracts</li>
+                        <li>Liquidity Pools</li>
+                        <li>Automated Market Makers (AMM)</li>
+                        <li>Total Value Locked (TVL)</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <div class="info-header">
+                        <i class="fas fa-gears"></i>
+                        <h3>Key Components</h3>
+                    </div>
+                    <ul>
+                        <li>Decentralized Exchanges (DEX)</li>
+                        <li>Lending Protocols</li>
+                        <li>Yield Aggregators</li>
+                        <li>Stablecoin Protocols</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>2. DeFi Protocols Overview</h2>
+            <div class="chart-container">
+                <canvas id="defiTVLChart"></canvas>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-header">
+                            <i class="fas fa-exchange-alt"></i>
+                            <h3>Popular DeFi Protocols</h3>
+                        </div>
+                        <ul>
+                            <li>Uniswap - Decentralized Exchange</li>
+                            <li>Aave - Lending/Borrowing</li>
+                            <li>Curve - Stablecoin Exchange</li>
+                            <li>Yearn - Yield Aggregator</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>3. Practice Exercise</h2>
+            <div class="quiz-container">
+                <h3>DeFi Fundamentals Quiz</h3>
+                <div class="quiz-question">
+                    <p>What is the main purpose of an Automated Market Maker (AMM)?</p>
+                    <div class="quiz-option" onclick="checkAnswer(1, this)">
+                        A) Enable trading without traditional order books
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(2, this)">
+                        B) Store cryptocurrency securely
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(3, this)">
+                        C) Process blockchain transactions
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(4, this)">
+                        D) Create new cryptocurrencies
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="course-navigation">
+            <a href="../learning.html" class="nav-button">
+                <i class="fas fa-arrow-left"></i> Back to Courses
+            </a>
+            <a href="defi-strategies-2.html" class="nav-button">
+                Next Lesson <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Initialize DeFi TVL chart
+        function initializeDeFiTVLChart() {
+            const ctx = document.getElementById('defiTVLChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Uniswap', 'Aave', 'Curve', 'Yearn'],
+                    datasets: [{
+                        label: 'Total Value Locked (TVL) in Billions',
+                        data: [5.2, 4.8, 3.9, 1.2],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.5)',
+                            'rgba(54, 162, 235, 0.5)',
+                            'rgba(255, 206, 86, 0.5)',
+                            'rgba(75, 192, 192, 0.5)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            labels: {
+                                color: '#ffffff'
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#ffffff'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#ffffff'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Quiz functionality
+        function checkAnswer(option, element) {
+            const options = document.querySelectorAll('.quiz-option');
+            options.forEach(opt => {
+                opt.classList.remove('correct', 'wrong');
+                opt.style.pointerEvents = 'none';
+            });
+
+            if(option === 1) {
+                element.classList.add('correct');
+            } else {
+                element.classList.add('wrong');
+                options[0].classList.add('correct');
+            }
+        }
+
+        // Initialize chart
+        initializeDeFiTVLChart();
+    </script>
+</body>
+</html>

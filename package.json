@@ -1,0 +1,33 @@
+{
+  "name": "cryptomoose",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "CryptoMoose Trading Platform",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js"
+  },
+  "engines": {
+    "node": ">=18.x"
+  },
+  "dependencies": {
+    "axios": "^1.7.9",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.18.2",
+    "express-rate-limit": "^7.5.0",
+    "lightweight-charts": "^4.2.2",
+    "morgan": "^1.10.0",
+    "node-fetch": "^3.3.2",
+    "node-telegram-bot-api": "^0.66.0",
+    "openai": "^4.77.3",
+    "pako": "^2.1.0",
+    "rss-parser": "^3.13.0",
+    "technicalindicators": "^3.1.0",
+    "ws": "^8.18.0",
+    "yahoo-finance2": "^2.9.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}

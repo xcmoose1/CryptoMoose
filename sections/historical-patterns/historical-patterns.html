@@ -1,0 +1,133 @@
+<![CDATA[<div class="historical-patterns-section glass">
+    <div class="section-header">
+        <h3><i class="fas fa-history"></i> Historical Patterns</h3>
+        <div class="pattern-controls">
+            <div class="pattern-selector">
+                <select id="patternType">
+                    <option value="cyclical">Cyclical Patterns</option>
+                    <option value="seasonal">Seasonal Analysis</option>
+                    <option value="volatility">Volatility Patterns</option>
+                    <option value="correlation">Correlation Analysis</option>
+                </select>
+            </div>
+            <div class="timeframe-selector">
+                <button class="timeframe-btn active" data-timeframe="1y">1Y</button>
+                <button class="timeframe-btn" data-timeframe="2y">2Y</button>
+                <button class="timeframe-btn" data-timeframe="4y">4Y</button>
+                <button class="timeframe-btn" data-timeframe="all">All</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="patterns-content">
+        <!-- Pattern Overview -->
+        <div class="pattern-panel glass">
+            <h4>Pattern Overview</h4>
+            <div class="pattern-chart" id="patternChart">
+                <div class="loading">Loading pattern data...</div>
+            </div>
+            <div class="pattern-summary">
+                <div class="summary-item">
+                    <span class="summary-label">Pattern Strength</span>
+                    <div class="strength-meter">
+                        <div id="strengthIndicator" class="strength-indicator" style="width: 0%"></div>
+                    </div>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Confidence Level</span>
+                    <span id="confidenceLevel" class="summary-value">Loading...</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Historical Accuracy</span>
+                    <span id="historicalAccuracy" class="summary-value">Loading...</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Findings -->
+        <div class="pattern-panel glass">
+            <h4>Key Findings</h4>
+            <div class="findings-grid">
+                <div class="finding-card">
+                    <h5>🎯 Pattern Recognition</h5>
+                    <p id="patternRecognition" class="finding-text">Analyzing patterns...</p>
+                </div>
+                <div class="finding-card">
+                    <h5>📊 Statistical Analysis</h5>
+                    <p id="statisticalAnalysis" class="finding-text">Calculating statistics...</p>
+                </div>
+                <div class="finding-card">
+                    <h5>🔄 Cycle Position</h5>
+                    <p id="cyclePosition" class="finding-text">Determining position...</p>
+                </div>
+                <div class="finding-card">
+                    <h5>⚡ Volatility Analysis</h5>
+                    <p id="volatilityAnalysis" class="finding-text">Analyzing volatility...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Historical Comparisons -->
+        <div class="pattern-panel glass">
+            <h4>Historical Comparisons</h4>
+            <div class="comparison-chart" id="comparisonChart">
+                <div class="loading">Loading comparison data...</div>
+            </div>
+            <div class="comparison-metrics">
+                <div class="metric-item">
+                    <span class="metric-label">Pattern Similarity</span>
+                    <span id="patternSimilarity" class="metric-value">Loading...</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-label">Price Deviation</span>
+                    <span id="priceDeviation" class="metric-value">Loading...</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-label">Time Alignment</span>
+                    <span id="timeAlignment" class="metric-value">Loading...</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Predictions -->
+        <div class="pattern-panel glass">
+            <h4>Pattern-Based Predictions</h4>
+            <div class="predictions-content">
+                <div class="prediction-chart" id="predictionChart">
+                    <div class="loading">Loading predictions...</div>
+                </div>
+                <div class="prediction-metrics">
+                    <div class="prediction-card">
+                        <h5>Short Term (7D)</h5>
+                        <div id="shortTermPrediction" class="prediction-value">
+                            <span class="prediction-price">Loading...</span>
+                            <span class="prediction-change">...</span>
+                        </div>
+                    </div>
+                    <div class="prediction-card">
+                        <h5>Medium Term (30D)</h5>
+                        <div id="mediumTermPrediction" class="prediction-value">
+                            <span class="prediction-price">Loading...</span>
+                            <span class="prediction-change">...</span>
+                        </div>
+                    </div>
+                    <div class="prediction-card">
+                        <h5>Long Term (90D)</h5>
+                        <div id="longTermPrediction" class="prediction-value">
+                            <span class="prediction-price">Loading...</span>
+                            <span class="prediction-change">...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Import required scripts -->
+<script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+
+<script type="module">
+    import { historicalPatterns } from './historical-patterns.js';
+    historicalPatterns.init().catch(console.error);
+</script> 

@@ -1,0 +1,2173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoMoose - AI Gem Hunter</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Modern Dark Theme */
+        :root {
+            --color-bg: #0a0b0c;
+            --color-surface: #16181a;
+            --color-card: #1e2023;
+            --color-primary: #00ff9d;
+            --color-secondary: #94a3b8;
+            --color-text: #ffffff;
+            --color-text-dim: rgba(255, 255, 255, 0.7);
+            --color-danger: #ff3b30;
+            --color-warning: #ff9500;
+            --color-success: #34c759;
+            --border-radius: 12px;
+        }
+
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding-top: 80px;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Nav Styles */
+        .nav {
+            background: rgba(18, 18, 18, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #fff;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .btn-telegram {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #0088cc;
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1.25rem;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(0, 136, 204, 0.3);
+        }
+
+        .btn-telegram:hover {
+            background: #0099e6;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 136, 204, 0.4);
+        }
+
+        .nav-link.twitter {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-link.twitter:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Update existing styles to use new color theme */
+        .gem-card {
+            background: var(--color-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gem-card:hover {
+            border-color: var(--color-primary);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .gem-header h3 {
+            color: var(--color-text);
+        }
+
+        .gem-meta {
+            color: var(--color-text-dim);
+        }
+
+        .gem-stats {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .stat-value {
+            color: var(--color-primary);
+        }
+
+        .stat-label {
+            color: var(--color-text-dim);
+        }
+
+        .gem-tags .tag {
+            background: rgba(0, 255, 157, 0.1);
+            color: var(--color-primary);
+        }
+
+        .gem-actions button {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--color-text);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .gem-actions button:hover {
+            background: rgba(0, 255, 157, 0.1);
+            color: var(--color-primary);
+            border-color: var(--color-primary);
+        }
+
+        .gem-actions button.primary {
+            background: var(--color-primary);
+            color: var(--color-bg);
+        }
+
+        .gem-actions button.primary:hover {
+            background: var(--color-primary);
+            opacity: 0.9;
+        }
+
+        /* Filter styles */
+        .filters {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .filter-group h4 {
+            color: var(--color-text);
+        }
+
+        .filter-option {
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--color-text-dim);
+        }
+
+        .filter-option:hover {
+            background: rgba(0, 255, 157, 0.1);
+            color: var(--color-primary);
+        }
+
+        .filter-option.active {
+            background: var(--color-primary);
+            color: var(--color-bg);
+        }
+
+        .token-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+
+        .token-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        .token-symbol {
+            font-size: 1rem;
+            color: var(--color-text-dim);
+        }
+
+        .chain-badge {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .price-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .current-price {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        .price-change {
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+
+        .price-change.positive {
+            background: rgba(52, 199, 89, 0.1);
+            color: var(--color-success);
+        }
+
+        .price-change.negative {
+            background: rgba(255, 59, 48, 0.1);
+            color: var(--color-danger);
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .metric-box {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .metric-label {
+            font-size: 0.85rem;
+            color: var(--color-text-dim);
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-value {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--color-text);
+        }
+
+        .risk-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .risk-badge[data-risk="high"] {
+            background: rgba(255, 59, 48, 0.1);
+            color: var(--color-danger);
+        }
+
+        .risk-badge[data-risk="medium"] {
+            background: rgba(255, 149, 0, 0.1);
+            color: var(--color-warning);
+        }
+
+        .risk-badge[data-risk="low"] {
+            background: rgba(52, 199, 89, 0.1);
+            color: var(--color-success);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 0.75rem;
+            border-radius: 8px;
+            border: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background: var(--color-primary);
+            color: var(--color-surface);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--color-text);
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        .ai-analysis {
+            background: rgba(0, 255, 157, 0.05);
+            border: 1px solid rgba(0, 255, 157, 0.1);
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .ai-analysis h4 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--color-primary);
+            margin: 0 0 0.75rem 0;
+            font-size: 0.9rem;
+        }
+
+        .ai-analysis h4:before {
+            content: '🤖';
+        }
+
+        .analysis-text {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: var(--color-text-dim);
+        }
+
+        .audit-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-left: 1rem;
+        }
+
+        .audit-badge.verified {
+            background: rgba(52, 199, 89, 0.1);
+            color: var(--color-success);
+        }
+
+        .audit-badge.unverified {
+            background: rgba(255, 149, 0, 0.1);
+            color: var(--color-warning);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: var(--color-text-dim);
+        }
+
+        .loading:after {
+            content: '';
+            display: inline-block;
+            width: 1rem;
+            height: 1rem;
+            border: 2px solid var(--color-primary);
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s linear infinite;
+            margin-left: 0.5rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Enhanced Tab Styling */
+        .tab-buttons {
+            display: flex;
+            gap: 20px;
+            margin: 30px auto;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .tab-button {
+            flex: 1;
+            padding: 20px 40px;
+            border: none;
+            border-radius: 15px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            color: #fff;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .tab-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(33, 150, 243, 0.3);
+            background: linear-gradient(135deg, rgba(33, 150, 243, 0.2), rgba(33, 150, 243, 0.1));
+        }
+
+        .tab-button.active {
+            background: linear-gradient(135deg, #2196F3, #1976D2);
+            box-shadow: 0 6px 20px rgba(33, 150, 243, 0.4);
+        }
+
+        .tab-button i {
+            font-size: 20px;
+        }
+
+        .tab-button .tab-label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .tab-button .tab-description {
+            font-size: 12px;
+            opacity: 0.8;
+            font-weight: normal;
+            text-transform: none;
+            letter-spacing: normal;
+        }
+
+        @media (max-width: 768px) {
+            .tab-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .tab-button {
+                width: 100%;
+                padding: 15px 30px;
+            }
+        }
+
+        /* Tracker Styling */
+        .tracker-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .tracker-filters {
+            display: flex;
+            gap: 10px;
+        }
+
+        .tracked-gems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .tracked-gem-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tracked-gem-card .discovery-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            background: rgba(33, 150, 243, 0.3);
+            color: #2196F3;
+        }
+
+        .price-history {
+            margin: 15px 0;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+
+        .price-point {
+            display: flex;
+            justify-content: space-between;
+            margin: 5px 0;
+        }
+
+        .price-point.discovery {
+            color: #2196F3;
+        }
+
+        .price-point.ath {
+            color: #00ff00;
+        }
+
+        .performance-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .stat-box {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-box .label {
+            font-size: 12px;
+            opacity: 0.7;
+        }
+
+        .stat-box .value {
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .stat-box .value.profit {
+            color: #00ff00;
+        }
+
+        .stat-box .value.loss {
+            color: #ff0000;
+        }
+
+        /* Restore and enhance visuals */
+        .gem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .gem-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .gem-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(33, 150, 243, 0.3);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            font-size: 18px;
+            color: #fff;
+            background: linear-gradient(145deg, rgba(33, 150, 243, 0.1), rgba(33, 150, 243, 0.05));
+            border-radius: 15px;
+            margin: 20px;
+        }
+
+        .error {
+            text-align: center;
+            padding: 40px;
+            font-size: 18px;
+            color: #ff4444;
+            background: linear-gradient(145deg, rgba(255, 68, 68, 0.1), rgba(255, 68, 68, 0.05));
+            border-radius: 15px;
+            margin: 20px;
+        }
+
+        .gem-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .gem-name {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .chain-badge {
+            padding: 5px 10px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .gem-metrics {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .metric-box {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .metric-label {
+            font-size: 12px;
+            opacity: 0.7;
+        }
+
+        .metric-value {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .gem-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .price-change {
+            font-weight: 600;
+        }
+
+        .price-change.positive {
+            color: #00ff88;
+        }
+
+        .price-change.negative {
+            color: #ff4444;
+        }
+
+        .pool-info a {
+            color: #2196F3;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .pool-info a:hover {
+            text-decoration: underline;
+        }
+
+        /* Timer styling */
+        .refresh-timer {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Added styling for the "Why This Gem?" section */
+        .gem-highlights {
+            background: linear-gradient(145deg, rgba(0, 255, 157, 0.05), rgba(0, 157, 255, 0.05));
+            border: 1px solid rgba(0, 255, 157, 0.1);
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .gem-highlights h4 {
+            color: var(--color-primary);
+            margin: 0 0 1rem 0;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .highlights-content {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .highlight-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .highlight-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateX(4px);
+        }
+
+        .highlight-item i {
+            color: var(--color-primary);
+            font-size: 1rem;
+            padding-top: 0.2rem;
+        }
+
+        .highlight-item span {
+            color: var(--color-text-dim);
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .social-metrics {
+            margin-top: 16px;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+        }
+
+        .social-metrics h4 {
+            margin: 0 0 8px 0;
+            font-size: 14px;
+            color: #adb5bd;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .social-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            padding: 8px;
+            margin-top: 8px;
+        }
+
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            color: white;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            margin: 4px;
+            min-width: 140px;
+            justify-content: center;
+            gap: 8px;
+            font-weight: 500;
+        }
+
+        .social-btn i {
+            font-size: 16px;
+        }
+
+        .social-btn.telegram {
+            background: #0088cc;
+        }
+
+        .social-btn.telegram:hover {
+            background: #006699;
+            transform: translateY(-1px);
+        }
+
+        .social-btn.twitter {
+            background: #1DA1F2;
+        }
+
+        .social-btn.twitter:hover {
+            background: #0c85d0;
+            transform: translateY(-1px);
+        }
+
+        .social-btn.website {
+            background: #6c757d;
+        }
+
+        .social-btn.website:hover {
+            background: #545b62;
+            transform: translateY(-1px);
+        }
+
+        .no-socials {
+            color: #6c757d;
+            font-style: italic;
+            padding: 12px;
+            text-align: center;
+            background: rgba(108, 117, 125, 0.1);
+            border-radius: 8px;
+            margin: 8px 0;
+        }
+
+        .no-socials i {
+            margin-right: 8px;
+            opacity: 0.7;
+        }
+    </style>
+    <script>
+        // Social metrics configuration
+        const CORS_PROXY = 'https://corsproxy.io/?';
+
+        // Function to get social metrics
+        async function getSocialMetrics(gem) {
+            try {
+                console.log('Getting social metrics for:', gem.symbol, {
+                    telegram: gem.telegram,
+                    twitter: gem.twitter,
+                    website: gem.website
+                });
+                
+                let socialHtml = '';
+                let hasAnyMetrics = false;
+
+                // Get Telegram metrics
+                if (gem.telegram && gem.telegram.includes('t.me/')) {
+                    try {
+                        const telegramUrl = CORS_PROXY + encodeURIComponent(gem.telegram + '?embed=1');
+                        console.log('Fetching Telegram:', telegramUrl);
+                        const response = await fetch(telegramUrl);
+                        const text = await response.text();
+                        const memberMatch = text.match(/members">([0-9,]+)/);
+                        const memberCount = memberMatch ? memberMatch[1] : null;
+                        
+                        socialHtml += `
+                            <a href="${gem.telegram}" target="_blank" class="social-btn telegram" rel="noopener noreferrer">
+                                <i class="fab fa-telegram"></i>
+                                ${memberCount ? `${memberCount} Members` : 'Join Channel'}
+                            </a>
+                        `;
+                        hasAnyMetrics = true;
+                        console.log('Telegram members:', memberCount);
+                    } catch (error) {
+                        console.error('Telegram fetch error:', error);
+                        socialHtml += `
+                            <a href="${gem.telegram}" target="_blank" class="social-btn telegram" rel="noopener noreferrer">
+                                <i class="fab fa-telegram"></i> Join Channel
+                            </a>
+                        `;
+                        hasAnyMetrics = true;
+                    }
+                }
+
+                // Get Twitter metrics
+                if (gem.twitter && gem.twitter.includes('twitter.com/')) {
+                    try {
+                        const twitterUsername = gem.twitter.split('twitter.com/')[1]?.split('?')[0];
+                        if (twitterUsername) {
+                            const nitterUrl = CORS_PROXY + encodeURIComponent(`https://nitter.net/${twitterUsername}`);
+                            console.log('Fetching Twitter:', nitterUrl);
+                            const response = await fetch(nitterUrl);
+                            const text = await response.text();
+                            const followerMatch = text.match(/Followers ([0-9,]+)/);
+                            const followerCount = followerMatch ? followerMatch[1] : null;
+                            
+                            socialHtml += `
+                                <a href="${gem.twitter}" target="_blank" class="social-btn twitter" rel="noopener noreferrer">
+                                    <i class="fab fa-x-twitter"></i>
+                                    ${followerCount ? `${followerCount} Followers` : 'Follow'}
+                                </a>
+                            `;
+                            hasAnyMetrics = true;
+                            console.log('Twitter followers:', followerCount);
+                        }
+                    } catch (error) {
+                        console.error('Twitter fetch error:', error);
+                        socialHtml += `
+                            <a href="${gem.twitter}" target="_blank" class="social-btn twitter" rel="noopener noreferrer">
+                                <i class="fab fa-x-twitter"></i> Follow
+                            </a>
+                        `;
+                        hasAnyMetrics = true;
+                    }
+                }
+
+                // Add Website button
+                if (gem.website && (gem.website.startsWith('http://') || gem.website.startsWith('https://'))) {
+                    socialHtml += `
+                        <a href="${gem.website}" target="_blank" class="social-btn website" rel="noopener noreferrer">
+                            <i class="fas fa-globe"></i> Website
+                        </a>
+                    `;
+                    hasAnyMetrics = true;
+                }
+
+                // If no social links found
+                if (!hasAnyMetrics) {
+                    socialHtml = `
+                        <div class="no-socials">
+                            <i class="fas fa-info-circle"></i>
+                            No social metrics available
+                        </div>
+                    `;
+                }
+
+                return socialHtml;
+            } catch (error) {
+                console.error('Error in getSocialMetrics:', error);
+                return '<div class="error">Error loading social metrics</div>';
+            }
+        }
+
+        // Initialize OpenAI key - replace with your actual key
+        window.OPENAI_KEY = 'sk-...'; // Add your API key here
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize market data
+            window.marketData = [];
+
+            // Define supported chains
+            const SUPPORTED_CHAINS = [
+                { id: 'bsc', name: 'BSC', icon: 'bnb' },
+                { id: 'ethereum', name: 'Ethereum', icon: 'eth' },
+                { id: 'arbitrum', name: 'Arbitrum', icon: 'arb' },
+                { id: 'base', name: 'Base', icon: 'base' },
+                { id: 'polygon', name: 'Polygon', icon: 'matic' },
+                { id: 'solana', name: 'Solana', icon: 'sol' },
+                { id: 'ton', name: 'TON', icon: 'ton' },
+                { id: 'avalanche', name: 'Avalanche', icon: 'avax' }
+            ];
+
+            // Add chain-specific CSS
+            const style = document.createElement('style');
+            style.textContent = `
+                .chain-badge {
+                    padding: 4px 8px;
+                    border-radius: 12px;
+                    font-size: 0.8em;
+                    font-weight: bold;
+                    display: flex;
+                    align-items: center;
+                    gap: 4px;
+                }
+                .chain-badge::before {
+                    content: '';
+                    width: 16px;
+                    height: 16px;
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                }
+                .chain-badge[data-chain="bsc"] { background: #F3BA2F20; color: #F3BA2F; }
+                .chain-badge[data-chain="bsc"]::before { background-image: url('https://cryptologos.cc/logos/bnb-bnb-logo.svg'); }
+                
+                .chain-badge[data-chain="ethereum"] { background: #627EEA20; color: #627EEA; }
+                .chain-badge[data-chain="ethereum"]::before { background-image: url('https://cryptologos.cc/logos/ethereum-eth-logo.svg'); }
+                
+                .chain-badge[data-chain="arbitrum"] { background: #28A0F020; color: #28A0F0; }
+                .chain-badge[data-chain="arbitrum"]::before { background-image: url('https://cryptologos.cc/logos/arbitrum-arb-logo.svg'); }
+                
+                .chain-badge[data-chain="base"] { background: #0052FF20; color: #0052FF; }
+                .chain-badge[data-chain="base"]::before { background-image: url('https://raw.githubusercontent.com/base-org/brand-kit/main/logo/base-logo-in-blue.svg'); }
+                
+                .chain-badge[data-chain="polygon"] { background: #8247E520; color: #8247E5; }
+                .chain-badge[data-chain="polygon"]::before { background-image: url('https://cryptologos.cc/logos/polygon-matic-logo.svg'); }
+                
+                .chain-badge[data-chain="solana"] { background: #00FFA320; color: #00FFA3; }
+                .chain-badge[data-chain="solana"]::before { background-image: url('https://cryptologos.cc/logos/solana-sol-logo.svg'); }
+                
+                .chain-badge[data-chain="ton"] { background: #0098EA20; color: #0098EA; }
+                .chain-badge[data-chain="ton"]::before { background-image: url('https://ton.org/download/ton_symbol.svg'); }
+                
+                .chain-badge[data-chain="avalanche"] { background: #E8414220; color: #E84142; }
+                .chain-badge[data-chain="avalanche"]::before { background-image: url('https://cryptologos.cc/logos/avalanche-avax-logo.svg'); }
+            `;
+            document.head.appendChild(style);
+
+            async function fetchMarketData() {
+                try {
+                    console.log('Searching for potential gems across chains...');
+                    
+                    // Fetch data from all supported chains
+                    const allPairsPromises = SUPPORTED_CHAINS.map(async chain => {
+                        console.log(`Fetching data for ${chain.name}...`);
+                        try {
+                            const response = await fetch(`https://api.dexscreener.com/latest/dex/search?q=${chain.id}`);
+                            if (!response.ok) {
+                                console.error(`${chain.name} API error:`, response.status);
+                                return [];
+                            }
+                            const data = await response.json();
+                            return (data.pairs || []).map(pair => ({ ...pair, chainInfo: chain }));
+                        } catch (error) {
+                            console.error(`Error fetching ${chain.name} data:`, error);
+                            return [];
+                        }
+                    });
+
+                    const allPairsResults = await Promise.all(allPairsPromises);
+                    const allPairs = allPairsResults.flat();
+
+                    console.log('Found total pairs across chains:', allPairs.length);
+
+                    if (!allPairs.length) {
+                        console.error('No pairs found in response');
+                        return false;
+                    }
+
+                    window.marketData = allPairs
+                        .filter(pair => {
+                            // Basic validity check
+                            if (!pair.baseToken || !pair.baseToken.address) return false;
+
+                            const marketCap = parseFloat(pair.fdv || 0);
+                            const liquidity = parseFloat(pair.liquidity?.usd || 0);
+                            const volume24h = parseFloat(pair.volume?.h24 || 0);
+                            const volumeToMcRatio = (volume24h / marketCap) * 100;
+                            const liquidityToMcRatio = (liquidity / marketCap) * 100;
+
+                            // Check for rug pull indicators
+                            const rugCheck = calculateRugScore(pair);
+                            if (rugCheck.isLikelyRug) {
+                                console.log('Filtered out potential rug:', pair.baseToken.symbol, 'Warnings:', rugCheck.warnings);
+                                return false;
+                            }
+
+                            // Log token details
+                            console.log('Processing token:', {
+                                symbol: pair.baseToken.symbol,
+                                name: pair.baseToken.name,
+                                chain: pair.chainInfo.name,
+                                marketCap: marketCap,
+                                rugScore: rugCheck.score,
+                                warnings: rugCheck.warnings,
+                                links: pair.links || 'No links'
+                            });
+
+                            const isValidGem = (
+                                marketCap >= 50000 && // Min $50k market cap
+                                marketCap <= 2000000 && // Max $2M market cap (focus on micro-caps)
+                                liquidity >= 5000 && // Min $5k liquidity
+                                volumeToMcRatio >= 5 && // At least 5% daily volume/MC ratio (showing some activity)
+                                liquidityToMcRatio >= 5 && // At least 5% liquidity/MC ratio (some stability)
+                                !pair.baseToken.name?.toLowerCase().includes('test') && // Filter out test tokens
+                                !pair.baseToken.symbol?.toLowerCase().includes('test')
+                            );
+
+                            if (isValidGem) {
+                                console.log('Found valid gem:', pair.baseToken.symbol, 'on', pair.chainInfo.name);
+                            }
+
+                            return isValidGem;
+                        })
+                        .map(pair => {
+                            // Clean and validate social links
+                            const telegram = pair.links?.telegram || null;
+                            const twitter = pair.links?.twitter || null;
+                            const website = pair.links?.website || null;
+
+                            // Log each gem's social links
+                            console.log('Mapped gem social links:', {
+                                symbol: pair.baseToken.symbol,
+                                chain: pair.chainInfo.name,
+                                telegram,
+                                twitter,
+                                website
+                            });
+
+                            return {
+                                address: pair.baseToken.address,
+                                name: pair.baseToken.name || 'Unknown',
+                                symbol: pair.baseToken.symbol || 'Unknown',
+                                chain: pair.chainInfo.id,
+                                chainName: pair.chainInfo.name,
+                                chainIcon: pair.chainInfo.icon,
+                                marketCap: parseFloat(pair.fdv || 0),
+                                volume24h: parseFloat(pair.volume?.h24 || 0),
+                                priceChange24h: parseFloat(pair.priceChange?.h24 || 0),
+                                liquidity: parseFloat(pair.liquidity?.usd || 0),
+                                price: parseFloat(pair.priceUsd || 0),
+                                url: `https://dexscreener.com/${pair.chainInfo.id}/${pair.pairAddress}`,
+                                telegram,
+                                twitter,
+                                website,
+                                volumeToMcRatio: (parseFloat(pair.volume?.h24 || 0) / parseFloat(pair.fdv || 0)) * 100,
+                                liquidityToMcRatio: (parseFloat(pair.liquidity?.usd || 0) / parseFloat(pair.fdv || 0)) * 100
+                            };
+                        })
+                        .sort((a, b) => {
+                            const aScore = (a.volumeToMcRatio * 0.7) + (a.liquidityToMcRatio * 0.3);
+                            const bScore = (b.volumeToMcRatio * 0.7) + (b.liquidityToMcRatio * 0.3);
+                            return bScore - aScore;
+                        })
+                        .slice(0, 6);
+
+                    console.log('Found potential gems:', window.marketData);
+
+                    if (window.marketData.length === 0) {
+                        const gemGrid = document.querySelector('.gem-grid');
+                        gemGrid.innerHTML = '<div class="loading">No potential gems found matching our criteria. Trying again...</div>';
+                        return false;
+                    }
+
+                    return true;
+                } catch (error) {
+                    console.error('Error searching for gems:', error);
+                    const gemGrid = document.querySelector('.gem-grid');
+                    gemGrid.innerHTML = '<div class="error">Error searching for gems. Please try again later.</div>';
+                    return false;
+                }
+            }
+
+            async function fetchGems() {
+                try {
+                    const gemGrid = document.querySelector('.gem-grid');
+                    gemGrid.innerHTML = '<div class="loading">Searching for gems... <br><small>This might take a few seconds</small></div>';
+
+                    const hasMarketData = await fetchMarketData();
+                    
+                    if (!hasMarketData) {
+                        console.error('No market data available');
+                        return;
+                    }
+
+                    console.log('Processing gems with metrics...');
+                    // Get metrics for each gem
+                    const gemsWithMetrics = await Promise.all(window.marketData.map(async gem => {
+                        console.log('Getting metrics for:', gem.symbol);
+                        const metrics = await getSocialMetrics(gem);
+                        console.log('Got metrics for:', gem.symbol, metrics);
+                        return {
+                            ...gem,
+                            socialMetrics: metrics
+                        };
+                    }));
+
+                    console.log('Updating UI with gems...');
+                    // Update UI with gems
+                    gemGrid.innerHTML = gemsWithMetrics.map(gem => `
+                        <div class="gem-card">
+                            <div class="risk-badge" data-risk="${getRiskLevel(gem)}">
+                                ${getRiskLevel(gem).toUpperCase()} RISK
+                            </div>
+                            
+                            <div class="token-header">
+                                <div class="token-name">${gem.name}</div>
+                                <div class="chain-badge" data-chain="${gem.chain}">${gem.chainName}</div>
+                            </div>
+
+                            <div class="price-section">
+                                <div class="current-price">$${formatPrice(gem.price)}</div>
+                                <div class="price-change ${gem.priceChange24h >= 0 ? 'positive' : 'negative'}">
+                                    ${gem.priceChange24h > 0 ? '+' : ''}${gem.priceChange24h.toFixed(2)}%
+                                </div>
+                            </div>
+
+                            <div class="metrics-grid">
+                                ${getKeyMetrics(gem).map(metric => `
+                                    <div class="metric-box">
+                                        <div class="metric-label">${metric.label}</div>
+                                        <div class="metric-value">${metric.value}</div>
+                                    </div>
+                                `).join('')}
+                            </div>
+
+                            <div class="social-metrics">
+                                <h4><i class="fas fa-users"></i> Social Stats</h4>
+                                ${gem.socialMetrics}
+                            </div>
+
+                            <div class="gem-highlights">
+                                <h4><i class="fas fa-gem"></i> Why This Gem?</h4>
+                                <div class="highlights-content">
+                                    ${getGemHighlights(gem)}
+                                </div>
+                            </div>
+
+                            <div class="action-buttons">
+                                <a href="${gem.url}" target="_blank" class="btn btn-primary" rel="noopener noreferrer">
+                                    <i class="fas fa-chart-line"></i> View Chart
+                                </a>
+                                <button class="btn btn-secondary track-btn">
+                                    <i class="fas fa-star"></i> Track
+                                </button>
+                            </div>
+                        </div>
+                    `).join('');
+
+                    console.log('UI updated successfully');
+                } catch (error) {
+                    console.error('Error in fetchGems:', error);
+                    const gemGrid = document.querySelector('.gem-grid');
+                    gemGrid.innerHTML = '<div class="error">Error loading gems. Please try again later.</div>';
+                }
+            }
+
+            let lastUpdate = 0;
+            const updateInterval = 6 * 60 * 60 * 1000; // 6 hours in milliseconds
+            const MIN_MCAP = 300000; // $300k
+            const MAX_MCAP = 10000000; // $10M
+
+            function getKeyMetrics(gem) {
+                return [
+                    {
+                        label: 'Market Cap',
+                        value: '$' + formatNumber(gem.marketCap)
+                    },
+                    {
+                        label: '24h Volume',
+                        value: '$' + formatNumber(gem.volume24h)
+                    },
+                    {
+                        label: 'Liquidity',
+                        value: '$' + formatNumber(gem.liquidity)
+                    },
+                    {
+                        label: 'Volume/MC Ratio',
+                        value: ((gem.volume24h / gem.marketCap) * 100).toFixed(1) + '%'
+                    }
+                ];
+            }
+
+            function getGemHighlights(gem) {
+                const highlights = [];
+                
+                // Volume Analysis
+                const volumeToMcRatio = (gem.volume24h / gem.marketCap) * 100;
+                if (volumeToMcRatio > 100) {
+                    highlights.push(`<div class="highlight-item">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Exceptional trading volume (${volumeToMcRatio.toFixed(1)}% of MC) indicating strong market interest</span>
+                    </div>`);
+                }
+
+                // Liquidity Check
+                const liquidityToMcRatio = (gem.liquidity / gem.marketCap) * 100;
+                if (liquidityToMcRatio > 30) {
+                    highlights.push(`<div class="highlight-item">
+                        <i class="fas fa-lock"></i>
+                        <span>Strong liquidity ratio (${liquidityToMcRatio.toFixed(1)}% of MC) suggesting stability</span>
+                    </div>`);
+                }
+
+                // Market Cap Analysis
+                if (gem.marketCap < 1000000) {
+                    highlights.push(`<div class="highlight-item">
+                        <i class="fas fa-rocket"></i>
+                        <span>Early stage gem with high growth potential (MC < $1M)</span>
+                    </div>`);
+                }
+
+                // Price Movement
+                if (gem.priceChange24h < -20) {
+                    highlights.push(`<div class="highlight-item">
+                        <i class="fas fa-tag"></i>
+                        <span>Potential entry point after ${Math.abs(gem.priceChange24h).toFixed(1)}% price drop</span>
+                    </div>`);
+                }
+
+                // Community Growth
+                if (gem.socialGrowth && gem.socialGrowth > 50) {
+                    highlights.push(`<div class="highlight-item">
+                        <i class="fas fa-users"></i>
+                        <span>Strong community growth (+${gem.socialGrowth}% 24h)</span>
+                    </div>`);
+                }
+
+                // Development Activity
+                if (gem.devActivity === 'high') {
+                    highlights.push(`<div class="highlight-item">
+                        <i class="fas fa-code"></i>
+                        <span>Active development with regular updates</span>
+                    </div>`);
+                }
+
+                // Partnerships & Backing
+                if (gem.partnerships && gem.partnerships.length > 0) {
+                    highlights.push(`<div class="highlight-item">
+                        <i class="fas fa-handshake"></i>
+                        <span>Strategic partnerships: ${gem.partnerships.join(', ')}</span>
+                    </div>`);
+                }
+
+                if (highlights.length === 0) {
+                    highlights.push(`<div class="highlight-item">
+                        <i class="fas fa-search"></i>
+                        <span>Monitoring for potential opportunities...</span>
+                    </div>`);
+                }
+
+                return highlights.join('');
+            }
+
+            function getRiskLevel(gem) {
+                if (!gem.audit || gem.liquidity < 50000) return 'high';
+                if (gem.marketCap < 500000 || Math.abs(gem.priceChange24h) > 30) return 'medium';
+                return 'low';
+            }
+
+            function formatPrice(price) {
+                if (price < 0.000001) return price.toExponential(4);
+                if (price < 0.001) return price.toFixed(9);
+                if (price < 1) return price.toFixed(6);
+                if (price < 100) return price.toFixed(4);
+                return price.toFixed(2);
+            }
+
+            function formatNumber(num) {
+                if (!num) return '0';
+                if (num >= 1e9) return (num / 1e9).toFixed(1) + 'B';
+                if (num >= 1e6) return (num / 1e6).toFixed(1) + 'M';
+                if (num >= 1e3) return (num / 1e3).toFixed(1) + 'K';
+                return num.toFixed(0);
+            }
+
+            function getChainName(chain) {
+                switch (chain) {
+                    case 'eth':
+                        return 'Ethereum';
+                    case 'bsc':
+                        return 'Binance Smart Chain';
+                    case 'polygon':
+                        return 'Polygon';
+                    case 'solana':
+                        return 'Solana';
+                    case 'avax':
+                        return 'Avalanche';
+                    case 'ton':
+                        return 'Toncoin';
+                    case 'arbitrum':
+                        return 'Arbitrum';
+                    case 'optimism':
+                        return 'Optimism';
+                    case 'fantom':
+                        return 'Fantom';
+                    case 'cronos':
+                        return 'Cronos';
+                    case 'base':
+                        return 'Base';
+                    case 'pulsechain':
+                        return 'Pulsechain';
+                    case 'metis':
+                        return 'Metis';
+                    case 'kava':
+                        return 'Kava';
+                    case 'sui':
+                        return 'Sui';
+                    case 'aptos':
+                        return 'Aptos';
+                    default:
+                        return 'Unknown';
+                }
+            }
+
+            // Initial fetch
+            fetchGems();
+
+            // Update timer
+            function updateTimer() {
+                const timerElement = document.getElementById('timer');
+                if (!timerElement) return;
+
+                setInterval(() => {
+                    const now = Date.now();
+                    const timeSinceLastUpdate = now - lastUpdate;
+                    const timeUntilNextUpdate = updateInterval - timeSinceLastUpdate;
+                    
+                    if (timeUntilNextUpdate <= 0) {
+                        fetchGems();
+                        return;
+                    }
+
+                    const hours = Math.floor(timeUntilNextUpdate / (60 * 60 * 1000));
+                    const minutes = Math.floor((timeUntilNextUpdate % (60 * 60 * 1000)) / (60 * 1000));
+                    timerElement.textContent = `${hours}h ${minutes}m`;
+                }, 1000);
+            }
+
+            // Tab switching logic
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const tabId = button.getAttribute('data-tab');
+                    
+                    // Update active states
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.style.display = 'none');
+                    
+                    button.classList.add('active');
+                    document.getElementById(tabId).style.display = 'block';
+
+                    // If switching to gem-finder, check if we need to refresh
+                    if (tabId === 'gem-finder' && Date.now() - lastUpdate >= updateInterval) {
+                        fetchGems();
+                    }
+                });
+            });
+        });
+
+        // Website analysis helper functions
+        async function analyzeWebsite(url) {
+            if (!url) return { score: 0, warnings: ['No website available'] };
+
+            try {
+                // Use our CORS proxy to fetch the website
+                const response = await fetch(CORS_PROXY + encodeURIComponent(url));
+                const html = await response.text();
+                
+                let score = 0;
+                const warnings = [];
+                
+                // Create a temporary element to parse HTML
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                
+                // Check for basic website structure
+                const hasTitle = doc.title && doc.title.length > 0;
+                const hasMetaDescription = doc.querySelector('meta[name="description"]');
+                const hasMainContent = doc.querySelector('main, article, .main, #main, .content, #content');
+                
+                if (!hasTitle) {
+                    warnings.push('Missing page title');
+                }
+                if (!hasMetaDescription) {
+                    warnings.push('Missing meta description');
+                }
+                if (!hasMainContent) {
+                    warnings.push('No main content structure');
+                }
+
+                // Check for key sections that legitimate projects usually have
+                const sections = {
+                    whitepaper: ['whitepaper', 'white-paper', 'white paper', 'documentation', 'docs', 'litepaper'],
+                    roadmap: ['roadmap', 'timeline', 'milestones'],
+                    team: ['team', 'about us', 'about-us', 'about', 'founders'],
+                    tokenomics: ['tokenomics', 'token distribution', 'token-distribution', 'token metrics'],
+                    useCase: ['use case', 'use-case', 'utility', 'features', 'benefits', 'solution']
+                };
+
+                // Convert HTML to lowercase text for easier searching
+                const pageText = doc.body.textContent.toLowerCase();
+
+                // Check for each section
+                for (const [section, keywords] of Object.entries(sections)) {
+                    const hasSection = keywords.some(keyword => pageText.includes(keyword));
+                    if (!hasSection) {
+                        warnings.push(`Missing ${section} section`);
+                    } else {
+                        score += 1;
+                    }
+                }
+
+                // Check for social links consistency
+                const socialLinks = Array.from(doc.querySelectorAll('a[href*="twitter"], a[href*="t.me"], a[href*="telegram"], a[href*="github"]'));
+                if (socialLinks.length === 0) {
+                    warnings.push('No social links on website');
+                } else {
+                    score += 1;
+                }
+
+                // Check content quality
+                const contentLength = pageText.length;
+                if (contentLength < 1000) {
+                    warnings.push('Very little content');
+                } else if (contentLength > 2000) {
+                    score += 1;
+                }
+
+                // Check for contact information
+                const hasContact = pageText.includes('contact') || doc.querySelector('a[href^="mailto:"]');
+                if (!hasContact) {
+                    warnings.push('No contact information');
+                } else {
+                    score += 1;
+                }
+
+                // Check for SSL
+                if (!url.startsWith('https://')) {
+                    warnings.push('No SSL security');
+                } else {
+                    score += 1;
+                }
+
+                console.log('Website analysis:', {
+                    url,
+                    score,
+                    warnings,
+                    contentLength
+                });
+
+                return {
+                    score,
+                    warnings,
+                    hasUseCase: sections.useCase.some(keyword => pageText.includes(keyword))
+                };
+            } catch (error) {
+                console.error('Error analyzing website:', error);
+                return {
+                    score: 0,
+                    warnings: ['Failed to analyze website'],
+                    hasUseCase: false
+                };
+            }
+        }
+
+        async function calculateRugScore(pair) {
+            let redFlags = 0;
+            const warnings = [];
+            
+            // 1. Volume/MC ratio check - stricter limits
+            const volumeToMcRatio = (parseFloat(pair.volume?.h24 || 0) / parseFloat(pair.fdv || 1));
+            if (volumeToMcRatio > 3) { // More than 300%
+                redFlags += 1;
+                warnings.push('High volume/MC ratio');
+            }
+            if (volumeToMcRatio > 8) { // More than 800%
+                redFlags += 2;
+                warnings.push('Extremely high volume/MC ratio');
+            }
+
+            // 2. Price change checks - more nuanced
+            const priceChange24h = parseFloat(pair.priceChange?.h24 || 0);
+            if (Math.abs(priceChange24h) > 50) {
+                redFlags += 1;
+                warnings.push('High price volatility');
+            }
+            if (priceChange24h < -50) {
+                redFlags += 2;
+                warnings.push('Severe price drop');
+            }
+            if (priceChange24h > 200) {
+                redFlags += 2;
+                warnings.push('Suspicious price pump');
+            }
+
+            // 3. Liquidity checks - relative to market cap
+            const liquidityRatio = (pair.liquidity?.usd || 0) / (pair.fdv || 1);
+            if (liquidityRatio < 0.05) {
+                redFlags += 2;
+                warnings.push('Very low liquidity ratio');
+            }
+            
+            // 4. Volume to liquidity ratio check
+            const volumeToLiquidityRatio = parseFloat(pair.volume?.h24 || 0) / parseFloat(pair.liquidity?.usd || 1);
+            if (volumeToLiquidityRatio > 20) {
+                redFlags += 2;
+                warnings.push('Suspicious volume/liquidity ratio');
+            }
+
+            // 5. Enhanced name checking
+            const suspiciousTerms = [
+                // Meme terms
+                'safe', 'moon', 'elon', 'inu', 'shib', 'doge', 'baby', 'akita',
+                // Misleading terms
+                'guaranteed', 'profit', 'pump', 'rich', 'million', 'billion',
+                // Generic product terms
+                'cannabis', 'nft', 'meta', 'web3', 'defi',
+                // Chain names (when not the actual chain)
+                'ethereum', 'bitcoin', 'bnb', 'arbitrum', 'polygon',
+                // Trendy terms
+                'ai', 'chatgpt', 'openai', 'gpt'
+            ];
+
+            const tokenNameLower = pair.baseToken.name.toLowerCase();
+            const tokenSymbolLower = pair.baseToken.symbol.toLowerCase();
+            
+            const matchedTerms = suspiciousTerms.filter(term => 
+                tokenNameLower.includes(term) || tokenSymbolLower.includes(term)
+            );
+            
+            if (matchedTerms.length > 0) {
+                redFlags += matchedTerms.length;
+                warnings.push(`Suspicious name terms: ${matchedTerms.join(', ')}`);
+            }
+
+            // 6. Minimum liquidity requirement
+            if (parseFloat(pair.liquidity?.usd || 0) < 50000) { // At least $50k liquidity
+                redFlags += 1;
+                warnings.push('Low absolute liquidity');
+            }
+
+            // Log analysis
+            console.log('Token analysis:', {
+                name: pair.baseToken.name,
+                symbol: pair.baseToken.symbol,
+                price_change: priceChange24h,
+                volume_mc_ratio: volumeToMcRatio,
+                liquidity_ratio: liquidityRatio,
+                volume_liquidity_ratio: volumeToLiquidityRatio,
+                red_flags: redFlags,
+                warnings: warnings
+            });
+
+            return {
+                score: redFlags,
+                warnings,
+                isLikelyRug: redFlags >= 4 // Keep threshold at 4
+            };
+        }
+
+        // Track shown gems to avoid duplicates
+        const shownGems = new Set();
+        
+        async function formatWhyThisGem(pair) {
+            const reasons = [];
+            let websiteInfo = "No website available";
+            let useCaseInfo = "No clear use case found";
+
+            // Check website and use case if available
+            if (pair.links?.website) {
+                try {
+                    const websiteAnalysis = await analyzeWebsite(pair.links.website);
+                    if (websiteAnalysis.score >= 3) {
+                        websiteInfo = "✅ Verified website with proper documentation";
+                        if (websiteAnalysis.hasUseCase) {
+                            useCaseInfo = "✅ Clear use case: Project focuses on " + 
+                                (pair.baseToken.name.toLowerCase().includes('ai') ? 'artificial intelligence solutions' :
+                                 pair.baseToken.name.toLowerCase().includes('defi') ? 'decentralized finance' :
+                                 pair.baseToken.name.toLowerCase().includes('gaming') ? 'blockchain gaming' :
+                                 'blockchain technology');
+                        }
+                    }
+                } catch (error) {
+                    console.error('Website analysis error:', error);
+                }
+            }
+
+            // Market metrics
+            const volumeToMcRatio = (parseFloat(pair.volume?.h24 || 0) / parseFloat(pair.fdv || 1)) * 100;
+            const liquidityRatio = ((pair.liquidity?.usd || 0) / (pair.fdv || 1)) * 100;
+            
+            if (volumeToMcRatio > 20 && volumeToMcRatio < 300) {
+                reasons.push(`📈 Strong trading volume (${volumeToMcRatio.toFixed(1)}% of MC) indicating active market`);
+            }
+            
+            if (liquidityRatio > 5) {
+                reasons.push(`💧 Strong liquidity ratio (${liquidityRatio.toFixed(1)}% of MC) suggesting stability`);
+            }
+
+            const pairAge = (new Date() - new Date(pair.pairCreatedAt)) / (1000 * 60 * 60);
+            if (pairAge < 48) {
+                reasons.push('🌱 Early stage gem with high growth potential (MC < $1M)');
+            }
+
+            const priceChange24h = parseFloat(pair.priceChange?.h24 || 0);
+            if (priceChange24h > 10 && priceChange24h < 200) {
+                reasons.push(`📈 Healthy price growth: +${priceChange24h.toFixed(1)}% (24h)`);
+            }
+
+            // Add website and use case info if they're positive
+            if (websiteInfo.includes('✅')) {
+                reasons.push(`🌐 ${websiteInfo}`);
+            }
+            if (useCaseInfo.includes('✅')) {
+                reasons.push(`⚡ ${useCaseInfo}`);
+            }
+
+            return reasons;
+        }
+
+        async function processGemPair(pair) {
+            // Skip if we've already shown this gem
+            const gemKey = `${pair.baseToken.address}-${pair.chainId}`;
+            if (shownGems.has(gemKey)) {
+                return null;
+            }
+
+            const rugCheck = await calculateRugScore(pair);
+            if (rugCheck.isLikelyRug) {
+                return null;
+            }
+
+            const reasons = await formatWhyThisGem(pair);
+            if (reasons.length < 3) {
+                return null; // Skip if not enough positive indicators
+            }
+
+            // Add to shown gems
+            shownGems.add(gemKey);
+
+            return {
+                ...pair,
+                whyThisGem: reasons
+            };
+        }
+
+        // Clear shown gems periodically (every 6 hours)
+        setInterval(() => {
+            shownGems.clear();
+            console.log('Cleared shown gems cache');
+        }, 6 * 60 * 60 * 1000);
+    </script>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="nav-left">
+                <a href="index.html" class="logo-container">
+                    <img src="images/moose.png" alt="CryptoMoose" style="height: 32px; width: auto;">
+                    <span>CryptoMoose</span>
+                </a>
+                <a href="dashboard.html" class="nav-link">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="signals.html" class="nav-link">
+                    <i class="fas fa-signal"></i>
+                    <span>Signals</span>
+                </a>
+                <a href="segment-projections.html" class="nav-link">
+                    <i class="fas fa-layer-group"></i>
+                    <span>Segment Projections</span>
+                </a>
+                <a href="gem-hunter.html" class="nav-link active">
+                    <i class="fas fa-gem"></i>
+                    <span>Gem Hunter</span>
+                </a>
+            </div>
+            <div class="nav-right">
+                <a href="https://t.me/cryptomoose" target="_blank" class="btn-telegram">
+                    <i class="fab fa-telegram"></i>
+                    <span>Get Live Signals on Telegram</span>
+                </a>
+                <a href="https://x.com/XCryptoMoose" target="_blank" class="nav-link twitter">
+                    <img src="images/x-logo.svg" alt="X (Twitter)" style="height: 16px; width: 16px; filter: invert(1);">
+                    <span>Follow Alpha</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="tab-buttons">
+            <button class="tab-button active" data-tab="gem-finder">
+                <div class="tab-label">
+                    <i class="fas fa-search"></i>
+                    <span>Gem Finder</span>
+                    <span class="tab-description">Discover new opportunities</span>
+                </div>
+            </button>
+            <button class="tab-button" data-tab="gem-tracker">
+                <div class="tab-label">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Gem Tracker</span>
+                    <span class="tab-description">Monitor tracked gems</span>
+                </div>
+            </button>
+        </div>
+
+        <div class="tab-content" id="gem-finder">
+            <div class="section-header">
+                <h2>Trending Gems</h2>
+                <p>Top opportunities discovered by our AI</p>
+                <div class="refresh-timer">Next refresh in: <span id="timer">loading...</span></div>
+            </div>
+            
+            <div class="gem-grid">
+                <!-- Card 1 -->
+                <div class="gem-card">
+                    <div class="risk-badge" data-risk="high">High Risk</div>
+                    <div class="token-header">
+                        <div class="token-name">Loading...</div>
+                        <div class="chain-badge">Loading...</div>
+                    </div>
+                    <div class="price-section">
+                        <div class="current-price">$0.00</div>
+                        <div class="price-change negative">Loading...</div>
+                    </div>
+                    <div class="metrics-grid">
+                        <div class="metric-box">
+                            <div class="metric-label">Market Cap</div>
+                            <div class="metric-value">$0.00</div>
+                        </div>
+                        <div class="metric-box">
+                            <div class="metric-label">24h Volume</div>
+                            <div class="metric-value">$0.00</div>
+                        </div>
+                    </div>
+
+                    <div class="social-metrics">
+                        <h4><i class="fas fa-users"></i> Social Stats</h4>
+                        <div class="social-grid">
+                            <!-- Social metrics will be dynamically added here -->
+                        </div>
+                        <div class="social-growth">
+                            <!-- Social growth will be dynamically added here -->
+                        </div>
+                    </div>
+
+                    <div class="gem-highlights">
+                        <h4><i class="fas fa-gem"></i> Why This Gem?</h4>
+                        <div class="highlights-content">
+                            <div class="highlight-item">
+                                <i class="fas fa-search"></i>
+                                <span>Monitoring for potential opportunities...</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="social-links">
+                        <!-- Social links will be dynamically added here -->
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn btn-primary">
+                            <i class="fas fa-chart-line"></i> View Chart
+                        </button>
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-star"></i> Track
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="gem-card">
+                    <div class="risk-badge" data-risk="high">High Risk</div>
+                    <div class="token-header">
+                        <div class="token-name">Loading...</div>
+                        <div class="chain-badge">Loading...</div>
+                    </div>
+                    <div class="price-section">
+                        <div class="current-price">$0.00</div>
+                        <div class="price-change negative">Loading...</div>
+                    </div>
+                    <div class="metrics-grid">
+                        <div class="metric-box">
+                            <div class="metric-label">Market Cap</div>
+                            <div class="metric-value">$0.00</div>
+                        </div>
+                        <div class="metric-box">
+                            <div class="metric-label">24h Volume</div>
+                            <div class="metric-value">$0.00</div>
+                        </div>
+                    </div>
+
+                    <div class="social-metrics">
+                        <h4><i class="fas fa-users"></i> Social Stats</h4>
+                        <div class="social-grid">
+                            <!-- Social metrics will be dynamically added here -->
+                        </div>
+                        <div class="social-growth">
+                            <!-- Social growth will be dynamically added here -->
+                        </div>
+                    </div>
+
+                    <div class="gem-highlights">
+                        <h4><i class="fas fa-gem"></i> Why This Gem?</h4>
+                        <div class="highlights-content">
+                            <div class="highlight-item">
+                                <i class="fas fa-search"></i>
+                                <span>Monitoring for potential opportunities...</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="social-links">
+                        <!-- Social links will be dynamically added here -->
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn btn-primary">
+                            <i class="fas fa-chart-line"></i> View Chart
+                        </button>
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-star"></i> Track
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="gem-card">
+                    <div class="risk-badge" data-risk="high">High Risk</div>
+                    <div class="token-header">
+                        <div class="token-name">Loading...</div>
+                        <div class="chain-badge">Loading...</div>
+                    </div>
+                    <div class="price-section">
+                        <div class="current-price">$0.00</div>
+                        <div class="price-change negative">Loading...</div>
+                    </div>
+                    <div class="metrics-grid">
+                        <div class="metric-box">
+                            <div class="metric-label">Market Cap</div>
+                            <div class="metric-value">$0.00</div>
+                        </div>
+                        <div class="metric-box">
+                            <div class="metric-label">24h Volume</div>
+                            <div class="metric-value">$0.00</div>
+                        </div>
+                    </div>
+
+                    <div class="social-metrics">
+                        <h4><i class="fas fa-users"></i> Social Stats</h4>
+                        <div class="social-grid">
+                            <!-- Social metrics will be dynamically added here -->
+                        </div>
+                        <div class="social-growth">
+                            <!-- Social growth will be dynamically added here -->
+                        </div>
+                    </div>
+
+                    <div class="gem-highlights">
+                        <h4><i class="fas fa-gem"></i> Why This Gem?</h4>
+                        <div class="highlights-content">
+                            <div class="highlight-item">
+                                <i class="fas fa-search"></i>
+                                <span>Monitoring for potential opportunities...</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="social-links">
+                        <!-- Social links will be dynamically added here -->
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn btn-primary">
+                            <i class="fas fa-chart-line"></i> View Chart
+                        </button>
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-star"></i> Track
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="gem-card">
+                    <div class="risk-badge" data-risk="high">High Risk</div>
+                    <div class="token-header">
+                        <div class="token-name">Loading...</div>
+                        <div class="chain-badge">Loading...</div>
+                    </div>
+                    <div class="price-section">
+                        <div class="current-price">$0.00</div>
+                        <div class="price-change negative">Loading...</div>
+                    </div>
+                    <div class="metrics-grid">
+                        <div class="metric-box">
+                            <div class="metric-label">Market Cap</div>
+                            <div class="metric-value">$0.00</div>
+                        </div>
+                        <div class="metric-box">
+                            <div class="metric-label">24h Volume</div>
+                            <div class="metric-value">$0.00</div>
+                        </div>
+                    </div>
+
+                    <div class="social-metrics">
+                        <h4><i class="fas fa-users"></i> Social Stats</h4>
+                        <div class="social-grid">
+                            <!-- Social metrics will be dynamically added here -->
+                        </div>
+                        <div class="social-growth">
+                            <!-- Social growth will be dynamically added here -->
+                        </div>
+                    </div>
+
+                    <div class="gem-highlights">
+                        <h4><i class="fas fa-gem"></i> Why This Gem?</h4>
+                        <div class="highlights-content">
+                            <div class="highlight-item">
+                                <i class="fas fa-search"></i>
+                                <span>Monitoring for potential opportunities...</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="social-links">
+                        <!-- Social links will be dynamically added here -->
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn btn-primary">
+                            <i class="fas fa-chart-line"></i> View Chart
+                        </button>
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-star"></i> Track
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="gem-card">
+                    <div class="risk-badge" data-risk="high">High Risk</div>
+                    <div class="token-header">
+                        <div class="token-name">Loading...</div>
+                        <div class="chain-badge">Loading...</div>
+                    </div>
+                    <div class="price-section">
+                        <div class="current-price">$0.00</div>
+                        <div class="price-change negative">Loading...</div>
+                    </div>
+                    <div class="metrics-grid">
+                        <div class="metric-box">
+                            <div class="metric-label">Market Cap</div>
+                            <div class="metric-value">$0.00</div>
+                        </div>
+                        <div class="metric-box">
+                            <div class="metric-label">24h Volume</div>
+                            <div class="metric-value">$0.00</div>
+                        </div>
+                    </div>
+
+                    <div class="social-metrics">
+                        <h4><i class="fas fa-users"></i> Social Stats</h4>
+                        <div class="social-grid">
+                            <!-- Social metrics will be dynamically added here -->
+                        </div>
+                        <div class="social-growth">
+                            <!-- Social growth will be dynamically added here -->
+                        </div>
+                    </div>
+
+                    <div class="gem-highlights">
+                        <h4><i class="fas fa-gem"></i> Why This Gem?</h4>
+                        <div class="highlights-content">
+                            <div class="highlight-item">
+                                <i class="fas fa-search"></i>
+                                <span>Monitoring for potential opportunities...</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="social-links">
+                        <!-- Social links will be dynamically added here -->
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn btn-primary">
+                            <i class="fas fa-chart-line"></i> View Chart
+                        </button>
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-star"></i> Track
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="gem-card">
+                    <div class="risk-badge" data-risk="high">High Risk</div>
+                    <div class="token-header">
+                        <div class="token-name">Loading...</div>
+                        <div class="chain-badge">Loading...</div>
+                    </div>
+                    <div class="price-section">
+                        <div class="current-price">$0.00</div>
+                        <div class="price-change negative">Loading...</div>
+                    </div>
+                    <div class="metrics-grid">
+                        <div class="metric-box">
+                            <div class="metric-label">Market Cap</div>
+                            <div class="metric-value">$0.00</div>
+                        </div>
+                        <div class="metric-box">
+                            <div class="metric-label">24h Volume</div>
+                            <div class="metric-value">$0.00</div>
+                        </div>
+                    </div>
+
+                    <div class="social-metrics">
+                        <h4><i class="fas fa-users"></i> Social Stats</h4>
+                        <div class="social-grid">
+                            <!-- Social metrics will be dynamically added here -->
+                        </div>
+                        <div class="social-growth">
+                            <!-- Social growth will be dynamically added here -->
+                        </div>
+                    </div>
+
+                    <div class="gem-highlights">
+                        <h4><i class="fas fa-gem"></i> Why This Gem?</h4>
+                        <div class="highlights-content">
+                            <div class="highlight-item">
+                                <i class="fas fa-search"></i>
+                                <span>Monitoring for potential opportunities...</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="social-links">
+                        <!-- Social links will be dynamically added here -->
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn btn-primary">
+                            <i class="fas fa-chart-line"></i> View Chart
+                        </button>
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-star"></i> Track
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Watchlist Section -->
+            <div class="section-header">
+                <h2>Watchlist</h2>
+                <p>High-potential gems we're tracking</p>
+            </div>
+            <div class="watchlist-grid">
+                <!-- Watchlist items will be dynamically added here -->
+            </div>
+        </div>
+
+        <div class="tab-content" id="gem-tracker" style="display: none;">
+            <div class="tracker-header">
+                <h2>Tracked Gems</h2>
+                <div class="tracker-filters">
+                    <select id="performance-filter">
+                        <option value="all">All Gems</option>
+                        <option value="winners">🚀 Big Winners (>100x)</option>
+                        <option value="solid">💎 Solid Gains (10-100x)</option>
+                        <option value="new">🆕 Recently Found</option>
+                    </select>
+                    <select id="time-filter">
+                        <option value="7d">7 Days</option>
+                        <option value="30d">30 Days</option>
+                        <option value="90d">90 Days</option>
+                        <option value="all">All Time</option>
+                    </select>
+                </div>
+            </div>
+            <div class="tracked-gems-grid"></div>
+        </div>
+    </div>
+
+</body>
+</html>

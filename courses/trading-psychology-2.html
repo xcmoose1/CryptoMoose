@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trading Psychology - Emotional Control - CryptoMoose Learning</title>
+    <link rel="stylesheet" href="../css/course-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="nav-left">
+                <a href="../index.html" class="logo-container">
+                    <img src="../images/Moose.png" alt="CryptoMoose Logo">
+                </a>
+                <a href="https://t.me/CryptoMooseAlpha" target="_blank" class="btn btn-telegram">
+                    <i class="fab fa-telegram"></i> Join Telegram
+                </a>
+            </div>
+            <div class="nav-right">
+                <a href="../dashboard.html" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="https://x.com/XCryptoMoose" target="_blank" class="nav-link">
+                    <i class="fab fa-x-twitter"></i>
+                    <span>Follow Alpha</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="course-container">
+        <div class="course-header">
+            <h1>Emotional Control and Discipline</h1>
+            <p>Master your emotions for consistent trading performance</p>
+        </div>
+
+        <div class="course-progress">
+            <div class="progress-text">Course Progress: 33%</div>
+            <div class="progress-bar">
+                <div class="progress" style="width: 33%"></div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>1. Understanding Emotional Control</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-header">
+                        <i class="fas fa-balance-scale"></i>
+                        <h3>Key Components</h3>
+                    </div>
+                    <ul>
+                        <li>Self-Awareness</li>
+                        <li>Impulse Control</li>
+                        <li>Patience</li>
+                        <li>Discipline</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <div class="info-header">
+                        <i class="fas fa-brain"></i>
+                        <h3>Control Techniques</h3>
+                    </div>
+                    <ul>
+                        <li>Mindfulness</li>
+                        <li>Trading Journal</li>
+                        <li>Breathing Exercises</li>
+                        <li>Meditation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>2. Emotional States in Trading</h2>
+            <div class="chart-container">
+                <canvas id="emotionalStatesChart"></canvas>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-header">
+                            <i class="fas fa-heart-rate"></i>
+                            <h3>Impact on Performance</h3>
+                        </div>
+                        <ul>
+                            <li>Decision Making</li>
+                            <li>Risk Assessment</li>
+                            <li>Trade Execution</li>
+                            <li>Position Management</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>3. Practice Exercise</h2>
+            <div class="quiz-container">
+                <h3>Emotional Control Quiz</h3>
+                <div class="quiz-question">
+                    <p>Which technique is most effective for maintaining emotional control during a losing trade?</p>
+                    <div class="quiz-option" onclick="checkAnswer(1, this)">
+                        A) Following your trading plan
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(2, this)">
+                        B) Doubling down on the position
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(3, this)">
+                        C) Watching price action constantly
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(4, this)">
+                        D) Consulting social media
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="course-navigation">
+            <a href="trading-psychology.html" class="nav-button">
+                <i class="fas fa-arrow-left"></i> Previous Lesson
+            </a>
+            <a href="trading-psychology-3.html" class="nav-button">
+                Next Lesson <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Initialize emotional states chart
+        function initializeEmotionalStatesChart() {
+            const ctx = document.getElementById('emotionalStatesChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Calm', 'Focused', 'Excited', 'Anxious', 'Fearful', 'Panicked'],
+                    datasets: [{
+                        label: 'Trading Performance',
+                        data: [90, 95, 75, 50, 30, 10],
+                        borderColor: '#00ff9d',
+                        backgroundColor: 'rgba(0, 255, 157, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            labels: {
+                                color: '#ffffff'
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#ffffff'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#ffffff'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Quiz functionality
+        function checkAnswer(option, element) {
+            const options = document.querySelectorAll('.quiz-option');
+            options.forEach(opt => {
+                opt.classList.remove('correct', 'wrong');
+                opt.style.pointerEvents = 'none';
+            });
+
+            if(option === 1) {
+                element.classList.add('correct');
+            } else {
+                element.classList.add('wrong');
+                options[0].classList.add('correct');
+            }
+        }
+
+        // Initialize chart
+        initializeEmotionalStatesChart();
+    </script>
+</body>
+</html>

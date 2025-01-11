@@ -1,0 +1,230 @@
+.onchain-analysis-section {
+    background: rgba(22, 24, 26, 0.95);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin: 30px auto;
+    padding: 25px;
+    width: 100%;
+    max-width: 1400px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 20px;
+}
+
+.section-header h3 {
+    color: var(--color-primary);
+    font-size: 1.5rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.timeframe-selector {
+    display: flex;
+    gap: 10px;
+}
+
+.timeframe-btn {
+    background: rgba(22, 24, 26, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: var(--color-text);
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.timeframe-btn:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+}
+
+.timeframe-btn.active {
+    background: var(--color-primary);
+    color: var(--color-surface);
+    border-color: var(--color-primary);
+}
+
+.onchain-content {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.onchain-panel {
+    background: rgba(22, 24, 26, 0.7);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.onchain-panel h4 {
+    color: var(--color-primary);
+    margin-bottom: 20px;
+    font-size: 1.2em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.metric-card {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+}
+
+.metric-icon {
+    color: var(--color-primary);
+    font-size: 1.5em;
+}
+
+.metric-label {
+    color: var(--color-text-dim);
+    font-size: 0.9em;
+}
+
+.metric-value {
+    color: var(--color-text);
+    font-size: 1.2em;
+    font-weight: 500;
+}
+
+.metric-change {
+    font-size: 0.9em;
+}
+
+.metric-change.positive {
+    color: #00ff87;
+}
+
+.metric-change.negative {
+    color: #ff4d4d;
+}
+
+.whale-metrics,
+.hodl-metrics,
+.sentiment-metrics {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.whale-chart,
+.hodl-distribution,
+.sentiment-gauge {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 20px;
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.whale-stats,
+.hodl-stats,
+.sentiment-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.stat-item {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.stat-label {
+    color: var(--color-text-dim);
+    font-size: 0.9em;
+}
+
+.stat-value {
+    color: var(--color-text);
+    font-weight: 500;
+}
+
+.loading {
+    color: var(--color-text-dim);
+    font-style: italic;
+}
+
+/* Responsive Design */
+@media (max-width: 1400px) {
+    .onchain-analysis-section {
+        margin: 30px 20px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .onchain-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .onchain-analysis-section {
+        margin: 20px 15px;
+        padding: 20px;
+    }
+    
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .whale-stats,
+    .hodl-stats,
+    .sentiment-stats {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 576px) {
+    .onchain-analysis-section {
+        margin: 15px 10px;
+        padding: 15px;
+    }
+    
+    .metrics-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .timeframe-selector {
+        flex-wrap: wrap;
+    }
+    
+    .timeframe-btn {
+        padding: 6px 12px;
+        font-size: 0.9em;
+    }
+}

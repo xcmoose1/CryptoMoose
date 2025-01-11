@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeFi Mastery - Yield Farming & Liquidity - CryptoMoose Learning</title>
+    <link rel="stylesheet" href="../css/course-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .course-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .course-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .lesson {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .defi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .defi-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .defi-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .defi-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .defi-icon {
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            color: #f0b90b;
+        }
+
+        .calculator {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+
+        .calculator input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0.5rem;
+            border-radius: 5px;
+            color: white;
+            margin: 0.5rem 0;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .calculator button {
+            background: #f0b90b;
+            color: black;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        .result {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 5px;
+            display: none;
+        }
+
+        .pool-simulator {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+
+        .token-pair {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .token-input {
+            flex: 1;
+        }
+
+        .token-balance {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.5rem;
+            border-radius: 5px;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+
+        .nav-button {
+            background: rgba(240, 185, 11, 0.2);
+            color: #f0b90b;
+            border: 1px solid #f0b90b;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .nav-button:hover {
+            background: rgba(240, 185, 11, 0.3);
+        }
+
+        .warning {
+            background: rgba(244, 67, 54, 0.1);
+            border-left: 4px solid #f44336;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .info {
+            background: rgba(33, 150, 243, 0.1);
+            border-left: 4px solid #2196f3;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 5px 5px 0;
+        }
+
+        header.glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        .logo span {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #f0b90b;
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: rgba(240, 185, 11, 0.2);
+            color: #f0b90b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="glass">
+            <nav>
+                <div class="logo">
+                    <img src="../images/moose.png" alt="CryptoMoose">
+                    <span>CryptoMoose Learning</span>
+                </div>
+                <div class="nav-controls">
+                    <div class="nav-links">
+                        <a href="../index.html" class="nav-link">Home</a>
+                        <a href="../learning.html" class="nav-link">Courses</a>
+                        <a href="../members.html" class="nav-link">Signals</a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <div class="course-container">
+            <div class="course-header">
+                <h1>DeFi Mastery - Yield Farming & Liquidity</h1>
+            </div>
+
+            <div class="lesson">
+                <h2>2. Advanced Yield Farming Strategies</h2>
+
+                <div class="warning">
+                    <h4>⚠️ Risk Warning</h4>
+                    <p>Yield farming can be highly profitable but comes with significant risks including smart contract vulnerabilities and impermanent loss.</p>
+                </div>
+
+                <div class="defi-grid">
+                    <div class="defi-card">
+                        <div class="defi-header">
+                            <i class="fas fa-seedling defi-icon"></i>
+                            <h3>Yield Farming Basics</h3>
+                        </div>
+                        <ul>
+                            <li>Liquidity Provider (LP) Tokens</li>
+                            <li>APY vs APR</li>
+                            <li>Reward Tokens</li>
+                            <li>Compounding Returns</li>
+                        </ul>
+                    </div>
+
+                    <div class="defi-card">
+                        <div class="defi-header">
+                            <i class="fas fa-chart-line defi-icon"></i>
+                            <h3>Impermanent Loss</h3>
+                        </div>
+                        <ul>
+                            <li>Price Impact Analysis</li>
+                            <li>Risk Assessment</li>
+                            <li>IL Protection</li>
+                            <li>Mitigation Strategies</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>APY Calculator</h3>
+                <div class="calculator">
+                    <div>
+                        <label for="principal">Principal Amount ($):</label>
+                        <input type="number" id="principal" placeholder="Enter principal amount">
+                    </div>
+                    <div>
+                        <label for="apr">APR (%):</label>
+                        <input type="number" id="apr" placeholder="Enter APR percentage" step="0.1">
+                    </div>
+                    <div>
+                        <label for="compounds">Compounds per Year:</label>
+                        <input type="number" id="compounds" placeholder="Number of times compounded per year">
+                    </div>
+                    <button onclick="calculateAPY()">Calculate APY</button>
+                    <div id="result" class="result"></div>
+                </div>
+
+                <h3>Liquidity Pool Simulator</h3>
+                <div class="pool-simulator">
+                    <div class="token-pair">
+                        <div class="token-input">
+                            <label for="token1">Token A Amount:</label>
+                            <input type="number" id="token1" placeholder="Enter amount">
+                            <div class="token-balance">Balance: 1000 Token A</div>
+                        </div>
+                        <div class="token-input">
+                            <label for="token2">Token B Amount:</label>
+                            <input type="number" id="token2" placeholder="Enter amount">
+                            <div class="token-balance">Balance: 1000 Token B</div>
+                        </div>
+                    </div>
+                    <button onclick="simulatePool()">Calculate Pool Share</button>
+                    <div id="poolResult" class="result"></div>
+                </div>
+
+                <div class="info">
+                    <h4>💡 Pro Tip</h4>
+                    <p>Look for protocols offering IL protection or high trading fees to offset potential impermanent loss.</p>
+                </div>
+
+                <div class="navigation-buttons">
+                    <a href="defi-mastery.html" class="nav-button">← Previous Lesson</a>
+                    <a href="defi-mastery-3.html" class="nav-button">Next Lesson →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function calculateAPY() {
+            const principal = parseFloat(document.getElementById('principal').value);
+            const apr = parseFloat(document.getElementById('apr').value);
+            const compounds = parseFloat(document.getElementById('compounds').value);
+
+            if (!principal || !apr || !compounds) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            const apy = (1 + (apr/100)/compounds) ** compounds - 1;
+            const yearlyReturn = principal * apy;
+            const totalValue = principal + yearlyReturn;
+
+            const result = document.getElementById('result');
+            result.style.display = 'block';
+            result.innerHTML = `
+                <h4>Yield Calculation:</h4>
+                <p>APY: ${(apy * 100).toFixed(2)}%</p>
+                <p>Yearly Return: $${yearlyReturn.toFixed(2)}</p>
+                <p>Total Value after 1 Year: $${totalValue.toFixed(2)}</p>
+            `;
+        }
+
+        function simulatePool() {
+            const token1 = parseFloat(document.getElementById('token1').value);
+            const token2 = parseFloat(document.getElementById('token2').value);
+
+            if (!token1 || !token2) {
+                alert('Please enter both token amounts');
+                return;
+            }
+
+            const poolShare = (token1 * token2) ** 0.5;
+            const result = document.getElementById('poolResult');
+            result.style.display = 'block';
+            result.innerHTML = `
+                <h4>Pool Analysis:</h4>
+                <p>Pool Share: ${poolShare.toFixed(2)} LP Tokens</p>
+                <p>Pool Ratio: 1 Token A = ${(token2/token1).toFixed(4)} Token B</p>
+                <p>Estimated Pool Share: ${((token1/(token1*2))*100).toFixed(2)}%</p>
+            `;
+        }
+    </script>
+</body>
+</html>

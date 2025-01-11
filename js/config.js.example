@@ -1,0 +1,10 @@
+// API Configuration Example
+// Rename this file to config.js and add your API keys
+const config = {
+    LUNARCRUSH_API_KEY: 'YOUR_LUNARCRUSH_API_KEY_HERE'
+};
+
+// Make config available globally
+if (typeof window !== 'undefined') {
+    window.config = config;
+}

@@ -1,0 +1,143 @@
+<![CDATA[<div class="market-intelligence-section glass">
+    <div class="section-header">
+        <h3><i class="fas fa-brain"></i> Market Intelligence</h3>
+        <div class="intelligence-controls">
+            <div class="source-selector">
+                <select id="dataSource">
+                    <option value="all">All Sources</option>
+                    <option value="onchain">On-Chain Data</option>
+                    <option value="social">Social Sentiment</option>
+                    <option value="news">News & Events</option>
+                    <option value="technical">Technical Signals</option>
+                </select>
+            </div>
+            <div class="refresh-button">
+                <button id="refreshData"><i class="fas fa-sync-alt"></i> Refresh</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="intelligence-content">
+        <!-- Market Pulse -->
+        <div class="intelligence-panel glass">
+            <h4>Market Pulse</h4>
+            <div class="market-pulse-content">
+                <div class="pulse-gauge" id="marketPulseGauge">
+                    <div class="loading">Loading market pulse...</div>
+                </div>
+                <div class="pulse-metrics">
+                    <div class="metric-card">
+                        <span class="metric-icon"><i class="fas fa-heart-rate"></i></span>
+                        <span class="metric-label">Market Sentiment</span>
+                        <span id="marketSentiment" class="metric-value">Loading...</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-icon"><i class="fas fa-chart-line"></i></span>
+                        <span class="metric-label">Trend Strength</span>
+                        <span id="trendStrength" class="metric-value">Loading...</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-icon"><i class="fas fa-bolt"></i></span>
+                        <span class="metric-label">Volatility Index</span>
+                        <span id="volatilityIndex" class="metric-value">Loading...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- News & Events -->
+        <div class="intelligence-panel glass">
+            <h4>News & Events</h4>
+            <div class="news-content">
+                <div class="news-filters">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="breaking">Breaking</button>
+                    <button class="filter-btn" data-filter="regulatory">Regulatory</button>
+                    <button class="filter-btn" data-filter="development">Development</button>
+                </div>
+                <div id="newsContainer" class="news-container">
+                    <div class="loading">Loading news...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Social Sentiment -->
+        <div class="intelligence-panel glass">
+            <h4>Social Sentiment Analysis</h4>
+            <div class="sentiment-content">
+                <div class="sentiment-overview">
+                    <div class="sentiment-chart" id="sentimentChart">
+                        <div class="loading">Loading sentiment data...</div>
+                    </div>
+                </div>
+                <div class="sentiment-metrics">
+                    <div class="metric-card">
+                        <h5>Twitter Sentiment</h5>
+                        <div id="twitterSentiment" class="sentiment-score">
+                            <div class="score-value">Loading...</div>
+                            <div class="score-trend">...</div>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <h5>Reddit Activity</h5>
+                        <div id="redditSentiment" class="sentiment-score">
+                            <div class="score-value">Loading...</div>
+                            <div class="score-trend">...</div>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <h5>Search Trends</h5>
+                        <div id="searchTrends" class="sentiment-score">
+                            <div class="score-value">Loading...</div>
+                            <div class="score-trend">...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Market Signals -->
+        <div class="intelligence-panel glass">
+            <h4>Market Signals</h4>
+            <div class="signals-content">
+                <div class="signals-grid">
+                    <div class="signal-card">
+                        <div class="signal-header">
+                            <span class="signal-icon"><i class="fas fa-chart-line"></i></span>
+                            <span class="signal-title">Technical Signals</span>
+                        </div>
+                        <div id="technicalSignals" class="signal-list">
+                            <div class="loading">Loading signals...</div>
+                        </div>
+                    </div>
+                    <div class="signal-card">
+                        <div class="signal-header">
+                            <span class="signal-icon"><i class="fas fa-network-wired"></i></span>
+                            <span class="signal-title">On-Chain Signals</span>
+                        </div>
+                        <div id="onchainSignals" class="signal-list">
+                            <div class="loading">Loading signals...</div>
+                        </div>
+                    </div>
+                    <div class="signal-card">
+                        <div class="signal-header">
+                            <span class="signal-icon"><i class="fas fa-users"></i></span>
+                            <span class="signal-title">Crowd Sentiment</span>
+                        </div>
+                        <div id="crowdSignals" class="signal-list">
+                            <div class="loading">Loading signals...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Import required scripts -->
+<script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+
+<script type="module">
+    import { marketIntelligence } from './market-intelligence.js';
+    marketIntelligence.init().catch(console.error);
+</script>

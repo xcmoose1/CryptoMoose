@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="400" xmlns="http://www.w3.org/2000/svg">
+    <style>
+        .text { fill: white; font-family: Arial; }
+        .line { fill: none; stroke: #f0b90b; stroke-width: 2; }
+        .box { fill: rgba(240, 185, 11, 0.1); stroke: #f0b90b; stroke-width: 2; }
+        .label { font-size: 14px; }
+    </style>
+    
+    <!-- DeFi Flow Diagram -->
+    <rect x="50" y="50" width="150" height="80" class="box"/>
+    <text x="125" y="90" class="text label" text-anchor="middle">Wallet</text>
+    <text x="125" y="110" class="text label" text-anchor="middle">Connection</text>
+    
+    <rect x="325" y="50" width="150" height="80" class="box"/>
+    <text x="400" y="90" class="text label" text-anchor="middle">Smart</text>
+    <text x="400" y="110" class="text label" text-anchor="middle">Contract</text>
+    
+    <rect x="600" y="50" width="150" height="80" class="box"/>
+    <text x="675" y="90" class="text label" text-anchor="middle">Liquidity</text>
+    <text x="675" y="110" class="text label" text-anchor="middle">Pool</text>
+    
+    <!-- Connecting Lines -->
+    <path class="line" d="M 200,90 L 325,90"/>
+    <path class="line" d="M 475,90 L 600,90"/>
+    
+    <!-- Flow Arrows -->
+    <path d="M 315,90 l -10,-5 v 10 z" fill="#f0b90b"/>
+    <path d="M 590,90 l -10,-5 v 10 z" fill="#f0b90b"/>
+</svg>

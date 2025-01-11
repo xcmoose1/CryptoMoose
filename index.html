@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoMoose | AI Trading Signals</title>
+    <link rel="icon" type="image/png" href="./images/Moose.png">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+    <style>
+        :root {
+            --color-bg: #0a0b0c;
+            --color-surface: #16181a;
+            --color-primary: #00ff9d;
+            --color-secondary: #94a3b8;
+            --color-text: #ffffff;
+            --color-text-dim: rgba(255, 255, 255, 0.7);
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --glow-primary: 0 0 20px rgba(0, 255, 157, 0.5);
+            --glow-strong: 0 0 30px rgba(0, 255, 157, 0.8);
+        }
+
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            line-height: 1.6;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(0, 255, 157, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 255, 157, 0.05) 0%, transparent 50%);
+        }
+
+        .nav {
+            background: rgba(18, 18, 18, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #fff;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .btn-telegram {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #0088cc;
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1.25rem;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(0, 136, 204, 0.3);
+        }
+
+        .btn-telegram:hover {
+            background: #0099e6;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 136, 204, 0.4);
+        }
+
+        .nav-link.twitter {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-link.twitter:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .hero {
+            min-height: 100vh;
+            padding: 120px 2rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                45deg,
+                rgba(0, 255, 157, 0.03) 0px,
+                rgba(0, 255, 157, 0.03) 1px,
+                transparent 1px,
+                transparent 10px
+            );
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text {
+            padding: 2rem;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #fff 0%, #00ff9d 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: var(--glow-primary);
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--color-text-dim);
+            margin-bottom: 2rem;
+        }
+
+        .price-box {
+            background: rgba(22, 24, 26, 0.9);
+            border: 1px solid rgba(0, 255, 157, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .price-title {
+            font-size: 1.5rem;
+            color: var(--color-text);
+            margin-bottom: 1rem;
+        }
+
+        .price-amount {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 1rem;
+            text-shadow: var(--glow-primary);
+        }
+
+        .price-features {
+            text-align: left;
+            margin: 1.5rem 0;
+        }
+
+        .price-features li {
+            margin: 0.75rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--color-text-dim);
+        }
+
+        .price-features li i {
+            color: var(--color-primary);
+        }
+
+        .cta-button {
+            background: var(--color-primary);
+            color: var(--color-bg);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-size: 1.125rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--glow-primary);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--glow-strong);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+
+        .feature-card {
+            background: rgba(22, 24, 26, 0.8);
+            border: 1px solid rgba(0, 255, 157, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--color-primary);
+            box-shadow: var(--glow-primary);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(0, 255, 157, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            color: var(--color-primary);
+            font-size: 1.5rem;
+        }
+
+        .feature-card h3 {
+            color: var(--color-primary);
+            margin: 1rem 0;
+        }
+
+        .feature-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0;
+        }
+
+        .feature-card li {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0.5rem 0;
+            color: var(--color-text-dim);
+        }
+
+        .feature-card li i {
+            color: var(--color-primary);
+            font-size: 0.875rem;
+        }
+
+        .mascot-container {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mascot-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 0 20px rgba(0, 255, 157, 0.3));
+        }
+
+        .disclaimer-section {
+            background: rgba(22, 24, 26, 0.8);
+            border-top: 1px solid rgba(0, 255, 157, 0.1);
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        .disclaimer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            color: var(--color-text-dim);
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+
+        /* Responsive Styles */
+        @media screen and (max-width: 1200px) {
+            .features-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+
+            .hero-content {
+                gap: 2rem;
+            }
+        }
+
+        @media screen and (max-width: 992px) {
+            .nav-content {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .nav-left, .nav-right {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .hero {
+                padding-top: 140px;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 2rem;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .mascot-container {
+                height: 400px;
+                order: -1;
+            }
+
+            .price-box {
+                margin: 2rem auto;
+                max-width: 400px;
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                padding: 0 1rem;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .nav {
+                padding: 0.5rem 0;
+            }
+
+            .nav-content {
+                padding: 0.5rem;
+            }
+
+            .nav-left, .nav-right {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+
+            .nav-link, .btn-telegram {
+                width: calc(50% - 0.5rem);
+                justify-content: center;
+                padding: 0.5rem;
+                font-size: 0.875rem;
+            }
+
+            .logo-container {
+                width: 100%;
+                text-align: center;
+                margin-bottom: 0.5rem;
+            }
+
+            .hero {
+                padding-top: 160px;
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .price-box {
+                padding: 1.5rem;
+            }
+
+            .price-amount {
+                font-size: 2.5rem;
+            }
+
+            .price-features {
+                font-size: 0.875rem;
+            }
+
+            .feature-card {
+                padding: 1.5rem;
+            }
+
+            .feature-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 1.25rem;
+            }
+
+            .feature-card h3 {
+                font-size: 1.25rem;
+            }
+
+            .feature-card p, .feature-card li {
+                font-size: 0.875rem;
+            }
+
+            .disclaimer-section {
+                padding: 1.5rem 1rem;
+            }
+
+            .disclaimer-content {
+                font-size: 0.75rem;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .nav-link, .btn-telegram {
+                width: 100%;
+                margin: 0.25rem 0;
+            }
+
+            .hero {
+                padding-top: 200px;
+            }
+
+            .hero-title {
+                font-size: 1.75rem;
+            }
+
+            .mascot-container {
+                height: 300px;
+            }
+
+            .price-amount {
+                font-size: 2rem;
+            }
+
+            .cta-button {
+                width: 100%;
+                padding: 0.875rem 1.5rem;
+                font-size: 1rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .feature-card {
+                padding: 1.25rem;
+            }
+        }
+
+        /* Dark Mode Support */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --color-bg: #0a0b0c;
+                --color-surface: #16181a;
+            }
+        }
+
+        /* High Contrast Mode Support */
+        @media (prefers-contrast: high) {
+            :root {
+                --color-primary: #00ff00;
+                --color-text: #ffffff;
+                --color-text-dim: rgba(255, 255, 255, 0.9);
+            }
+        }
+
+        /* Reduced Motion Support */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="nav-left">
+                <a href="index.html" class="logo-container">
+                    <img src="images/moose.png" alt="CryptoMoose" style="height: 32px; width: auto;">
+                    <span>CryptoMoose</span>
+                </a>
+                <a href="dashboard.html" class="nav-link">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Dashboard</span>
+                </a>
+            </div>
+            <div class="nav-right">
+                <a href="https://t.me/cryptomoose" target="_blank" class="btn-telegram">
+                    <i class="fab fa-telegram"></i>
+                    <span>Get Live Signals on Telegram</span>
+                </a>
+                <a href="https://x.com/XCryptoMoose" target="_blank" class="nav-link twitter">
+                    <img src="images/x-logo.svg" alt="X (Twitter)" style="height: 16px; width: 16px;">
+                    <span>Follow Alpha</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">AI-Powered Crypto Signals</h1>
+                <p class="hero-subtitle">Advanced trading signals powered by artificial intelligence</p>
+                
+                <div class="price-box">
+                    <h2 class="price-title">Start Trading Smarter</h2>
+                    <div class="price-amount">$29.99/month</div>
+                    <ul class="price-features">
+                        <li><i class="fas fa-check"></i> Real-time AI trading signals</li>
+                        <li><i class="fas fa-check"></i> Instant mobile notifications</li>
+                        <li><i class="fas fa-check"></i> Advanced technical analysis</li>
+                        <li><i class="fas fa-check"></i> 24/7 market monitoring</li>
+                    </ul>
+                    <button class="cta-button">Get Started Now</button>
+                </div>
+            </div>
+
+            <div class="mascot-container">
+                <img src="./images/Moose.png" alt="CryptoMoose Mascot" class="mascot-image">
+            </div>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <h3>AI Gem Hunter</h3>
+                <p>Discover promising low-cap crypto projects</p>
+                <ul>
+                    <li><i class="fas fa-check"></i> AI-powered project scoring</li>
+                    <li><i class="fas fa-check"></i> Risk assessment & analysis</li>
+                    <li><i class="fas fa-check"></i> Real-time sentiment tracking</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Market Analysis</h3>
+                <p>Deep market insights and trends</p>
+                <ul>
+                    <li><i class="fas fa-check"></i> Technical indicators</li>
+                    <li><i class="fas fa-check"></i> Pattern recognition</li>
+                    <li><i class="fas fa-check"></i> Market sentiment analysis</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-bell"></i>
+                </div>
+                <h3>Instant Alerts</h3>
+                <p>Never miss a trading opportunity</p>
+                <ul>
+                    <li><i class="fas fa-check"></i> Real-time notifications</li>
+                    <li><i class="fas fa-check"></i> Custom alert settings</li>
+                    <li><i class="fas fa-check"></i> Multi-platform support</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Risk Management</h3>
+                <p>Protect your investments</p>
+                <ul>
+                    <li><i class="fas fa-check"></i> Position sizing calculator</li>
+                    <li><i class="fas fa-check"></i> Stop-loss recommendations</li>
+                    <li><i class="fas fa-check"></i> Portfolio diversification</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h3>AI Insights</h3>
+                <p>Advanced market intelligence</p>
+                <ul>
+                    <li><i class="fas fa-check"></i> Predictive analytics</li>
+                    <li><i class="fas fa-check"></i> Trend forecasting</li>
+                    <li><i class="fas fa-check"></i> Market correlation analysis</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h3>Trading Education</h3>
+                <p>Learn from the best</p>
+                <ul>
+                    <li><i class="fas fa-check"></i> Strategy guides</li>
+                    <li><i class="fas fa-check"></i> Video tutorials</li>
+                    <li><i class="fas fa-check"></i> Community insights</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="disclaimer-section">
+        <div class="disclaimer-content">
+            <h4>Risk Disclaimer</h4>
+            <p>Cryptocurrency trading involves substantial risk and is not suitable for every investor. The high degree of leverage can work against you as well as for you. Before deciding to trade cryptocurrency you should carefully consider your investment objectives, level of experience, and risk appetite.</p>
+            <p>The possibility exists that you could sustain a loss of some or all of your initial investment and therefore you should not invest money that you cannot afford to lose. You should be aware of all the risks associated with cryptocurrency trading, and seek advice from an independent financial advisor if you have any doubts.</p>
+            <p>CryptoMoose's AI signals and analysis tools are for informational purposes only and should not be considered as financial advice. Past performance is not indicative of future results.</p>
+        </div>
+    </section>
+</body>
+</html>

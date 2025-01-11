@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fundamental Analysis - Project Team Analysis - CryptoMoose Learning</title>
+    <link rel="stylesheet" href="../css/course-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="nav-left">
+                <a href="../index.html" class="logo-container">
+                    <img src="../images/Moose.png" alt="CryptoMoose Logo">
+                </a>
+                <a href="https://t.me/CryptoMooseAlpha" target="_blank" class="btn btn-telegram">
+                    <i class="fab fa-telegram"></i> Join Telegram
+                </a>
+            </div>
+            <div class="nav-right">
+                <a href="../dashboard.html" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="https://x.com/XCryptoMoose" target="_blank" class="nav-link">
+                    <i class="fab fa-x-twitter"></i>
+                    <span>Follow Alpha</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="course-container">
+        <div class="course-header">
+            <h1>Project Team Analysis</h1>
+            <p>Learn how to evaluate the team behind a crypto project</p>
+        </div>
+
+        <div class="course-progress">
+            <div class="progress-text">Course Progress: 33%</div>
+            <div class="progress-bar">
+                <div class="progress" style="width: 33%"></div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>1. Team Background Check</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-header">
+                        <i class="fas fa-users"></i>
+                        <h3>Key Team Members</h3>
+                    </div>
+                    <ul>
+                        <li>Founders & Co-founders</li>
+                        <li>Technical Team</li>
+                        <li>Advisors</li>
+                        <li>Partners</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <div class="info-header">
+                        <i class="fas fa-search"></i>
+                        <h3>Verification Sources</h3>
+                    </div>
+                    <ul>
+                        <li>LinkedIn Profiles</li>
+                        <li>GitHub Repositories</li>
+                        <li>Previous Projects</li>
+                        <li>Social Media Presence</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>2. Red Flags</h2>
+            <div class="warning-container">
+                <div class="warning-card">
+                    <div class="warning-header">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3>Common Warning Signs</h3>
+                    </div>
+                    <ul>
+                        <li>Anonymous team members</li>
+                        <li>Fake LinkedIn profiles</li>
+                        <li>Limited technical experience</li>
+                        <li>History of failed projects</li>
+                        <li>Inconsistent information</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>3. Team Assessment Exercise</h2>
+            <div class="exercise-container">
+                <div class="case-study">
+                    <h3>Case Study: Project X</h3>
+                    <div class="team-profile">
+                        <div class="profile-section">
+                            <h4>CEO Background</h4>
+                            <ul>
+                                <li>10 years in blockchain</li>
+                                <li>Previously at Major Tech Co.</li>
+                                <li>Active GitHub profile</li>
+                                <li>Speaks at conferences</li>
+                            </ul>
+                        </div>
+                        <div class="profile-section">
+                            <h4>CTO Background</h4>
+                            <ul>
+                                <li>Anonymous identity</li>
+                                <li>Claims 15 years experience</li>
+                                <li>No verifiable history</li>
+                                <li>Limited social presence</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="assessment-question">
+                        <p>Based on this information, what is your assessment of the team?</p>
+                        <div class="quiz-option" onclick="checkAnswer(1, this)">
+                            A) High risk - CTO anonymity is a major red flag
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(2, this)">
+                            B) Low risk - CEO's background compensates
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(3, this)">
+                            C) Medium risk - More investigation needed
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(4, this)">
+                            D) No risk - Common in crypto
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="course-navigation">
+            <a href="fundamental-analysis-1.html" class="nav-button">
+                <i class="fas fa-arrow-left"></i> Previous Lesson
+            </a>
+            <a href="fundamental-analysis-3.html" class="nav-button">
+                Next Lesson <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function checkAnswer(option, element) {
+            const options = document.querySelectorAll('.quiz-option');
+            options.forEach(opt => {
+                opt.classList.remove('correct', 'wrong');
+                opt.style.pointerEvents = 'none';
+            });
+
+            if(option === 3) {
+                element.classList.add('correct');
+            } else {
+                element.classList.add('wrong');
+                options[2].classList.add('correct');
+            }
+        }
+    </script>
+</body>
+</html>

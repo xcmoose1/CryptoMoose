@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technical Analysis - Advanced Patterns - CryptoMoose Learning</title>
+    <link rel="stylesheet" href="../css/course-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="nav-left">
+                <a href="../index.html" class="logo-container">
+                    <img src="../images/Moose.png" alt="CryptoMoose Logo">
+                </a>
+                <a href="https://t.me/CryptoMooseAlpha" target="_blank" class="btn btn-telegram">
+                    <i class="fab fa-telegram"></i> Join Telegram
+                </a>
+            </div>
+            <div class="nav-right">
+                <a href="../dashboard.html" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="https://x.com/XCryptoMoose" target="_blank" class="nav-link">
+                    <i class="fab fa-x-twitter"></i>
+                    <span>Follow Alpha</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="course-container">
+        <div class="course-header">
+            <h1>Advanced Technical Analysis</h1>
+            <p>Learn advanced chart patterns and technical indicators</p>
+        </div>
+
+        <div class="course-progress">
+            <div class="progress-text">Course Progress: 33%</div>
+            <div class="progress-bar">
+                <div class="progress" style="width: 33%"></div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>1. Advanced Chart Patterns</h2>
+            <p>Understanding complex chart patterns helps identify high-probability trading opportunities.</p>
+            
+            <div class="chart-container">
+                <canvas id="advancedChart"></canvas>
+                <div class="chart-controls">
+                    <button class="chart-control active" onclick="showPattern('wedge')">Rising Wedge</button>
+                    <button class="chart-control" onclick="showPattern('channel')">Channel</button>
+                    <button class="chart-control" onclick="showPattern('harmonic')">Harmonic</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>2. Fibonacci Retracements</h2>
+            <p>Fibonacci retracement levels are powerful tools for identifying potential support and resistance levels.</p>
+            
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-header">
+                        <i class="fas fa-calculator"></i>
+                        <h3>Key Fibonacci Levels</h3>
+                    </div>
+                    <ul>
+                        <li>23.6% - Minor retracement</li>
+                        <li>38.2% - First major level</li>
+                        <li>50.0% - Mid-point (not Fibonacci)</li>
+                        <li>61.8% - Golden ratio</li>
+                        <li>78.6% - Deep retracement</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <div class="info-header">
+                        <i class="fas fa-book"></i>
+                        <h3>Application Tips</h3>
+                    </div>
+                    <ul>
+                        <li>Draw from swing low to high</li>
+                        <li>Combine with trend lines</li>
+                        <li>Look for confluence</li>
+                        <li>Use in multiple timeframes</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>3. Practice Quiz</h2>
+            <div class="quiz-container">
+                <h3>Advanced Pattern Recognition</h3>
+                <div class="quiz-question">
+                    <p>Which Fibonacci retracement level is considered the 'golden ratio'?</p>
+                    <div class="quiz-option" onclick="checkAnswer(3, this)">
+                        A) 23.6%
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(3, this)">
+                        B) 38.2%
+                    </div>
+                    <div class="quiz-option correct" onclick="checkAnswer(3, this)">
+                        C) 61.8%
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(3, this)">
+                        D) 78.6%
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="course-navigation">
+            <a href="technical-analysis.html" class="nav-button">
+                <i class="fas fa-arrow-left"></i> Previous Lesson
+            </a>
+            <a href="technical-analysis-3.html" class="nav-button">
+                Next Lesson <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Initialize chart
+        function initializeChart() {
+            const ctx = document.getElementById('advancedChart').getContext('2d');
+            window.advancedChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: Array.from({length: 20}, (_, i) => i + 1),
+                    datasets: [{
+                        label: 'Price',
+                        data: generateWedgePattern(),
+                        borderColor: '#00ff9d',
+                        tension: 0.4,
+                        fill: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            labels: {
+                                color: '#ffffff'
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#ffffff'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#ffffff'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Generate pattern data
+        function generateWedgePattern() {
+            return [10, 12, 11, 13, 12, 14, 13, 15, 14, 15, 14, 14];
+        }
+
+        function generateChannelPattern() {
+            return [10, 12, 11, 13, 12, 14, 13, 15, 14, 16, 15, 17];
+        }
+
+        function generateHarmonicPattern() {
+            return [10, 15, 12, 16, 11, 14, 13, 15, 12, 13, 11, 10];
+        }
+
+        // Update chart pattern
+        function showPattern(pattern) {
+            const buttons = document.querySelectorAll('.chart-control');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            let data;
+            switch(pattern) {
+                case 'wedge':
+                    data = generateWedgePattern();
+                    break;
+                case 'channel':
+                    data = generateChannelPattern();
+                    break;
+                case 'harmonic':
+                    data = generateHarmonicPattern();
+                    break;
+            }
+            
+            window.advancedChart.data.datasets[0].data = data;
+            window.advancedChart.update();
+        }
+
+        // Quiz functionality
+        function checkAnswer(correctOption, element) {
+            const options = document.querySelectorAll('.quiz-option');
+            options.forEach(opt => {
+                opt.classList.remove('correct', 'wrong');
+                opt.style.pointerEvents = 'none';
+            });
+
+            if(element.classList.contains('correct')) {
+                element.classList.add('correct');
+            } else {
+                element.classList.add('wrong');
+                options[2].classList.add('correct');
+            }
+        }
+
+        // Initialize everything
+        initializeChart();
+    </script>
+</body>
+</html>

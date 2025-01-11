@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoMoose VIP - Dashboard</title>
+    <link rel="stylesheet" href="css/members-new.css">
+    <link rel="stylesheet" href="css/chart.css">
+    <link rel="stylesheet" href="css/market-metrics.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--container-padding-desktop);
+        }
+
+        .market-metrics-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .metric-box {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            transition: transform 0.3s ease;
+        }
+
+        .metric-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .chart-container {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+        }
+
+        .chart-controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .timeframe-selector, .pair-selector {
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--color-text);
+            cursor: pointer;
+        }
+
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .analysis-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            height: 100%;
+        }
+
+        @media screen and (max-width: 1024px) {
+            .container {
+                padding: var(--container-padding-mobile);
+            }
+
+            .market-metrics-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .market-metrics-container {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .metric-box {
+                padding: 1rem;
+            }
+
+            .chart-controls {
+                flex-direction: column;
+            }
+
+            .timeframe-selector, .pair-selector {
+                width: 100%;
+            }
+
+            .analysis-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .container {
+                padding: 0.75rem;
+            }
+
+            .metric-box {
+                padding: 0.75rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            h3 {
+                font-size: 1.2rem;
+            }
+
+            .metric-value {
+                font-size: 1.1rem;
+            }
+
+            .chart-container {
+                padding: 1rem;
+                margin-top: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="glass">
+            <nav>
+                <div class="logo">
+                    <img src="images/moose.png" alt="CryptoMoose">
+                    <span>CryptoMoose VIP</span>
+                </div>
+                <div class="welcome-text">
+                    Welcome to the VIP Experience
+                </div>
+            </nav>
+        </header>
+
+        <!-- Market Metrics Section -->
+        <section class="market-metrics glass">
+            <h2>Key Market Metrics</h2>
+            <div class="market-metrics-container">
+                <div class="metric-box">
+                    <h3>Altcoin Dominance</h3>
+                    <div id="altcoinDominance" class="metric-value">Loading...</div>
+                </div>
+                <div class="metric-box">
+                    <h3>Market Sentiment</h3>
+                    <div id="altcoinFearGreed" class="metric-value">Loading...</div>
+                </div>
+                <div class="metric-box">
+                    <h3>Market Volatility</h3>
+                    <div id="marketVolatility" class="metric-value">Loading...</div>
+                </div>
+                <div class="metric-box">
+                    <h3>OBV Trend</h3>
+                    <div id="obvTrend" class="metric-value">Loading...</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Market Analysis Section -->
+        <section class="market-analysis glass">
+            <h2>Market Analysis</h2>
+            <div class="analysis-grid">
+                <div class="analysis-card">
+                    <h3>Market Overview</h3>
+                    <div id="marketOverview" class="analysis-text">Loading market overview...</div>
+                </div>
+                <div class="analysis-card">
+                    <h3>Market Correlations</h3>
+                    <div id="marketCorrelations" class="analysis-text">Loading correlations...</div>
+                </div>
+                <div class="analysis-card">
+                    <h3>Trading Strategy</h3>
+                    <div id="tradingStrategy" class="analysis-text">Loading trading strategy...</div>
+                </div>
+            </div>
+        </section>
+
+        <main class="dashboard-content">
+            <div class="chart-container glass">
+                <div class="chart-controls">
+                    <select class="pair-selector">
+                        <option value="BTCUSDT">BTC/USDT</option>
+                        <option value="ETHUSDT">ETH/USDT</option>
+                        <option value="BNBUSDT">BNB/USDT</option>
+                        <option value="XRPUSDT">XRP/USDT</option>
+                        <option value="SOLUSDT">SOL/USDT</option>
+                        <option value="ADAUSDT">ADA/USDT</option>
+                        <option value="DOGEUSDT">DOGE/USDT</option>
+                        <option value="DOTUSDT">DOT/USDT</option>
+                    </select>
+                    <div class="timeframe-controls">
+                        <button class="timeframe-btn active" data-timeframe="1h">1H</button>
+                        <button class="timeframe-btn" data-timeframe="4h">4H</button>
+                        <button class="timeframe-btn" data-timeframe="12h">12H</button>
+                        <button class="timeframe-btn" data-timeframe="1d">1D</button>
+                    </div>
+                    <button class="expand-chart-btn"><i class="fas fa-expand"></i></button>
+                    <button class="close-chart-btn"><i class="fas fa-times"></i></button>
+                </div>
+                <div id="priceChart"></div>
+            </div>
+
+            <!-- Market Analytics Card -->
+            <a href="market-analytics.html" class="dashboard-card glass">
+                <div class="card-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h2>Market Analytics</h2>
+                <p>Advanced market analysis with real-time indicators, order book visualization, and comprehensive altcoin insights.</p>
+                <div class="card-features">
+                    <span><i class="fas fa-check"></i> Live Market Data</span>
+                    <span><i class="fas fa-check"></i> Technical Analysis</span>
+                    <span><i class="fas fa-check"></i> Altcoin Insights</span>
+                </div>
+                <div class="card-cta">
+                    Explore Markets <i class="fas fa-arrow-right"></i>
+                </div>
+            </a>
+
+            <!-- Learning Hub Card -->
+            <a href="learning.html" class="dashboard-card glass">
+                <div class="card-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h2>Learning Hub</h2>
+                <p>Comprehensive educational resources, trading strategies, and market psychology insights to enhance your trading skills.</p>
+                <div class="card-features">
+                    <span><i class="fas fa-check"></i> Trading Strategies</span>
+                    <span><i class="fas fa-check"></i> Market Psychology</span>
+                    <span><i class="fas fa-check"></i> Risk Management</span>
+                </div>
+                <div class="card-cta">
+                    Start Learning <i class="fas fa-arrow-right"></i>
+                </div>
+            </a>
+
+            <!-- X Analysis Card -->
+            <a href="x-analysis.html" class="dashboard-card glass">
+                <div class="card-icon">
+                    <i class="fab fa-twitter"></i>
+                </div>
+                <h2>X Analysis</h2>
+                <p>Real-time sentiment analysis and key insights from crypto Twitter, tracking influential voices and market trends.</p>
+                <div class="card-features">
+                    <span><i class="fas fa-check"></i> Sentiment Analysis</span>
+                    <span><i class="fas fa-check"></i> Trend Tracking</span>
+                    <span><i class="fas fa-check"></i> Influencer Insights</span>
+                </div>
+                <div class="card-cta">
+                    View Insights <i class="fas fa-arrow-right"></i>
+                </div>
+            </a>
+        </main>
+    </div>
+
+    <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+    <script src="js/market-metrics.js"></script>
+</body>
+</html>

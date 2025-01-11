@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fundamental Analysis - Technology Assessment - CryptoMoose Learning</title>
+    <link rel="stylesheet" href="../css/course-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="nav-left">
+                <a href="../index.html" class="logo-container">
+                    <img src="../images/Moose.png" alt="CryptoMoose Logo">
+                </a>
+                <a href="https://t.me/CryptoMooseAlpha" target="_blank" class="btn btn-telegram">
+                    <i class="fab fa-telegram"></i> Join Telegram
+                </a>
+            </div>
+            <div class="nav-right">
+                <a href="../dashboard.html" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="https://x.com/XCryptoMoose" target="_blank" class="nav-link">
+                    <i class="fab fa-x-twitter"></i>
+                    <span>Follow Alpha</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="course-container">
+        <div class="course-header">
+            <h1>Technology Assessment</h1>
+            <p>Learn how to evaluate the technical foundations of crypto projects</p>
+        </div>
+
+        <div class="course-progress">
+            <div class="progress-text">Course Progress: 83%</div>
+            <div class="progress-bar">
+                <div class="progress" style="width: 83%"></div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>1. Technical Architecture</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-header">
+                        <i class="fas fa-microchip"></i>
+                        <h3>Core Components</h3>
+                    </div>
+                    <ul>
+                        <li>Consensus Mechanism</li>
+                        <li>Scalability Solutions</li>
+                        <li>Security Features</li>
+                        <li>Network Architecture</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <div class="info-header">
+                        <i class="fas fa-code-branch"></i>
+                        <h3>Development Activity</h3>
+                    </div>
+                    <ul>
+                        <li>GitHub Commits</li>
+                        <li>Code Quality</li>
+                        <li>Developer Community</li>
+                        <li>Documentation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>2. Smart Contract Analysis</h2>
+            <div class="code-container">
+                <div class="code-header">
+                    <i class="fas fa-file-code"></i>
+                    <h3>Smart Contract Review</h3>
+                </div>
+                <div class="code-content">
+                    <pre><code>// Example Smart Contract Red Flags
+1. Ownership Control
+   - Centralized control
+   - Privileged functions
+   - No timelock
+
+2. Security Vulnerabilities
+   - Reentrancy risks
+   - Integer overflow
+   - Unchecked external calls
+
+3. Code Quality
+   - Lack of comments
+   - Complex logic
+   - No testing suite</code></pre>
+                </div>
+            </div>
+            
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-header">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Security Audits</h3>
+                    </div>
+                    <ul>
+                        <li>Third-party audits</li>
+                        <li>Bug bounty programs</li>
+                        <li>Security certifications</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>3. Technical Assessment Exercise</h2>
+            <div class="exercise-container">
+                <div class="case-study">
+                    <h3>Smart Contract Analysis</h3>
+                    <div class="code-review">
+                        <pre><code>contract Token {
+    address public owner;
+    mapping(address => uint) balances;
+    
+    function withdraw() public {
+        require(msg.sender == owner);
+        owner.transfer(address(this).balance);
+    }
+    
+    function transfer(address to, uint amount) public {
+        balances[msg.sender] -= amount;
+        balances[to] += amount;
+    }
+}</code></pre>
+                    </div>
+                    <div class="quiz-container">
+                        <h3>Code Review Quiz</h3>
+                        <div class="quiz-question">
+                            <p>What security vulnerabilities exist in this contract?</p>
+                            <div class="quiz-option" onclick="checkAnswer(1, this)">
+                                A) No balance checks in transfer function
+                            </div>
+                            <div class="quiz-option" onclick="checkAnswer(2, this)">
+                                B) Centralized owner control only
+                            </div>
+                            <div class="quiz-option" onclick="checkAnswer(3, this)">
+                                C) Integer overflow only
+                            </div>
+                            <div class="quiz-option" onclick="checkAnswer(4, this)">
+                                D) All of the above
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="course-navigation">
+            <a href="fundamental-analysis-3.html" class="nav-button">
+                <i class="fas fa-arrow-left"></i> Previous Lesson
+            </a>
+            <a href="fundamental-analysis-5.html" class="nav-button">
+                Next Lesson <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Quiz functionality
+        function checkAnswer(option, element) {
+            const options = document.querySelectorAll('.quiz-option');
+            options.forEach(opt => {
+                opt.classList.remove('correct', 'wrong');
+                opt.style.pointerEvents = 'none';
+            });
+
+            if(option === 4) {
+                element.classList.add('correct');
+            } else {
+                element.classList.add('wrong');
+                options[3].classList.add('correct');
+            }
+        }
+    </script>
+</body>
+</html>

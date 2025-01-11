@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trading Psychology - Introduction - CryptoMoose Learning</title>
+    <link rel="stylesheet" href="../css/course-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="nav-left">
+                <a href="../index.html" class="logo-container">
+                    <img src="../images/Moose.png" alt="CryptoMoose Logo">
+                </a>
+                <a href="https://t.me/CryptoMooseAlpha" target="_blank" class="btn btn-telegram">
+                    <i class="fab fa-telegram"></i> Join Telegram
+                </a>
+            </div>
+            <div class="nav-right">
+                <a href="../dashboard.html" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="https://x.com/XCryptoMoose" target="_blank" class="nav-link">
+                    <i class="fab fa-x-twitter"></i>
+                    <span>Follow Alpha</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="course-container">
+        <div class="course-header">
+            <h1>Introduction to Trading Psychology</h1>
+            <p>Master your mind to become a successful trader</p>
+        </div>
+
+        <div class="course-progress">
+            <div class="progress-text">Course Progress: 16%</div>
+            <div class="progress-bar">
+                <div class="progress" style="width: 16%"></div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>1. Understanding Trading Psychology</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-header">
+                        <i class="fas fa-brain"></i>
+                        <h3>Key Concepts</h3>
+                    </div>
+                    <ul>
+                        <li>Fear and Greed</li>
+                        <li>Emotional Control</li>
+                        <li>Decision Making</li>
+                        <li>Risk Tolerance</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <div class="info-header">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Impact on Trading</h3>
+                    </div>
+                    <ul>
+                        <li>Entry and Exit Decisions</li>
+                        <li>Position Sizing</li>
+                        <li>Risk Management</li>
+                        <li>Overall Performance</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>2. Common Psychological Biases</h2>
+            <div class="chart-container">
+                <canvas id="biasesChart"></canvas>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-header">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <h3>Trading Biases</h3>
+                        </div>
+                        <ul>
+                            <li>Confirmation Bias</li>
+                            <li>Loss Aversion</li>
+                            <li>Overconfidence</li>
+                            <li>Anchoring</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>3. Practice Exercise</h2>
+            <div class="quiz-container">
+                <h3>Trading Psychology Quiz</h3>
+                <div class="quiz-question">
+                    <p>Which psychological bias makes traders hold losing positions too long?</p>
+                    <div class="quiz-option" onclick="checkAnswer(1, this)">
+                        A) Loss Aversion
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(2, this)">
+                        B) Confirmation Bias
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(3, this)">
+                        C) Overconfidence
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(4, this)">
+                        D) Anchoring
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="course-navigation">
+            <a href="../learning.html" class="nav-button">
+                <i class="fas fa-arrow-left"></i> Back to Courses
+            </a>
+            <a href="trading-psychology-2.html" class="nav-button">
+                Next Lesson <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Initialize biases chart
+        function initializeBiasesChart() {
+            const ctx = document.getElementById('biasesChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: [
+                        'Loss Aversion',
+                        'Confirmation Bias',
+                        'Overconfidence',
+                        'Anchoring',
+                        'FOMO',
+                        'Recency Bias'
+                    ],
+                    datasets: [{
+                        label: 'Impact on Trading',
+                        data: [90, 85, 80, 75, 85, 70],
+                        backgroundColor: 'rgba(0, 255, 157, 0.2)',
+                        borderColor: '#00ff9d',
+                        pointBackgroundColor: '#00ff9d',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: '#00ff9d'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            labels: {
+                                color: '#ffffff'
+                            }
+                        }
+                    },
+                    scales: {
+                        r: {
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#ffffff',
+                                backdropColor: 'transparent'
+                            },
+                            pointLabels: {
+                                color: '#ffffff'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Quiz functionality
+        function checkAnswer(option, element) {
+            const options = document.querySelectorAll('.quiz-option');
+            options.forEach(opt => {
+                opt.classList.remove('correct', 'wrong');
+                opt.style.pointerEvents = 'none';
+            });
+
+            if(option === 1) {
+                element.classList.add('correct');
+            } else {
+                element.classList.add('wrong');
+                options[0].classList.add('correct');
+            }
+        }
+
+        // Initialize chart
+        initializeBiasesChart();
+    </script>
+</body>
+</html>

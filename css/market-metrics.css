@@ -1,0 +1,58 @@
+.market-metrics-container,
+.market-analysis-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.metric-box,
+.analysis-box {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 1rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.metric-box:hover,
+.analysis-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.metric-box h3,
+.analysis-box h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1rem;
+    color: #d1d4dc;
+}
+
+.metric-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0.5rem 0;
+}
+
+.analysis-text {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: #d1d4dc;
+}
+
+/* Sentiment colors */
+.extreme-fear { color: #ff4444; }
+.fear { color: #ff8800; }
+.neutral { color: #ffbb33; }
+.greed { color: #00C851; }
+.extreme-greed { color: #007E33; }
+
+/* Volatility colors */
+.volatility-low { color: #00C851; }
+.volatility-medium { color: #ffbb33; }
+.volatility-high { color: #ff4444; }
+
+/* OBV Trend colors */
+.obv-up { color: #00C851; }
+.obv-down { color: #ff4444; }
+.obv-neutral { color: #ffbb33; }

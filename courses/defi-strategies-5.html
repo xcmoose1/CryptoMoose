@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeFi Strategies - Risk Management - CryptoMoose Learning</title>
+    <link rel="stylesheet" href="../css/course-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="nav-left">
+                <a href="../index.html" class="logo-container">
+                    <img src="../images/Moose.png" alt="CryptoMoose Logo">
+                </a>
+                <a href="https://t.me/CryptoMooseAlpha" target="_blank" class="btn btn-telegram">
+                    <i class="fab fa-telegram"></i> Join Telegram
+                </a>
+            </div>
+            <div class="nav-right">
+                <a href="../dashboard.html" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="https://x.com/XCryptoMoose" target="_blank" class="nav-link">
+                    <i class="fab fa-x-twitter"></i>
+                    <span>Follow Alpha</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="course-container">
+        <div class="course-header">
+            <h1>DeFi Risk Management</h1>
+            <p>Learn to identify and mitigate risks in DeFi protocols</p>
+        </div>
+
+        <div class="course-progress">
+            <div class="progress-text">Course Progress: 83%</div>
+            <div class="progress-bar">
+                <div class="progress" style="width: 83%"></div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>1. DeFi Risk Types</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-header">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3>Protocol Risks</h3>
+                    </div>
+                    <ul>
+                        <li>Smart Contract Risk</li>
+                        <li>Oracle Risk</li>
+                        <li>Governance Risk</li>
+                        <li>Economic Risk</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <div class="info-header">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Security Measures</h3>
+                    </div>
+                    <ul>
+                        <li>Audits & Bug Bounties</li>
+                        <li>Insurance Coverage</li>
+                        <li>Multi-sig Wallets</li>
+                        <li>Emergency Exits</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>2. Risk Assessment Framework</h2>
+            <div class="chart-container">
+                <canvas id="riskMatrixChart"></canvas>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-header">
+                            <i class="fas fa-tasks"></i>
+                            <h3>Risk Management Steps</h3>
+                        </div>
+                        <ul>
+                            <li>Protocol Research</li>
+                            <li>Risk-Reward Analysis</li>
+                            <li>Position Sizing</li>
+                            <li>Monitoring & Alerts</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>3. Practice Exercise</h2>
+            <div class="quiz-container">
+                <h3>DeFi Risk Management Quiz</h3>
+                <div class="quiz-question">
+                    <p>Which is NOT a common DeFi protocol risk?</p>
+                    <div class="quiz-option" onclick="checkAnswer(1, this)">
+                        A) Network congestion
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(2, this)">
+                        B) Smart contract bugs
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(3, this)">
+                        C) Oracle manipulation
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(4, this)">
+                        D) Governance attacks
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="course-navigation">
+            <a href="defi-strategies-4.html" class="nav-button">
+                <i class="fas fa-arrow-left"></i> Previous Lesson
+            </a>
+            <a href="defi-strategies-6.html" class="nav-button">
+                Next Lesson <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Initialize risk matrix chart
+        function initializeRiskMatrixChart() {
+            const ctx = document.getElementById('riskMatrixChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'scatter',
+                data: {
+                    datasets: [{
+                        label: 'Protocol Risk Assessment',
+                        data: [
+                            {x: 2, y: 1, r: 10, protocol: 'Low Risk Protocol'},
+                            {x: 3, y: 4, r: 15, protocol: 'Medium Risk Protocol'},
+                            {x: 4, y: 3, r: 20, protocol: 'High Risk Protocol'},
+                            {x: 1, y: 2, r: 8, protocol: 'Safe Protocol'}
+                        ],
+                        backgroundColor: [
+                            'rgba(0, 255, 157, 0.6)',
+                            'rgba(255, 206, 86, 0.6)',
+                            'rgba(255, 99, 132, 0.6)',
+                            'rgba(54, 162, 235, 0.6)'
+                        ],
+                        borderColor: [
+                            'rgba(0, 255, 157, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)'
+                        ],
+                        borderWidth: 1,
+                        pointRadius: function(context) {
+                            return context.raw.r;
+                        }
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            labels: {
+                                color: '#ffffff'
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.raw.protocol;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Impact',
+                                color: '#ffffff'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#ffffff'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Likelihood',
+                                color: '#ffffff'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#ffffff'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Quiz functionality
+        function checkAnswer(option, element) {
+            const options = document.querySelectorAll('.quiz-option');
+            options.forEach(opt => {
+                opt.classList.remove('correct', 'wrong');
+                opt.style.pointerEvents = 'none';
+            });
+
+            if(option === 1) {
+                element.classList.add('correct');
+            } else {
+                element.classList.add('wrong');
+                options[0].classList.add('correct');
+            }
+        }
+
+        // Initialize chart
+        initializeRiskMatrixChart();
+    </script>
+</body>
+</html>

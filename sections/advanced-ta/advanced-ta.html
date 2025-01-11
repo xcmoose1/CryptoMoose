@@ -1,0 +1,105 @@
+<![CDATA[<div class="advanced-ta-section glass">
+    <div class="section-header">
+        <h2><i class="fas fa-chart-line"></i> Advanced Technical Analysis</h2>
+        <select id="taTimeframe" class="glass-select">
+            <option value="15min">15 Minutes</option>
+            <option value="30min">30 Minutes</option>
+            <option value="60min">1 Hour</option>
+            <option value="4hour" selected>4 Hours</option>
+            <option value="1day">1 Day</option>
+        </select>
+    </div>
+
+    <div class="charts-container">
+        <div class="main-chart">
+            <div id="advancedChart"></div>
+        </div>
+        <div class="delta-flow-chart">
+            <div id="deltaFlowChart"></div>
+        </div>
+    </div>
+
+    <div class="analysis-results">
+        <div class="market-structure">
+            <h3><i class="fas fa-project-diagram"></i> Market Structure</h3>
+            <div id="marketStructure">
+                <div class="loading">Analyzing market structure...</div>
+            </div>
+        </div>
+
+        <div class="smart-money">
+            <h3><i class="fas fa-brain"></i> Smart Money Levels</h3>
+            <div class="smart-money-tabs">
+                <button class="tab-btn active" data-tab="orderbook">Order Book</button>
+                <button class="tab-btn" data-tab="liquidity">Liquidity</button>
+                <button class="tab-btn" data-tab="institutional">Institutional</button>
+            </div>
+            <div id="smartMoneyLevels" class="tab-content">
+                <div id="orderBookAnalysis" class="tab-pane active">
+                    <div class="order-book-imbalance">
+                        <h4>Order Book Imbalance</h4>
+                        <div class="imbalance-meter"></div>
+                    </div>
+                    <div class="key-levels">
+                        <h4>Key Levels</h4>
+                        <div class="levels-list"></div>
+                    </div>
+                </div>
+                <div id="liquidityAnalysis" class="tab-pane">
+                    <div class="liquidity-zones">
+                        <h4>Liquidity Zones</h4>
+                        <div class="zones-list"></div>
+                    </div>
+                </div>
+                <div id="institutionalAnalysis" class="tab-pane">
+                    <div class="institutional-activity">
+                        <h4>Large Orders (24h)</h4>
+                        <div class="large-orders-list"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="order-flow">
+            <h3><i class="fas fa-stream"></i> Order Flow Analysis</h3>
+            <div id="orderFlow">
+                <div class="loading">Analyzing order flow...</div>
+            </div>
+        </div>
+
+        <div class="delta-flow-analysis">
+            <h3><i class="fas fa-stream"></i> Delta Flow Analysis</h3>
+            <div id="deltaFlowAnalysis">
+                <div class="loading">Analyzing delta flow...</div>
+            </div>
+        </div>
+
+        <div class="market-context">
+            <h3>Market Context</h3>
+            <div id="marketContext">
+                <div class="market-stats">
+                    <div class="stat-item volume">
+                        <span class="label">24h Volume</span>
+                        <span class="value">Loading...</span>
+                    </div>
+                    <div class="stat-item change">
+                        <span class="label">24h Change</span>
+                        <span class="value">Loading...</span>
+                    </div>
+                    <div class="stat-item dominance">
+                        <span class="label">Market Share</span>
+                        <span class="value">Loading...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Import required scripts -->
+<script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+
+<script type="module">
+    import { advancedTA } from './advanced-ta.js';
+    advancedTA.init().catch(console.error);
+</script>     

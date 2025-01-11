@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeFi Mastery - CryptoMoose Learning</title>
+    <link rel="stylesheet" href="../css/course-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .course-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: var(--container-padding-desktop);
+        }
+
+        .course-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .lesson {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .protocol-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .protocol-card {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .protocol-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .protocol-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: white;
+            padding: 5px;
+            flex-shrink: 0;
+        }
+
+        .protocol-info {
+            flex-grow: 1;
+        }
+
+        .video-section {
+            margin: 2rem 0;
+        }
+
+        @media screen and (max-width: 768px) {
+            .course-container {
+                padding: var(--container-padding-mobile);
+            }
+
+            .lesson {
+                padding: 1.5rem;
+            }
+
+            .protocol-card {
+                padding: 1rem;
+            }
+
+            .protocol-logo {
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .course-container {
+                padding: 0.75rem;
+            }
+
+            .lesson {
+                padding: 1rem;
+            }
+
+            .protocol-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .protocol-logo {
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="glass">
+            <nav>
+                <div class="logo">
+                    <img src="../images/Moose.png" alt="CryptoMoose">
+                    <span>CryptoMoose Learning</span>
+                </div>
+                <div class="nav-controls">
+                    <div class="nav-links">
+                        <a href="../index.html" class="nav-link">Home</a>
+                        <a href="../learning.html" class="nav-link">Courses</a>
+                        <a href="../members.html" class="nav-link">Signals</a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <div class="course-container">
+            <div class="course-header">
+                <h1>DeFi Mastery</h1>
+            </div>
+
+            <div class="lesson">
+                <h2>1. Introduction to DeFi Protocols</h2>
+                
+                <div class="risk-warning">
+                    <h3><i class="fas fa-exclamation-triangle"></i> Risk Warning</h3>
+                    <p>DeFi protocols carry significant risks including smart contract vulnerabilities, impermanent loss, and market risks. Always do your own research and never invest more than you can afford to lose.</p>
+                </div>
+
+                <h3>Top DeFi Protocols</h3>
+                
+                <div class="protocol-grid">
+                    <div class="protocol-card">
+                        <img src="../images/uniswap.png" alt="Uniswap" class="protocol-logo">
+                        <div class="protocol-info">
+                            <h4>Uniswap</h4>
+                            <p>Decentralized exchange protocol using automated market maker (AMM) model</p>
+                        </div>
+                        <div class="protocol-stats">
+                            <div>TVL: $3.8B</div>
+                            <div>24h Volume: $2.1B</div>
+                        </div>
+                    </div>
+
+                    <div class="protocol-card">
+                        <img src="../images/aave.png" alt="Aave" class="protocol-logo">
+                        <div class="protocol-info">
+                            <h4>Aave</h4>
+                            <p>Decentralized lending protocol with multiple asset pools</p>
+                        </div>
+                        <div class="protocol-stats">
+                            <div>TVL: $5.2B</div>
+                            <div>Available Markets: 30+</div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Yield Farming Calculator</h3>
+                <div class="defi-calculator">
+                    <div>
+                        <label>Initial Investment ($):</label><br>
+                        <input type="number" id="investment" placeholder="Enter investment amount">
+                    </div>
+                    <div>
+                        <label>APY (%):</label><br>
+                        <input type="number" id="apy" placeholder="Enter APY">
+                    </div>
+                    <div>
+                        <label>Time Period (days):</label><br>
+                        <input type="number" id="days" placeholder="Enter days">
+                    </div>
+                    <button onclick="calculateYield()">Calculate Returns</button>
+                    <div id="yield-result" class="result"></div>
+                </div>
+
+                <div class="defi-flow">
+                    <h4>DeFi Interaction Flow</h4>
+                    <img src="../images/defi-flow.svg" alt="DeFi Flow Diagram" style="width: 100%; max-width: 800px; background: rgba(255, 255, 255, 0.05); padding: 1rem; border-radius: 10px;">
+                </div>
+
+                <h3>Key Concepts</h3>
+                <ul>
+                    <li>Automated Market Makers (AMM)</li>
+                    <li>Liquidity Pools</li>
+                    <li>Impermanent Loss</li>
+                    <li>Total Value Locked (TVL)</li>
+                    <li>Smart Contract Security</li>
+                </ul>
+
+                <div class="navigation-buttons">
+                    <span class="nav-button disabled">← Previous Lesson</span>
+                    <a href="defi-mastery-2.html" class="nav-button">Next Lesson →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function calculateYield() {
+            const investment = parseFloat(document.getElementById('investment').value);
+            const apy = parseFloat(document.getElementById('apy').value);
+            const days = parseFloat(document.getElementById('days').value);
+
+            if (!investment || !apy || !days) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            const dailyRate = apy / 365;
+            const returns = investment * Math.pow(1 + dailyRate/100, days);
+            const profit = returns - investment;
+
+            const result = document.getElementById('yield-result');
+            result.style.display = 'block';
+            result.innerHTML = `
+                <h4>Projected Returns:</h4>
+                <p>Initial Investment: $${investment.toFixed(2)}</p>
+                <p>Expected Return: $${returns.toFixed(2)}</p>
+                <p>Profit: $${profit.toFixed(2)}</p>
+                <p>Daily Yield: $${(profit/days).toFixed(2)}</p>
+                <small>Note: This is a simplified calculation. Actual returns may vary due to market conditions, impermanent loss, and other factors.</small>
+            `;
+        }
+    </script>
+</body>
+</html>

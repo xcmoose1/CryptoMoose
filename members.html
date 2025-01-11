@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoMoose - Member Dashboard</title>
+    
+    <!-- Load Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Load pako for WebSocket GZIP decompression -->
+    <script src="https://cdn.jsdelivr.net/npm/pako@2.1.0/dist/pako.min.js"></script>
+    
+    <!-- Load modules -->
+    <script type="module">
+        import { htxHandler } from './js/config/htx-config.js';
+        import { htxWebSocket } from './js/websocket/htx-websocket.js';
+
+        // Initialize and load sections when DOM is ready
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                // Initialize HTX handler
+                if (htxHandler && typeof htxHandler.init === 'function') {
+                    await htxHandler.init();
+                    console.log('HTX Handler initialized successfully');
+                } else {
+                    console.warn('HTX Handler not available or init method missing');
+                }
+
+                // Initialize WebSocket
+                if (htxWebSocket) {
+                    console.log('WebSocket module loaded');
+                } else {
+                    console.warn('WebSocket module not available');
+                }
+            } catch (error) {
+                console.error('Failed to initialize modules:', error);
+            }
+
+            // Initialize and load sections (outside try-catch since it's independent)
+            const loader = new SectionLoader();
+            loader.loadAllSections();
+        });
+    </script>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/market-analysis.css">
+    <link rel="stylesheet" href="css/historical-patterns.css">
+    <link rel="stylesheet" href="css/members.css">
+    <link rel="stylesheet" href="css/indicator-boxes.css">
+    <link rel="stylesheet" href="css/ai-insights.css">
+    <link rel="stylesheet" href="css/traditional-markets.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/market-intelligence.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Load TradingView Lightweight Charts -->
+    <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+    <style>
+        :root {
+            --color-bg: #0a0b0c;
+            --color-surface: #16181a;
+            --color-primary: #00ff9d;
+            --color-secondary: #94a3b8;
+            --color-text: #ffffff;
+            --color-text-dim: rgba(255, 255, 255, 0.7);
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding-top: 40px;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Nav Styles */
+        .nav {
+            background-color: rgba(22, 24, 26, 0.85);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 0.25rem 0;
+            height: 40px;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+        }
+
+        .nav-left, .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            height: 100%;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-telegram {
+            background: rgba(0, 136, 204, 0.1);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--color-text-dim);
+            text-decoration: none;
+            padding: 0.5rem 0.75rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--color-text);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-link i {
+            font-size: 1rem;
+        }
+
+        .nav-link span {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .chart-section {
+            display: grid;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .indicator-boxes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .altcoin-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .trends-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        @media screen and (max-width: 1024px) {
+            .container {
+                padding: var(--container-padding-mobile);
+            }
+
+            .altcoin-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .insights-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-controls {
+                position: relative;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                right: 0;
+                flex-direction: column;
+                background: var(--color-background);
+                padding: 1rem;
+                border-radius: var(--border-radius);
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                z-index: 1000;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .indicator-boxes {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .trends-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .timeframe-selector {
+                overflow-x: auto;
+                white-space: nowrap;
+                -webkit-overflow-scrolling: touch;
+                padding-bottom: 0.5rem;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .container {
+                padding: 0.75rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            h3 {
+                font-size: 1.2rem;
+            }
+
+            .chart-container {
+                padding: 1rem;
+            }
+
+            .refresh-countdown {
+                display: none;
+            }
+        }
+
+        /* Altcoin Analysis Section Styles */
+        .altcoin-analysis-section {
+            padding: 1rem;
+            background: rgba(18, 18, 18, 0.8);
+            border-radius: 12px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .section-header h2 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.1rem;
+            margin: 0;
+            color: #fff;
+        }
+
+        .market-phase {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.25rem 0.75rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50px;
+            font-size: 0.8rem;
+        }
+
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .analysis-card {
+            background: rgba(30, 30, 30, 0.6);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .card-header h3 {
+            font-size: 0.9rem;
+            margin: 0;
+            color: #fff;
+        }
+
+        .market-overview {
+            padding: 0.75rem;
+        }
+
+        .market-overview h4 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            margin: 0 0 0.5rem 0;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .market-overview p {
+            margin: 0;
+            font-size: 0.8rem;
+            line-height: 1.4;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .metrics-container {
+            padding: 0.75rem;
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .metric-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+        }
+
+        .metric-item i {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            font-size: 0.8rem;
+        }
+
+        .metric-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .metric-info span {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .metric-info .value {
+            font-weight: 500;
+            color: #fff;
+        }
+
+        .value.neutral {
+            color: #ffd700;
+        }
+
+        .value.high {
+            color: #ff4b4b;
+        }
+
+        .trading-strategy {
+            margin-top: 0.5rem;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+        }
+
+        .trading-strategy h4 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            margin: 0 0 0.5rem 0;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .trading-strategy p {
+            margin: 0;
+            font-size: 0.8rem;
+            line-height: 1.4;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .trends-container {
+            padding: 0.75rem;
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .trend-item {
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+        }
+
+        .trend-item h4 {
+            font-size: 0.8rem;
+            margin: 0 0 0.5rem 0;
+            color: #fff;
+        }
+
+        .trend-stats {
+            display: grid;
+            gap: 0.5rem;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+        }
+
+        .stat-row span:first-child {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .bullish {
+            color: #00ff87;
+        }
+
+        .bearish {
+            color: #ff4b4b;
+        }
+
+        .positive {
+            color: #00ff87;
+        }
+
+        .negative {
+            color: #ff4b4b;
+        }
+
+        @media screen and (max-width: 1200px) {
+            .analysis-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .analysis-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+        }
+
+        /* Crypto Market Analysis Panel Styles */
+        .crypto-market-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .crypto-market-panel .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .crypto-market-panel .chart-container {
+            padding: 1rem;
+        }
+
+        /* Scroll Nav Styles */
+        .scroll-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 250px;
+            background: var(--color-background);
+            padding: 1rem;
+            border-radius: 0 12px 12px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .scroll-nav-content {
+            overflow-y: auto;
+            height: 100%;
+            padding: 1rem;
+        }
+
+        .scroll-nav-content::-webkit-scrollbar {
+            width: 8px;
+            background: var(--color-background);
+        }
+
+        .scroll-nav-content::-webkit-scrollbar-thumb {
+            background: var(--gradient-primary);
+            border-radius: 10px;
+        }
+
+        .section-nav {
+            margin-top: 1rem;
+        }
+
+        .section-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .section-nav li {
+            margin-bottom: 0.5rem;
+        }
+
+        .section-nav a {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            border-radius: 6px;
+            color: var(--color-text);
+            text-decoration: none;
+        }
+
+        .section-nav a:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .section-nav a.active {
+            background: var(--gradient-primary);
+            color: #fff;
+        }
+
+        .sub-items {
+            margin-left: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .sub-items a {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .sub-items a:hover {
+            color: #fff;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            background-color: rgba(22, 24, 26, 0.85); /* Added transparency */
+            transform: translateX(-10%); /* Move 10% to the left */
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100vh;
+            width: 260px;
+            z-index: 100;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .nav-section {
+            margin-bottom: 1rem;
+        }
+
+        .nav-section-title {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            color: var(--color-secondary);
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            padding-left: 0.5rem;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.6rem 0.75rem;
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--color-text);
+            transform: translateX(5px);
+        }
+
+        .nav-link.active {
+            background: linear-gradient(45deg, rgba(0, 255, 136, 0.1), rgba(0, 161, 255, 0.1));
+            color: var(--color-text);
+            font-weight: 500;
+        }
+
+        .nav-link i {
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+
+        .sub-nav-link {
+            padding-left: 2.5rem;
+            font-size: 0.85rem;
+        }
+
+        /* Adjust main content to make room for sidebar */
+        .container {
+            margin-left: 260px; /* Match the navigation width */
+            width: calc(100% - 260px);
+            padding: 0;
+        }
+
+        /* Market Intelligence and AI Insights adjustments */
+        .market-intelligence-wrapper {
+            margin-left: 260px;
+            width: calc(100% - 260px);
+            padding: 0;
+        }
+
+        .market-intelligence-section,
+        .ai-insights-panel {
+            width: 100%;
+            padding: 20px;
+            background: rgba(17, 19, 24, 0.6);
+            border-radius: 12px;
+            margin: 0;
+        }
+
+        .ai-insights-panel {
+            margin-top: 20px;
+        }
+
+        /* Content area adjustments */
+        main {
+            width: 100%;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* Market grid adjustments */
+        .market-grid {
+            width: 100%;
+            padding: 20px;
+            margin: 0;
+        }
+    </style>
+    <style>
+        /* Chart container styles */
+        .chart-container {
+            width: 100%;
+            height: 600px;
+            position: relative;
+            background: var(--color-surface);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        #priceChart {
+            width: 100%;
+            height: 100%;
+            min-height: 500px;
+        }
+    </style>
+    <style>
+        /* Main layout adjustments */
+        .container {
+            margin-left: 260px; /* Match the navigation width */
+            width: calc(100% - 260px);
+            padding: 0;
+        }
+    </style>
+    <style>
+        /* Compact Secondary Indicators */
+        .chart-container .chart-header .indicator-boxes {
+            display: grid !important;
+            grid-template-columns: repeat(6, minmax(80px, 1fr)) !important;
+            gap: 4px !important;
+            margin: 8px 0 !important;
+            padding: 6px !important;
+            background: linear-gradient(135deg,
+                rgba(20, 20, 20, 0.7) 0%,
+                rgba(30, 30, 30, 0.7) 100%);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            max-width: 100% !important;
+            box-sizing: border-box !important;
+        }
+
+        .indicator-box {
+            background: rgba(25, 25, 25, 0.8) !important;
+            padding: 4px !important;
+            border-radius: 6px !important;
+            text-align: center !important;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(8px);
+            height: 45px !important;
+            min-height: 45px !important;
+            max-height: 45px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: center !important;
+            align-items: center !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+        }
+
+        .indicator-box:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            background: rgba(35, 35, 35, 0.9) !important;
+        }
+
+        .indicator-label {
+            font-size: 0.7rem !important;
+            font-weight: 600 !important;
+            color: rgba(255, 255, 255, 0.7) !important;
+            margin-bottom: 2px !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.5px !important;
+        }
+
+        .indicator-value {
+            font-size: 0.85rem !important;
+            font-weight: 700 !important;
+            color: var(--color-primary) !important;
+            letter-spacing: 0.5px !important;
+        }
+
+        .indicator-box.bullish .indicator-value {
+            color: var(--color-success) !important;
+        }
+
+        .indicator-box.bearish .indicator-value {
+            color: var(--color-danger) !important;
+        }
+
+        .indicator-box.neutral .indicator-value {
+            color: var(--color-warning) !important;
+        }
+    </style>
+    <style>
+        /* Navigation Styles */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(22, 24, 26, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+            padding: 0.25rem 0;
+            height: 40px;
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+        }
+
+        .nav-left, .nav-center, .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            height: 100%;
+        }
+
+        .nav-center {
+            flex: 1;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .nav-center .pair-selector select {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            height: 28px;
+        }
+
+        .nav-center .timeframe-controls {
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .nav-center .timeframe-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            height: 28px;
+            line-height: 1;
+        }
+
+        .nav-center .timeframe-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-center .timeframe-btn.active {
+            background: var(--color-primary);
+            color: var(--color-bg);
+            border-color: var(--color-primary);
+        }
+
+        /* Adjust main content to account for smaller nav */
+        .container {
+            margin-top: 40px;
+        }
+
+        @media (max-width: 1024px) {
+            .nav-center {
+                display: none;
+            }
+        }
+    </style>
+    <style>
+        .timeframe-controls {
+            display: flex;
+            gap: 8px;
+            margin-left: 16px;
+        }
+
+        .timeframe-btn {
+            background: var(--color-surface);
+            color: var(--color-text);
+            border: 1px solid var(--color-border);
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            min-width: 48px;
+            text-align: center;
+        }
+
+        .timeframe-btn:hover {
+            background: var(--color-hover);
+            border-color: var(--color-primary);
+        }
+
+        .timeframe-btn.active {
+            background: var(--color-primary);
+            color: var(--color-bg);
+            border-color: var(--color-primary);
+        }
+    </style>
+    <style>
+        /* Indicator Styles */
+        .indicators-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 10px;
+            background: #1a1a1a;
+            border-radius: 8px;
+        }
+
+        .indicator-row {
+            display: flex;
+            gap: 10px;
+            justify-content: space-between;
+        }
+
+        .indicator-group {
+            flex: 1;
+            min-width: 120px;
+            text-align: center;
+        }
+
+        .indicator-label {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 4px;
+        }
+
+        .indicator {
+            padding: 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 14px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .indicator.bullish {
+            background: #1b5e20;
+            color: #fff;
+        }
+
+        .indicator.bearish {
+            background: #b71c1c;
+            color: #fff;
+        }
+
+        .indicator.neutral {
+            background: #424242;
+            color: #fff;
+        }
+
+        /* Timeframe Button Styles */
+        .timeframe-buttons {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            justify-content: center;
+        }
+
+        .timeframe-button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            background: #424242;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .timeframe-button:hover {
+            background: #616161;
+        }
+
+        .timeframe-button.active {
+            background: #1976d2;
+        }
+    </style>
+    <style>
+        /* Volume Profile Styles */
+        .volume-profile-section {
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+        }
+
+        .volume-profile-controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .control-select {
+            padding: 0.5rem;
+            border-radius: 4px;
+            border: 1px solid var(--color-secondary);
+            background: var(--color-surface);
+            color: var(--color-text);
+            font-size: 0.9rem;
+        }
+
+        .volume-stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+        }
+
+        .stat-item {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .stat-label {
+            color: var(--color-text-dim);
+            font-size: 0.9rem;
+        }
+
+        .stat-value {
+            color: var(--color-primary);
+            font-weight: 500;
+        }
+    </style>
+    <style>
+        /* Volume Profile Charts */
+        .timeframe-charts {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            padding: 30px;
+            background: #1e222d;
+            border-radius: 12px;
+            margin: 20px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .chart-wrapper {
+            background: #2b2b43;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+            transition: transform 0.2s ease;
+        }
+
+        .chart-wrapper:hover {
+            transform: translateY(-2px);
+        }
+
+        .chart-wrapper h4 {
+            color: #d1d4dc;
+            margin-bottom: 15px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        #volumeProfileChart_1d,
+        #volumeProfileChart_1w,
+        #volumeProfileChart_1M {
+            width: 100%;
+            height: 400px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .timeframe-charts {
+                grid-template-columns: 1fr;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="nav-left">
+                <a href="index.html" class="logo-container">
+                    <img src="./images/Moose.png" alt="CryptoMoose Logo" style="width: 30px; height: 30px; object-fit: contain;">
+                </a>
+                <a href="https://t.me/CryptoMooseAlpha" target="_blank" class="btn btn-telegram">
+                    <i class="fab fa-telegram"></i> Join Telegram
+                </a>
+            </div>
+            <div class="nav-right">
+                <a href="dashboard.html" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="https://x.com/XCryptoMoose" target="_blank" class="nav-link">
+                    <i class="fab fa-x-twitter"></i>
+                    <span>Follow Alpha</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="sidebar">
+        <div class="sidebar-nav">
+            <div class="nav-section">
+                <div class="nav-section-title">Navigation</div>
+                <a href="#market-analysis" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    Market Analysis
+                </a>
+                <a href="#advanced-ta" class="nav-link">
+                    <i class="fas fa-chart-bar"></i>
+                    Advanced Technical Analysis
+                </a>
+                <a href="#volume-profile" class="nav-link">
+                    <i class="fas fa-chart-area"></i>
+                    Volume Profile
+                </a>
+                <a href="#altcoin-analysis" class="nav-link">
+                    <i class="fas fa-chart-pie"></i>
+                    Altcoin Analysis
+                </a>
+                <a href="#sector-analysis" class="nav-link">
+                    <i class="fas fa-layer-group"></i>
+                    Sector Analysis
+                </a>
+                <a href="#onchain-analysis" class="nav-link">
+                    <i class="fas fa-link"></i>
+                    On-Chain Analytics
+                </a>
+                <a href="#historical-patterns" class="nav-link">
+                    <i class="fas fa-history"></i>
+                    Historical Patterns
+                </a>
+                <a href="#market-intelligence" class="nav-link">
+                    <i class="fas fa-brain"></i>
+                    Market Intelligence
+                </a>
+                <a href="#traditional-markets" class="nav-link">
+                    <i class="fas fa-landmark"></i>
+                    Traditional Markets
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="main-content">
+            <!-- Section placeholders -->
+            <div id="market-analysis" class="market-analysis-section glass"></div>
+            <div id="advanced-ta" class="advanced-ta-section glass"></div>
+            <div id="volume-profile" class="volume-profile-section glass"></div>
+            <div id="altcoin-analysis" class="altcoin-analysis-section glass"></div>
+            <div id="sector-analysis" class="sector-analysis-section glass"></div>
+            <div id="onchain-analysis" class="onchain-analysis-section glass"></div>
+            <div id="historical-patterns" class="historical-patterns-section glass"></div>
+            <div id="market-intelligence" class="market-intelligence-section glass"></div>
+            <div id="traditional-markets" class="traditional-markets-section glass"></div>
+        </div>
+    </div>
+
+    <script>
+    class SectionLoader {
+        constructor() {
+            this.sections = [
+                'market-analysis',
+                'advanced-ta',
+                'volume-profile',
+                'altcoin-analysis',
+                'sector-analysis',
+                'onchain-analysis',
+                'historical-patterns',
+                'market-intelligence',
+                'traditional-markets'
+            ];
+            this.loadedSections = new Set();
+        }
+
+        async loadSection(sectionName) {
+            if (this.loadedSections.has(sectionName)) {
+                console.log(`Section ${sectionName} already loaded`);
+                return;
+            }
+
+            console.log(`Loading section: ${sectionName}`);
+            const sectionElement = document.getElementById(sectionName);
+            if (!sectionElement) {
+                console.warn(`Element #${sectionName} not found`);
+                return;
+            }
+
+            try {
+                // Load HTML
+                console.log(`Loading HTML for ${sectionName}...`);
+                const htmlResponse = await fetch(`/sections/${sectionName}/${sectionName}.html`);
+                const html = await htmlResponse.text();
+                sectionElement.innerHTML = html;
+                console.log(`HTML loaded for ${sectionName}`);
+
+                // Load and apply CSS
+                console.log(`Loading CSS for ${sectionName}...`);
+                const link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.href = `/sections/${sectionName}/${sectionName}.css`;
+                document.head.appendChild(link);
+
+                // Import and initialize the module
+                console.log(`Loading JS for ${sectionName}...`);
+                try {
+                    const module = await import(`/sections/${sectionName}/${sectionName}.js`);
+                    console.log(`Module loaded for ${sectionName}:`, module);
+                    
+                    if (typeof module.init === 'function') {
+                        await module.init();
+                        console.log(`${sectionName} initialized via module.init`);
+                    } else if (module.default && typeof module.default.init === 'function') {
+                        await module.default.init();
+                        console.log(`${sectionName} initialized via module.default.init`);
+                    } else {
+                        console.warn(`No init function found for ${sectionName}`);
+                    }
+                    
+                    this.loadedSections.add(sectionName);
+                    console.log(`${sectionName} loaded successfully`);
+                } catch (error) {
+                    console.error(`Error loading module for ${sectionName}:`, error);
+                    throw error;
+                }
+            } catch (error) {
+                console.error(`Error loading section ${sectionName}:`, error);
+                sectionElement.innerHTML = `<div class="error">Error loading ${sectionName}: ${error.message}</div>`;
+            }
+        }
+
+        async loadAllSections() {
+            console.log('Starting to load all sections...');
+            // Load sections sequentially to avoid race conditions
+            for (const section of this.sections) {
+                await this.loadSection(section);
+            }
+            console.log('All sections loaded');
+        }
+    }
+
+    // Initialize and load sections when DOM is ready
+    document.addEventListener('DOMContentLoaded', async () => {
+        const loader = new SectionLoader();
+        loader.loadAllSections();
+    });
+    </script>
+    <script>
+        // Mobile menu functionality
+        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+        const sidebar = document.querySelector('.sidebar');
+        
+        if (mobileMenuToggle && sidebar) {
+            mobileMenuToggle.addEventListener('click', () => {
+                sidebar.classList.toggle('active');
+                const isOpen = sidebar.classList.contains('active');
+                mobileMenuToggle.innerHTML = isOpen ? 
+                    '<i class="fas fa-times"></i>' : 
+                    '<i class="fas fa-bars"></i>';
+            });
+
+            // Close sidebar when clicking outside
+            document.addEventListener('click', (e) => {
+                if (sidebar.classList.contains('active') && 
+                    !sidebar.contains(e.target) && 
+                    !mobileMenuToggle.contains(e.target)) {
+                    sidebar.classList.remove('active');
+                    mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
+        }
+
+        // Existing scroll functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('section[id], div[id]');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.3
+            };
+
+            function callback(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Remove active class from all links
+                        navLinks.forEach(link => link.classList.remove('active'));
+                        
+                        // Add active class to corresponding link
+                        const activeLink = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+                        if (activeLink) {
+                            activeLink.classList.add('active');
+                        }
+                    }
+                });
+            }
+
+            const observer = new IntersectionObserver(callback, observerOptions);
+            sections.forEach(section => observer.observe(section));
+
+            // Smooth scroll to sections
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    if (targetSection) {
+                        targetSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+    <button class="mobile-menu-toggle">
+        <i class="fas fa-bars"></i>
+    </button>
+</body>
+</html>

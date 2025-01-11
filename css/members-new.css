@@ -1,0 +1,227 @@
+/* General Styles */
+:root {
+    --primary-color: #4CAF50;
+    --secondary-color: #2196F3;
+    --background-color: #0a0e17;
+    --card-bg: rgba(255, 255, 255, 0.05);
+    --text-color: #ffffff;
+    --border-radius: 12px;
+    --spacing: 20px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Glass Effect */
+.glass {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Header Styles */
+header {
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo img {
+    height: 40px;
+}
+
+.welcome-text {
+    font-size: 1.2em;
+    font-weight: 500;
+}
+
+/* Market Metrics Section */
+.market-metrics {
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.market-metrics h2 {
+    margin: 0 0 20px 0;
+    font-size: 1.5em;
+    color: var(--text-color);
+}
+
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.metric {
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.metric label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.9em;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.metric-value {
+    font-size: 1.8em;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+/* Dashboard Grid */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.dashboard-card {
+    padding: 25px;
+    transition: transform 0.3s ease;
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+}
+
+.card-icon {
+    font-size: 2em;
+    margin-bottom: 15px;
+    color: var(--primary-color);
+}
+
+.dashboard-card h2 {
+    margin: 0 0 15px 0;
+    font-size: 1.5em;
+}
+
+.dashboard-card p {
+    margin: 0 0 20px 0;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.5;
+}
+
+.card-features {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.card-features span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.card-features i {
+    color: var(--primary-color);
+}
+
+.card-cta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+    color: var(--primary-color);
+}
+
+/* Trend Styles */
+.trend {
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    font-weight: 500;
+}
+
+.trend.strongly-bullish {
+    background: #1b5e20;
+    color: #fff;
+}
+
+.trend.bullish {
+    background: #2e7d32;
+    color: #fff;
+}
+
+.trend.neutral {
+    background: #424242;
+    color: #fff;
+}
+
+.trend.bearish {
+    background: #c62828;
+    color: #fff;
+}
+
+.trend.strongly-bearish {
+    background: #b71c1c;
+    color: #fff;
+}
+
+/* Fear & Greed Classes */
+.extreme-fear { color: #ff4444; }
+.fear { color: #ff8800; }
+.neutral { color: #ffbb33; }
+.greed { color: #00C851; }
+.extreme-greed { color: #007E33; }
+
+/* Volatility Classes */
+.volatility-high { color: #ff4444; }
+.volatility-medium { color: #ffbb33; }
+.volatility-low { color: #00C851; }
+
+/* Error State */
+.error-state {
+    color: #ff4444;
+    font-size: 0.9em;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .metrics-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .metric-value {
+        font-size: 1.5em;
+    }
+}

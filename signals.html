@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoMoose - Signals</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            background-color: #0a0b0c;
+            color: #ffffff;
+            min-height: 100vh;
+        }
+
+        .nav {
+            background: rgba(18, 18, 18, 0.8);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-left, .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #ffffff;
+            gap: 0.5rem;
+        }
+
+        .logo-container img {
+            height: 32px;
+            width: auto;
+        }
+
+        .nav-link {
+            color: var(--color-text);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-link i {
+            font-size: 1rem;
+        }
+
+        .nav-link span {
+            font-size: 0.9rem;
+        }
+
+        .nav-link.twitter {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            margin-left: 12px;
+        }
+
+        .nav-link.twitter:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-link.twitter img {
+            height: 16px;
+            width: 16px;
+            filter: brightness(0) invert(1);
+            transition: all 0.3s ease;
+        }
+
+        .nav-link.twitter:hover img {
+            opacity: 0.8;
+        }
+
+        .nav-link.twitter i {
+            font-size: 16px;
+            color: #fff;
+        }
+
+        .nav-link.twitter span {
+            font-weight: 500;
+            color: #fff;
+        }
+
+        .btn-telegram {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #0088cc;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .btn-telegram:hover {
+            background: #0099e6;
+        }
+
+        .btn-telegram i {
+            font-size: 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 6rem auto 2rem;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 2rem;
+        }
+
+        .monitored-pairs {
+            position: relative;
+            background: #1a1d1e;
+            border-radius: 12px;
+            padding: 1rem;
+            height: calc(100vh - 180px);
+            display: flex;
+            flex-direction: column;
+            width: 300px;
+        }
+
+        .sidebar-title {
+            color: #00ff9d;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .sidebar-title i {
+            color: #00ff9d;
+            font-size: 12px;
+        }
+
+        .pair-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 6px;
+            overflow-y: auto;
+            padding-right: 4px;
+            margin-top: 0.5rem;
+            height: 100%;
+        }
+
+        .pair-list::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .pair-list::-webkit-scrollbar-track {
+            background: #0f1112;
+        }
+
+        .pair-list::-webkit-scrollbar-thumb {
+            background: #2a2d2e;
+            border-radius: 4px;
+        }
+
+        .pair-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 6px 8px;
+            background: #0f1112;
+            border-radius: 6px;
+            font-size: 11px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            min-width: 0;
+        }
+
+        .pair-name {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            color: rgba(255, 255, 255, 0.7);
+            font-family: 'Roboto Mono', monospace;
+            min-width: 0;
+            flex: 1;
+        }
+
+        .pair-name i {
+            font-size: 9px;
+            opacity: 0.5;
+        }
+
+        .pair-price {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 11px;
+            text-align: right;
+            white-space: nowrap;
+            margin-left: 8px;
+            min-width: 70px;
+        }
+
+        .price-up {
+            color: #00ff9d;
+        }
+
+        .price-down {
+            color: #ff3b30;
+        }
+
+        .price-unchanged {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .htx-promo {
+            margin-top: auto;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            background: #1a1d1e;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .htx-logo {
+            width: 120px;
+            height: auto;
+            margin-bottom: 1rem;
+        }
+
+        .htx-promo p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .htx-button {
+            display: inline-block;
+            background: #00ff9d;
+            color: #000000;
+            padding: 0.8rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: opacity 0.2s ease;
+        }
+
+        .htx-button:hover {
+            opacity: 0.9;
+        }
+
+        .main-content {
+            background: #1a1d1e;
+            border-radius: 12px;
+            padding: 2rem;
+        }
+
+        .content-header {
+            margin-bottom: 2rem;
+        }
+
+        .content-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .content-description {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        .signals-nav {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 1rem;
+        }
+
+        .signals-nav button {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.7);
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-size: 0.9rem;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .signals-nav button:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+        }
+
+        .signals-nav button.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+        }
+
+        .signals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+
+        .signal-card {
+            background: #0f1112;
+            border-radius: 12px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .signal-type {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .signal-type.buy {
+            background: rgba(0, 255, 157, 0.1);
+            color: #00ff9d;
+        }
+
+        .signal-type.sell {
+            background: rgba(255, 59, 48, 0.1);
+            color: #ff3b30;
+        }
+
+        .signal-pair {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .signal-price {
+            font-family: 'Roboto Mono', monospace;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .signal-time {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.8rem;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #ff3b30;
+            transition: background-color 0.2s ease;
+        }
+
+        .status-indicator.connected {
+            background: #00ff9d;
+        }
+
+        .connection-status {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: #1a1d1e;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+        }
+
+        .search-status {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #00ff9d;
+            font-size: 0.8rem;
+        }
+
+        .search-status i {
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+
+        @media (max-width: 1024px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-center {
+                order: 3;
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .signals-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="nav-left">
+                <a href="index.html" class="logo-container">
+                    <img src="images/moose.png" alt="CryptoMoose" style="height: 32px; width: auto;">
+                    <span>CryptoMoose</span>
+                </a>
+                <a href="dashboard.html" class="nav-link">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="signals.html" class="nav-link active">
+                    <i class="fas fa-signal"></i>
+                    <span>Signals</span>
+                </a>
+                <a href="segment-projections.html" class="nav-link">
+                    <i class="fas fa-layer-group"></i>
+                    <span>Segment Projections</span>
+                </a>
+                <a href="members.html" class="nav-link">
+                    <i class="fas fa-robot"></i>
+                    <span>AI Market Insights</span>
+                </a>
+            </div>
+            <div class="nav-right">
+                <a href="https://t.me/cryptomoose" target="_blank" class="btn-telegram">
+                    <i class="fab fa-telegram"></i>
+                    <span>Get Live Signals on Telegram</span>
+                </a>
+                <a href="https://x.com/XCryptoMoose" target="_blank" class="nav-link twitter">
+                    <img src="images/x-logo.svg" alt="X (Twitter)" style="height: 16px; width: 16px;">
+                    <span>Follow Alpha</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="sidebar">
+            <div class="monitored-pairs">
+                <div class="sidebar-title">
+                    <i class="fas fa-chart-line"></i>
+                    Monitored Pairs
+                </div>
+                <div class="search-status">
+                    <i class="fas fa-search"></i>
+                    Scanning
+                </div>
+                <div class="pair-list">
+                    <div class="pair-item">
+                        <span class="pair-name">SUI/USDT</span>
+                        <span class="pair-price">Loading...</span>
+                        <span class="pair-change">0.00%</span>
+                    </div>
+                    <div class="pair-item">
+                        <span class="pair-name">UNI/USDT</span>
+                        <span class="pair-price">Loading...</span>
+                        <span class="pair-change">0.00%</span>
+                    </div>
+                    <div class="pair-item">
+                        <span class="pair-name">BTC/USDT</span>
+                        <span class="pair-price">Loading...</span>
+                        <span class="pair-change">0.00%</span>
+                    </div>
+                    <div class="pair-item">
+                        <span class="pair-name">ETH/USDT</span>
+                        <span class="pair-price">Loading...</span>
+                        <span class="pair-change">0.00%</span>
+                    </div>
+                    <div class="pair-item">
+                        <span class="pair-name">SOL/USDT</span>
+                        <span class="pair-price">Loading...</span>
+                        <span class="pair-change">0.00%</span>
+                    </div>
+                    <div class="pair-item">
+                        <span class="pair-name">AVAX/USDT</span>
+                        <span class="pair-price">Loading...</span>
+                        <span class="pair-change">0.00%</span>
+                    </div>
+                    <div class="pair-item">
+                        <span class="pair-name">MATIC/USDT</span>
+                        <span class="pair-price">Loading...</span>
+                        <span class="pair-change">0.00%</span>
+                    </div>
+                    <div class="pair-item">
+                        <span class="pair-name">LINK/USDT</span>
+                        <span class="pair-price">Loading...</span>
+                        <span class="pair-change">0.00%</span>
+                    </div>
+                    <div class="pair-item">
+                        <span class="pair-name">DOT/USDT</span>
+                        <span class="pair-price">Loading...</span>
+                        <span class="pair-change">0.00%</span>
+                    </div>
+                    <div class="pair-item">
+                        <span class="pair-name">ADA/USDT</span>
+                        <span class="pair-price">Loading...</span>
+                        <span class="pair-change">0.00%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="htx-promo">
+                <a href="https://www.htx.com/invite/en-us/1f?invite_code=5duia223" target="_blank">
+                    <img src="./images/htx-logo.png" alt="HTX Logo" class="htx-logo">
+                </a>
+                <p>Trade with confidence on HTX - One of the world's leading cryptocurrency exchanges. Get exclusive benefits using our referral link!</p>
+                <a href="https://www.htx.com/invite/en-us/1f?invite_code=5duia223" target="_blank" class="htx-button">
+                    Start Trading
+                </a>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="content-header">
+                <h1 class="content-title">Trading Signals</h1>
+                <p class="content-description">Advanced multi-indicator signals for major cryptocurrency pairs</p>
+            </div>
+
+            <div class="signals-nav">
+                <button class="active">All Signals</button>
+                <button>Active Signals</button>
+                <button>Completed</button>
+                <button>Buy Signals</button>
+                <button>Sell Signals</button>
+            </div>
+
+            <div class="signals-grid">
+                <!-- Signal cards will be added dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <div class="connection-status">
+        <div class="status-indicator"></div>
+        <span class="status-text">Connecting...</span>
+    </div>
+
+    <script>
+        // Add Roboto Mono font for prices
+        const fontLink = document.createElement('link');
+        fontLink.href = 'https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&display=swap';
+        fontLink.rel = 'stylesheet';
+        document.head.appendChild(fontLink);
+
+        // Add pako for decompression
+        const script = document.createElement('script');
+        script.src = 'https://cdn.jsdelivr.net/npm/pako@2.1.0/dist/pako.min.js';
+        document.head.appendChild(script);
+
+        const tradingPairs = [
+            'HBAR/USDT', 'TON/USDT', 'ALGO/USDT', 'GRT/USDT', 'CHZ/USDT',
+            'VET/USDT', 'MANA/USDT', 'ZIL/USDT', 'IOTA/USDT', 'GALA/USDT',
+            'ZRX/USDT', 'ENJ/USDT', 'AUDIO/USDT', 'FLOW/USDT', 'MASK/USDT',
+            'ANKR/USDT', 'FTM/USDT', 'ARB/USDT', 'KAVA/USDT', 'ONE/USDT',
+            'CFX/USDT', 'SKL/USDT', 'SUI/USDT', 'UNI/USDT', 'BTC/USDT'
+        ];
+
+        const pairPrices = new Map();
+        let ws;
+        let reconnectAttempts = 0;
+        const maxReconnectAttempts = 5;
+
+        function updatePairsList() {
+            const pairList = document.querySelector('.pair-list');
+            pairList.innerHTML = '';
+
+            tradingPairs.forEach(pair => {
+                const symbol = pair.split('/')[0]; // Get the base currency (e.g., 'BTC' from 'BTC/USDT')
+                const pairItem = document.createElement('div');
+                pairItem.className = 'pair-item';
+                const price = pairPrices.get(pair);
+                const priceClass = price?.change > 0 ? 'price-up' : price?.change < 0 ? 'price-down' : 'price-unchanged';
+                
+                pairItem.innerHTML = `
+                    <div class="pair-name">
+                        <i class="fas fa-chart-line"></i>
+                        ${symbol}
+                    </div>
+                    <div class="pair-price ${priceClass}">
+                        ${price ? formatPrice(price.value) : '---'}
+                    </div>
+                `;
+                pairList.appendChild(pairItem);
+            });
+        }
+
+        function formatPrice(price) {
+            if (price >= 100) {
+                return price.toFixed(2);
+            } else if (price >= 1) {
+                return price.toFixed(4);
+            } else {
+                return price.toFixed(6);
+            }
+        }
+
+        function createSignalCard(signal) {
+            return `
+                <div class="signal-card">
+                    <div class="signal-type ${signal.type.toLowerCase()}">
+                        <i class="fas fa-${signal.type.toLowerCase() === 'buy' ? 'arrow-up' : 'arrow-down'}"></i>
+                        ${signal.type}
+                    </div>
+                    <div class="signal-pair">${signal.pair}</div>
+                    <div class="signal-price">Entry: ${signal.price}</div>
+                    <div class="signal-time">
+                        <i class="far fa-clock"></i>
+                        ${new Date(signal.timestamp).toLocaleString()}
+                    </div>
+                </div>
+            `;
+        }
+
+        function updateSignalsGrid(signals) {
+            const signalsGrid = document.querySelector('.signals-grid');
+            signalsGrid.innerHTML = signals.map(signal => createSignalCard(signal)).join('');
+        }
+
+        function connectWebSocket() {
+            console.log('Connecting to WebSocket...');
+            ws = new WebSocket('wss://api.huobi.pro/ws');
+            ws.binaryType = 'arraybuffer';
+
+            ws.onopen = () => {
+                console.log('Connected to WebSocket');
+                const statusIndicator = document.querySelector('.status-indicator');
+                const statusText = document.querySelector('.status-text');
+                
+                if (statusIndicator && statusText) {
+                    statusIndicator.classList.add('connected');
+                    statusText.textContent = 'Connected';
+                }
+                
+                reconnectAttempts = 0;
+
+                // Subscribe to market data for all pairs with a slight delay between each
+                tradingPairs.forEach((pair, index) => {
+                    setTimeout(() => {
+                        const symbol = pair.toLowerCase().replace('/', '');
+                        console.log('Subscribing to:', symbol);
+                        ws.send(JSON.stringify({
+                            "sub": `market.${symbol}.ticker`,
+                            "id": symbol
+                        }));
+                    }, index * 100); // Add 100ms delay between each subscription
+                });
+            };
+
+            ws.onmessage = async (event) => {
+                try {
+                    let data;
+                    if (event.data instanceof ArrayBuffer) {
+                        const textDecoder = new TextDecoder('utf-8');
+                        const decompressed = pako.inflate(new Uint8Array(event.data), { to: 'string' });
+                        data = JSON.parse(decompressed);
+                    } else {
+                        data = JSON.parse(event.data);
+                    }
+
+                    if (data.ping) {
+                        ws.send(JSON.stringify({ pong: data.ping }));
+                    } else if (data.ch && data.tick) {
+                        // Extract symbol from channel name
+                        const symbol = data.ch.split('.')[1].toUpperCase();
+                        const formattedSymbol = symbol.slice(0, -4) + '/' + symbol.slice(-4);
+                        
+                        // Update price
+                        const oldPrice = pairPrices.get(formattedSymbol)?.value || data.tick.close;
+                        pairPrices.set(formattedSymbol, {
+                            value: data.tick.close,
+                            change: data.tick.close - oldPrice
+                        });
+                        
+                        // Update UI
+                        updatePairsList();
+                    }
+                } catch (error) {
+                    console.error('Error processing message:', error);
+                }
+            };
+
+            ws.onclose = () => {
+                const statusIndicator = document.querySelector('.status-indicator');
+                const statusText = document.querySelector('.status-text');
+                
+                if (statusIndicator && statusText) {
+                    statusIndicator.classList.remove('connected');
+                    statusText.textContent = 'Disconnected';
+                }
+                
+                if (reconnectAttempts < maxReconnectAttempts) {
+                    reconnectAttempts++;
+                    setTimeout(connectWebSocket, 5000);
+                }
+            };
+
+            ws.onerror = (error) => {
+                console.error('WebSocket error:', error);
+            };
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            updatePairsList();
+            connectWebSocket();
+
+            // Example signals
+            const exampleSignals = [];
+            updateSignalsGrid(exampleSignals);
+
+            // Handle navigation buttons
+            const navButtons = document.querySelectorAll('.signals-nav button');
+            navButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    navButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTX WebSocket Test</title>
+    <script src="https://cdn.jsdelivr.net/npm/pako@2.1.0/dist/pako.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #1a1a1a;
+            color: #fff;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .card {
+            background: #2d2d2d;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .price {
+            font-size: 24px;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .status.connected {
+            background: #4CAF50;
+            color: white;
+        }
+        .status.disconnected {
+            background: #f44336;
+            color: white;
+        }
+        .log {
+            background: #333;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            height: 200px;
+            overflow-y: auto;
+            margin-top: 20px;
+        }
+        .log p {
+            margin: 5px 0;
+            color: #ddd;
+        }
+        .log p.error {
+            color: #ff6b6b;
+        }
+        .log p.success {
+            color: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h2>HTX WebSocket Test</h2>
+            <div id="status" class="status disconnected">Disconnected</div>
+            <div class="price-container">
+                <h3>BTC/USDT</h3>
+                <div id="price" class="price">---.--</div>
+                <div id="volume">Volume: ---</div>
+            </div>
+        </div>
+        <div class="card">
+            <h3>WebSocket Log</h3>
+            <div id="log" class="log"></div>
+        </div>
+    </div>
+
+    <script>
+        class HTXWebSocket {
+            constructor() {
+                this.ws = null;
+                this.endpoint = 'wss://api.huobi.pro/ws';
+                this.connected = false;
+                this.pingInterval = null;
+                this.logMessages = [];
+                this.maxLogs = 50;
+            }
+
+            connect() {
+                this.log('Connecting to ' + this.endpoint, 'info');
+                
+                try {
+                    this.ws = new WebSocket(this.endpoint);
+
+                    this.ws.onopen = () => {
+                        this.connected = true;
+                        this.log('WebSocket connected', 'success');
+                        this.updateStatus(true);
+                        this.startPingPong();
+                        this.subscribe();
+                    };
+
+                    this.ws.onclose = () => {
+                        this.connected = false;
+                        this.log('WebSocket disconnected', 'error');
+                        this.updateStatus(false);
+                        this.cleanup();
+                        setTimeout(() => this.connect(), 5000);
+                    };
+
+                    this.ws.onerror = (error) => {
+                        this.log('WebSocket error: ' + JSON.stringify(error), 'error');
+                    };
+
+                    this.ws.onmessage = (event) => {
+                        if (event.data instanceof Blob) {
+                            this.handleBinaryMessage(event.data);
+                        } else {
+                            this.handleTextMessage(event.data);
+                        }
+                    };
+                } catch (error) {
+                    this.log('Connection error: ' + error.message, 'error');
+                }
+            }
+
+            handleBinaryMessage(data) {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    try {
+                        const text = pako.ungzip(new Uint8Array(reader.result), { to: 'string' });
+                        const message = JSON.parse(text);
+                        this.processMessage(message);
+                    } catch (error) {
+                        this.log('Error processing binary message: ' + error.message, 'error');
+                    }
+                };
+                reader.readAsArrayBuffer(data);
+            }
+
+            handleTextMessage(data) {
+                try {
+                    const message = JSON.parse(data);
+                    this.processMessage(message);
+                } catch (error) {
+                    this.log('Error processing text message: ' + error.message, 'error');
+                }
+            }
+
+            processMessage(message) {
+                if (message.ping) {
+                    this.send({ pong: message.ping });
+                    return;
+                }
+
+                if (message.tick) {
+                    this.updateMarketData(message);
+                }
+
+                if (message.status === 'error') {
+                    this.log('Error message received: ' + JSON.stringify(message), 'error');
+                }
+            }
+
+            subscribe() {
+                // Subscribe to market details
+                this.send({
+                    sub: "market.btcusdt.detail",
+                    id: "id1"
+                });
+            }
+
+            updateMarketData(message) {
+                const tick = message.tick;
+                if (tick) {
+                    document.getElementById('price').textContent = tick.close.toFixed(2);
+                    document.getElementById('volume').textContent = 'Volume: ' + tick.vol.toFixed(2);
+                }
+            }
+
+            send(data) {
+                if (this.connected && this.ws.readyState === WebSocket.OPEN) {
+                    this.ws.send(JSON.stringify(data));
+                }
+            }
+
+            startPingPong() {
+                this.pingInterval = setInterval(() => {
+                    if (this.connected) {
+                        this.send({ ping: Date.now() });
+                    }
+                }, 20000);
+            }
+
+            cleanup() {
+                if (this.pingInterval) {
+                    clearInterval(this.pingInterval);
+                    this.pingInterval = null;
+                }
+            }
+
+            updateStatus(connected) {
+                const statusEl = document.getElementById('status');
+                statusEl.textContent = connected ? 'Connected' : 'Disconnected';
+                statusEl.className = 'status ' + (connected ? 'connected' : 'disconnected');
+            }
+
+            log(message, type = 'info') {
+                const logEl = document.getElementById('log');
+                const p = document.createElement('p');
+                p.className = type;
+                p.textContent = `${new Date().toLocaleTimeString()} - ${message}`;
+                logEl.appendChild(p);
+
+                // Keep only the last N messages
+                this.logMessages.push(p);
+                if (this.logMessages.length > this.maxLogs) {
+                    const removed = this.logMessages.shift();
+                    logEl.removeChild(removed);
+                }
+
+                // Auto-scroll to bottom
+                logEl.scrollTop = logEl.scrollHeight;
+            }
+        }
+
+        // Start the WebSocket connection
+        const ws = new HTXWebSocket();
+        ws.connect();
+    </script>
+</body>
+</html>

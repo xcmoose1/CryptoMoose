@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoMoose VIP - AI Market Projections</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/ai-projections.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --color-bg: #0a0b0c;
+            --color-surface: #16181a;
+            --color-primary: #00ff9d;
+            --color-secondary: #94a3b8;
+            --color-text: #ffffff;
+            --color-text-dim: rgba(255, 255, 255, 0.7);
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding-top: 80px;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Nav Styles */
+        .nav {
+            background: rgba(18, 18, 18, 0.8);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-left, .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-link {
+            color: var(--color-text);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-link i {
+            font-size: 1rem;
+        }
+
+        .nav-link span {
+            font-size: 0.9rem;
+        }
+
+        .btn-telegram {
+            background: #0088cc;
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-telegram:hover {
+            background: #0099e6;
+            transform: translateY(-1px);
+        }
+
+        .nav-link.active {
+            background: rgba(0, 255, 157, 0.1);
+            color: var(--color-primary);
+        }
+
+        .nav-link.active i {
+            color: var(--color-primary);
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="nav-left">
+                <a href="https://t.me/CryptoMooseAlpha" target="_blank" class="btn btn-telegram">
+                    <i class="fab fa-telegram"></i> Join Telegram
+                </a>
+            </div>
+            <div class="nav-right">
+                <a href="dashboard.html" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="members.html" class="nav-link">
+                    <i class="fas fa-user"></i>
+                    <span>Members</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Disclaimer Overlay -->
+    <div class="disclaimer-overlay" id="disclaimerOverlay">
+        <div class="disclaimer-content">
+            <div class="disclaimer-header">
+                <h2><i class="fas fa-exclamation-triangle"></i> Important Disclaimer</h2>
+                <p>Please read carefully before proceeding</p>
+            </div>
+            <div class="disclaimer-body">
+                <p><strong>High-Risk Warning:</strong> Cryptocurrency price predictions, including AI-generated projections, are inherently speculative and should not be considered as financial advice.</p>
+                <p><strong>No Guarantees:</strong> Past performance does not guarantee future results. AI projections are based on historical data and market patterns but cannot predict future market movements with certainty.</p>
+                <p><strong>Use at Your Own Risk:</strong> Any decisions made based on these projections are solely your responsibility. CryptoMoose and its team are not responsible for any financial losses incurred.</p>
+                <p><strong>Educational Purpose:</strong> This tool is designed for educational and research purposes only. Always conduct your own research and consider consulting with a financial advisor before making investment decisions.</p>
+                <p><strong>Data Limitations:</strong> AI projections are generated using publicly available data and may not account for all market factors, news events, or regulatory changes that could impact prices.</p>
+            </div>
+            <div class="disclaimer-footer">
+                <div class="disclaimer-checkbox">
+                    <input type="checkbox" id="agreeCheckbox">
+                    <label for="agreeCheckbox">I understand and accept the risks involved</label>
+                </div>
+                <button id="agreeButton" class="agree-btn">Proceed to AI Projections</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <header class="page-header">
+            <h1><i class="fas fa-brain"></i> AI Market Projections</h1>
+            <p class="header-description">Advanced price range predictions powered by machine learning</p>
+        </header>
+
+        <div class="projection-grid">
+            <!-- Bitcoin -->
+            <div class="projection-card" id="btcProjection">
+                <div class="token-header">
+                    <div class="token-info">
+                        <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" alt="BTC" class="token-icon">
+                        <span class="token-name">Bitcoin</span>
+                    </div>
+                    <span class="token-price current-price">Loading...</span>
+                </div>
+                <canvas id="btcChart" class="projection-chart"></canvas>
+                <div class="projection-metrics">
+                    <div class="metric">
+                        <div class="metric-label">Projected Low</div>
+                        <div class="metric-value projected-low">Loading...</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Projected High</div>
+                        <div class="metric-value projected-high">Loading...</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Volatility</div>
+                        <div class="metric-value volatility-value">Loading...</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Momentum</div>
+                        <div class="metric-value momentum-value">Loading...</div>
+                    </div>
+                </div>
+                <div class="confidence-level">
+                    <span>AI Confidence:</span>
+                    <div class="confidence-bar">
+                        <div class="confidence-fill" style="width: 0%"></div>
+                    </div>
+                    <span class="confidence-value">0%</span>
+                </div>
+                <div class="timeframe-selector">
+                    <button class="timeframe-btn active">7D</button>
+                    <button class="timeframe-btn">14D</button>
+                    <button class="timeframe-btn">30D</button>
+                </div>
+            </div>
+
+            <!-- Ethereum -->
+            <div class="projection-card" id="ethProjection">
+                <div class="token-header">
+                    <div class="token-info">
+                        <img src="https://cryptologos.cc/logos/ethereum-eth-logo.png" alt="ETH" class="token-icon">
+                        <span class="token-name">Ethereum</span>
+                    </div>
+                    <span class="token-price current-price">Loading...</span>
+                </div>
+                <canvas id="ethChart" class="projection-chart"></canvas>
+                <div class="projection-metrics">
+                    <div class="metric">
+                        <div class="metric-label">Projected Low</div>
+                        <div class="metric-value projected-low">Loading...</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Projected High</div>
+                        <div class="metric-value projected-high">Loading...</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Volatility</div>
+                        <div class="metric-value volatility-value">Loading...</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Momentum</div>
+                        <div class="metric-value momentum-value">Loading...</div>
+                    </div>
+                </div>
+                <div class="confidence-level">
+                    <span>AI Confidence:</span>
+                    <div class="confidence-bar">
+                        <div class="confidence-fill" style="width: 0%"></div>
+                    </div>
+                    <span class="confidence-value">0%</span>
+                </div>
+                <div class="timeframe-selector">
+                    <button class="timeframe-btn active">7D</button>
+                    <button class="timeframe-btn">14D</button>
+                    <button class="timeframe-btn">30D</button>
+                </div>
+            </div>
+
+            <!-- Solana -->
+            <div class="projection-card" id="solProjection">
+                <div class="token-header">
+                    <div class="token-info">
+                        <img src="https://cryptologos.cc/logos/solana-sol-logo.png" alt="SOL" class="token-icon">
+                        <span class="token-name">Solana</span>
+                    </div>
+                    <span class="token-price current-price">Loading...</span>
+                </div>
+                <canvas id="solChart" class="projection-chart"></canvas>
+                <div class="projection-metrics">
+                    <div class="metric">
+                        <div class="metric-label">Projected Low</div>
+                        <div class="metric-value projected-low">Loading...</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Projected High</div>
+                        <div class="metric-value projected-high">Loading...</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Volatility</div>
+                        <div class="metric-value volatility-value">Loading...</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Momentum</div>
+                        <div class="metric-value momentum-value">Loading...</div>
+                    </div>
+                </div>
+                <div class="confidence-level">
+                    <span>AI Confidence:</span>
+                    <div class="confidence-bar">
+                        <div class="confidence-fill" style="width: 0%"></div>
+                    </div>
+                    <span class="confidence-value">0%</span>
+                </div>
+                <div class="timeframe-selector">
+                    <button class="timeframe-btn active">7D</button>
+                    <button class="timeframe-btn">14D</button>
+                    <button class="timeframe-btn">30D</button>
+                </div>
+            </div>
+
+            <!-- XRP -->
+            <div class="projection-card" id="xrpProjection">
+                <div class="token-header">
+                    <div class="token-info">
+                        <img src="https://cryptologos.cc/logos/xrp-xrp-logo.png" alt="XRP" class="token-icon">
+                        <span class="token-name">XRP</span>
+                    </div>
+                    <span class="token-price current-price">Loading...</span>
+                </div>
+                <canvas id="xrpChart" class="projection-chart"></canvas>
+                <div class="projection-metrics">
+                    <div class="metric">
+                        <div class="metric-label">Projected Low</div>
+                        <div class="metric-value projected-low">Loading...</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Projected High</div>
+                        <div class="metric-value projected-high">Loading...</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Volatility</div>
+                        <div class="metric-value volatility-value">Loading...</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Momentum</div>
+                        <div class="metric-value momentum-value">Loading...</div>
+                    </div>
+                </div>
+                <div class="confidence-level">
+                    <span>AI Confidence:</span>
+                    <div class="confidence-bar">
+                        <div class="confidence-fill" style="width: 0%"></div>
+                    </div>
+                    <span class="confidence-value">0%</span>
+                </div>
+                <div class="timeframe-selector">
+                    <button class="timeframe-btn active">7D</button>
+                    <button class="timeframe-btn">14D</button>
+                    <button class="timeframe-btn">30D</button>
+                </div>
+            </div>
+
+            <!-- Cardano -->
+            <div class="projection-card" id="adaProjection">
+                <div class="token-header">
+                    <div class="token-info">
+                        <img src="https://cryptologos.cc/logos/cardano-ada-logo.png" alt="ADA" class="token-icon">
+                        <span class="token-name">Cardano</span>
+                    </div>
+                    <span class="token-price current-price">Loading...</span>
+                </div>
+                <canvas id="adaChart" class="projection-chart"></canvas>
+                <div class="projection-metrics">
+                    <div class="metric">
+                        <div class="metric-label">Projected Low</div>
+                        <div class="metric-value projected-low">Loading...</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Projected High</div>
+                        <div class="metric-value projected-high">Loading...</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Volatility</div>
+                        <div class="metric-value volatility-value">Loading...</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Momentum</div>
+                        <div class="metric-value momentum-value">Loading...</div>
+                    </div>
+                </div>
+                <div class="confidence-level">
+                    <span>AI Confidence:</span>
+                    <div class="confidence-bar">
+                        <div class="confidence-fill" style="width: 0%"></div>
+                    </div>
+                    <span class="confidence-value">0%</span>
+                </div>
+                <div class="timeframe-selector">
+                    <button class="timeframe-btn active">7D</button>
+                    <button class="timeframe-btn">14D</button>
+                    <button class="timeframe-btn">30D</button>
+                </div>
+            </div>
+
+            <!-- BNB -->
+            <div class="projection-card" id="bnbProjection">
+                <div class="token-header">
+                    <div class="token-info">
+                        <img src="https://cryptologos.cc/logos/bnb-bnb-logo.png" alt="BNB" class="token-icon">
+                        <span class="token-name">BNB</span>
+                    </div>
+                    <span class="token-price current-price">Loading...</span>
+                </div>
+                <canvas id="bnbChart" class="projection-chart"></canvas>
+                <div class="projection-metrics">
+                    <div class="metric">
+                        <div class="metric-label">Projected Low</div>
+                        <div class="metric-value projected-low">Loading...</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Projected High</div>
+                        <div class="metric-value projected-high">Loading...</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Volatility</div>
+                        <div class="metric-value volatility-value">Loading...</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Momentum</div>
+                        <div class="metric-value momentum-value">Loading...</div>
+                    </div>
+                </div>
+                <div class="confidence-level">
+                    <span>AI Confidence:</span>
+                    <div class="confidence-bar">
+                        <div class="confidence-fill" style="width: 0%"></div>
+                    </div>
+                    <span class="confidence-value">0%</span>
+                </div>
+                <div class="timeframe-selector">
+                    <button class="timeframe-btn active">7D</button>
+                    <button class="timeframe-btn">14D</button>
+                    <button class="timeframe-btn">30D</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/ai-projections.js"></script>
+</body>
+</html>

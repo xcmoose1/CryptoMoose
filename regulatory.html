@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoMoose Regulatory Tracking</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .regulatory-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .risk-level {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-left: 0.5rem;
+        }
+
+        .risk-high {
+            background: rgba(255, 59, 48, 0.1);
+            color: #ff3b30;
+        }
+
+        .risk-medium {
+            background: rgba(255, 149, 0, 0.1);
+            color: #ff9500;
+        }
+
+        .risk-low {
+            background: rgba(52, 199, 89, 0.1);
+            color: #34c759;
+        }
+
+        .regulatory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .reg-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .reg-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .reg-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #00ff88, #00a1ff);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #121212;
+        }
+
+        .reg-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #00ff88;
+        }
+
+        .reg-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .reg-list li {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .reg-list li:last-child {
+            border-bottom: none;
+        }
+
+        .reg-item-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .reg-item-title {
+            font-weight: 500;
+        }
+
+        .reg-item-desc {
+            color: var(--color-text-secondary);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        .country-tag {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+        }
+
+        .compliance-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .status-icon {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .status-compliant {
+            background: #34c759;
+        }
+
+        .status-pending {
+            background: #ff9500;
+        }
+
+        .status-non-compliant {
+            background: #ff3b30;
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="nav-left">
+                <a href="https://t.me/CryptoMooseAlpha" target="_blank" class="btn btn-telegram">
+                    <i class="fab fa-telegram"></i> Join Telegram
+                </a>
+            </div>
+            <div class="nav-right">
+                <a href="dashboard.html" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="members.html" class="nav-link">
+                    <i class="fas fa-user"></i>
+                    <span>Members</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="regulatory-container">
+        <div class="header">
+            <h1>Regulatory Tracking</h1>
+            <p>Stay compliant with global crypto regulations and guidelines</p>
+        </div>
+
+        <div class="regulatory-grid">
+            <!-- Legal Risk Alerts -->
+            <div class="reg-card">
+                <div class="reg-header">
+                    <div class="reg-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h3 class="reg-title">Legal Risk Alerts</h3>
+                </div>
+                <ul class="reg-list">
+                    <li>
+                        <div class="reg-item-header">
+                            <span class="reg-item-title">Binance US Operations</span>
+                            <span class="risk-level risk-high">High Risk</span>
+                        </div>
+                        <p class="reg-item-desc">SEC investigation ongoing. Consider alternative exchanges for US users.</p>
+                    </li>
+                    <li>
+                        <div class="reg-item-header">
+                            <span class="reg-item-title">XRP Trading</span>
+                            <span class="risk-level risk-medium">Medium Risk</span>
+                        </div>
+                        <p class="reg-item-desc">Regulatory clarity improving following court decisions.</p>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- KYC/AML Compliance -->
+            <div class="reg-card">
+                <div class="reg-header">
+                    <div class="reg-icon">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <h3 class="reg-title">KYC/AML Status</h3>
+                </div>
+                <ul class="reg-list">
+                    <li>
+                        <div class="reg-item-header">
+                            <span class="reg-item-title">Binance</span>
+                            <div class="compliance-status">
+                                <div class="status-icon status-compliant"></div>
+                                Compliant
+                            </div>
+                        </div>
+                        <p class="reg-item-desc">Full KYC required for all services</p>
+                    </li>
+                    <li>
+                        <div class="reg-item-header">
+                            <span class="reg-item-title">Uniswap</span>
+                            <div class="compliance-status">
+                                <div class="status-icon status-pending"></div>
+                                Partial
+                            </div>
+                        </div>
+                        <p class="reg-item-desc">KYC for fiat on/off ramp only</p>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Tax Implications -->
+            <div class="reg-card">
+                <div class="reg-header">
+                    <div class="reg-icon">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                    </div>
+                    <h3 class="reg-title">Tax Guidelines</h3>
+                </div>
+                <ul class="reg-list">
+                    <li>
+                        <span class="country-tag">USA</span>
+                        <div class="reg-item-header">
+                            <span class="reg-item-title">NFT Trading</span>
+                        </div>
+                        <p class="reg-item-desc">Treated as collectibles: 28% maximum tax rate</p>
+                    </li>
+                    <li>
+                        <span class="country-tag">EU</span>
+                        <div class="reg-item-header">
+                            <span class="reg-item-title">Staking Rewards</span>
+                        </div>
+                        <p class="reg-item-desc">Taxed as income when received, capital gains on sale</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.menu-toggle').addEventListener('click', () => {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

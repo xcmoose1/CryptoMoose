@@ -1,0 +1,117 @@
+<![CDATA[<div class="onchain-analysis-section glass">
+    <div class="section-header">
+        <h3><i class="fas fa-link"></i> On-Chain Analysis</h3>
+        <div class="timeframe-selector">
+            <button class="timeframe-btn active" data-timeframe="24h">24H</button>
+            <button class="timeframe-btn" data-timeframe="7d">7D</button>
+            <button class="timeframe-btn" data-timeframe="30d">30D</button>
+            <button class="timeframe-btn" data-timeframe="90d">90D</button>
+        </div>
+    </div>
+
+    <div class="onchain-content">
+        <!-- Network Health -->
+        <div class="onchain-panel glass">
+            <h4>Network Health</h4>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <span class="metric-icon"><i class="fas fa-network-wired"></i></span>
+                    <span class="metric-label">Active Addresses</span>
+                    <span id="activeAddresses" class="metric-value">Loading...</span>
+                    <span id="activeAddressesChange" class="metric-change">...</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-icon"><i class="fas fa-exchange-alt"></i></span>
+                    <span class="metric-label">Transaction Count</span>
+                    <span id="transactionCount" class="metric-value">Loading...</span>
+                    <span id="transactionCountChange" class="metric-change">...</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-icon"><i class="fas fa-chart-line"></i></span>
+                    <span class="metric-label">Network Growth</span>
+                    <span id="networkGrowth" class="metric-value">Loading...</span>
+                    <span id="networkGrowthChange" class="metric-change">...</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Whale Activity -->
+        <div class="onchain-panel glass">
+            <h4>Whale Activity</h4>
+            <div class="whale-metrics">
+                <div class="whale-chart" id="whaleChart">
+                    <div class="loading">Loading whale activity data...</div>
+                </div>
+                <div class="whale-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Large Transactions (>$100k)</span>
+                        <span id="largeTransactions" class="stat-value">Loading...</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Whale Wallet Changes</span>
+                        <span id="whaleWallets" class="stat-value">Loading...</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Exchange Inflow</span>
+                        <span id="exchangeInflow" class="stat-value">Loading...</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Exchange Outflow</span>
+                        <span id="exchangeOutflow" class="stat-value">Loading...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- HODL Analysis -->
+        <div class="onchain-panel glass">
+            <h4>HODL Analysis</h4>
+            <div class="hodl-metrics">
+                <div class="hodl-distribution">
+                    <h5>Holding Distribution</h5>
+                    <div id="hodlDistribution" class="distribution-chart">
+                        <div class="loading">Loading distribution data...</div>
+                    </div>
+                </div>
+                <div class="hodl-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Average HODL Time</span>
+                        <span id="avgHodlTime" class="stat-value">Loading...</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Long-term Holders</span>
+                        <span id="longTermHolders" class="stat-value">Loading...</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Short-term Holders</span>
+                        <span id="shortTermHolders" class="stat-value">Loading...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Market Sentiment -->
+        <div class="onchain-panel glass">
+            <h4>Market Sentiment</h4>
+            <div class="sentiment-metrics">
+                <div class="sentiment-gauge" id="sentimentGauge">
+                    <div class="loading">Loading sentiment data...</div>
+                </div>
+                <div class="sentiment-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">MVRV Ratio</span>
+                        <span id="mvrvRatio" class="stat-value">Loading...</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">NVT Ratio</span>
+                        <span id="nvtRatio" class="stat-value">Loading...</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Realized Price</span>
+                        <span id="realizedPrice" class="stat-value">Loading...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>]]>

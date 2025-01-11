@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trading Psychology - Fear and Greed - CryptoMoose Learning</title>
+    <link rel="stylesheet" href="../css/course-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="nav-left">
+                <a href="../index.html" class="logo-container">
+                    <img src="../images/Moose.png" alt="CryptoMoose Logo">
+                </a>
+                <a href="https://t.me/CryptoMooseAlpha" target="_blank" class="btn btn-telegram">
+                    <i class="fab fa-telegram"></i> Join Telegram
+                </a>
+            </div>
+            <div class="nav-right">
+                <a href="../dashboard.html" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="https://x.com/XCryptoMoose" target="_blank" class="nav-link">
+                    <i class="fab fa-x-twitter"></i>
+                    <span>Follow Alpha</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="course-container">
+        <div class="course-header">
+            <h1>Fear and Greed Management</h1>
+            <p>Balance emotions for optimal trading decisions</p>
+        </div>
+
+        <div class="course-progress">
+            <div class="progress-text">Course Progress: 50%</div>
+            <div class="progress-bar">
+                <div class="progress" style="width: 50%"></div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>1. Understanding Fear and Greed</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-header">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <h3>Fear Indicators</h3>
+                    </div>
+                    <ul>
+                        <li>Hesitation to Enter</li>
+                        <li>Early Exit</li>
+                        <li>Missing Opportunities</li>
+                        <li>Over-Protection</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <div class="info-header">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Greed Signals</h3>
+                    </div>
+                    <ul>
+                        <li>Overtrading</li>
+                        <li>Position Sizing</li>
+                        <li>FOMO Trading</li>
+                        <li>Revenge Trading</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>2. Market Psychology Cycle</h2>
+            <div class="chart-container">
+                <canvas id="marketPsychologyChart"></canvas>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-header">
+                            <i class="fas fa-sync"></i>
+                            <h3>Cycle Phases</h3>
+                        </div>
+                        <ul>
+                            <li>Optimism</li>
+                            <li>Euphoria</li>
+                            <li>Anxiety</li>
+                            <li>Capitulation</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>3. Practice Exercise</h2>
+            <div class="quiz-container">
+                <h3>Fear and Greed Quiz</h3>
+                <div class="quiz-question">
+                    <p>What is the best way to combat FOMO (Fear of Missing Out)?</p>
+                    <div class="quiz-option" onclick="checkAnswer(1, this)">
+                        A) Stick to your trading plan
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(2, this)">
+                        B) Enter quickly at market price
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(3, this)">
+                        C) Increase position size
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(4, this)">
+                        D) Follow social media trends
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="course-navigation">
+            <a href="trading-psychology-2.html" class="nav-button">
+                <i class="fas fa-arrow-left"></i> Previous Lesson
+            </a>
+            <a href="trading-psychology-4.html" class="nav-button">
+                Next Lesson <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Initialize market psychology chart
+        function initializeMarketPsychologyChart() {
+            const ctx = document.getElementById('marketPsychologyChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Hope', 'Optimism', 'Belief', 'Thrill', 'Euphoria', 'Anxiety', 'Denial', 'Fear', 'Desperation', 'Panic', 'Capitulation', 'Despondency'],
+                    datasets: [{
+                        label: 'Market Cycle',
+                        data: [30, 40, 50, 70, 90, 70, 60, 40, 30, 20, 10, 20],
+                        borderColor: '#00ff9d',
+                        backgroundColor: 'rgba(0, 255, 157, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            labels: {
+                                color: '#ffffff'
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#ffffff'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#ffffff',
+                                maxRotation: 45,
+                                minRotation: 45
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Quiz functionality
+        function checkAnswer(option, element) {
+            const options = document.querySelectorAll('.quiz-option');
+            options.forEach(opt => {
+                opt.classList.remove('correct', 'wrong');
+                opt.style.pointerEvents = 'none';
+            });
+
+            if(option === 1) {
+                element.classList.add('correct');
+            } else {
+                element.classList.add('wrong');
+                options[0].classList.add('correct');
+            }
+        }
+
+        // Initialize chart
+        initializeMarketPsychologyChart();
+    </script>
+</body>
+</html>

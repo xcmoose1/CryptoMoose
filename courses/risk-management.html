@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Risk Management - Introduction - CryptoMoose Learning</title>
+    <link rel="stylesheet" href="../css/course-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="nav-left">
+                <a href="../index.html" class="logo-container">
+                    <img src="../images/Moose.png" alt="CryptoMoose Logo">
+                </a>
+                <a href="https://t.me/CryptoMooseAlpha" target="_blank" class="btn btn-telegram">
+                    <i class="fab fa-telegram"></i> Join Telegram
+                </a>
+            </div>
+            <div class="nav-right">
+                <a href="../dashboard.html" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="https://x.com/XCryptoMoose" target="_blank" class="nav-link">
+                    <i class="fab fa-x-twitter"></i>
+                    <span>Follow Alpha</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="course-container">
+        <div class="course-header">
+            <h1>Introduction to Risk Management</h1>
+            <p>Learn the fundamentals of protecting your capital in crypto trading</p>
+        </div>
+
+        <div class="course-progress">
+            <div class="progress-text">Course Progress: 16%</div>
+            <div class="progress-bar">
+                <div class="progress" style="width: 16%"></div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>1. Understanding Risk</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-header">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3>Types of Risk</h3>
+                    </div>
+                    <ul>
+                        <li>Market Risk</li>
+                        <li>Liquidity Risk</li>
+                        <li>Operational Risk</li>
+                        <li>Counterparty Risk</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <div class="info-header">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Risk Protection</h3>
+                    </div>
+                    <ul>
+                        <li>Position Sizing</li>
+                        <li>Stop Loss Orders</li>
+                        <li>Portfolio Diversification</li>
+                        <li>Risk-Reward Ratios</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>2. Risk-Reward Calculation</h2>
+            <div class="chart-container">
+                <canvas id="riskRewardChart"></canvas>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-header">
+                            <i class="fas fa-calculator"></i>
+                            <h3>Risk-Reward Formula</h3>
+                        </div>
+                        <pre><code>Risk-Reward Ratio = (Take Profit - Entry) / (Entry - Stop Loss)
+
+Example:
+Entry: $100
+Stop Loss: $90
+Take Profit: $130
+
+Risk-Reward = (130 - 100) / (100 - 90)
+           = 30 / 10
+           = 3:1 ratio</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>3. Practice Exercise</h2>
+            <div class="quiz-container">
+                <h3>Risk Management Quiz</h3>
+                <div class="quiz-question">
+                    <p>What is considered a good risk-reward ratio for trading?</p>
+                    <div class="quiz-option" onclick="checkAnswer(1, this)">
+                        A) At least 1:2 (risking 1 to make 2)
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(2, this)">
+                        B) 1:1 (risking 1 to make 1)
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(3, this)">
+                        C) 2:1 (risking 2 to make 1)
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(4, this)">
+                        D) 3:1 (risking 3 to make 1)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="course-navigation">
+            <a href="../learning.html" class="nav-button">
+                <i class="fas fa-arrow-left"></i> Back to Courses
+            </a>
+            <a href="risk-management-2.html" class="nav-button">
+                Next Lesson <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Initialize risk-reward chart
+        function initializeRiskRewardChart() {
+            const ctx = document.getElementById('riskRewardChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Entry', 'Stop Loss', 'Take Profit'],
+                    datasets: [{
+                        label: 'Price Levels',
+                        data: [100, 90, 130],
+                        borderColor: '#00ff9d',
+                        backgroundColor: 'rgba(0, 255, 157, 0.1)',
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            labels: {
+                                color: '#ffffff'
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#ffffff'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#ffffff'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Quiz functionality
+        function checkAnswer(option, element) {
+            const options = document.querySelectorAll('.quiz-option');
+            options.forEach(opt => {
+                opt.classList.remove('correct', 'wrong');
+                opt.style.pointerEvents = 'none';
+            });
+
+            if(option === 1) {
+                element.classList.add('correct');
+            } else {
+                element.classList.add('wrong');
+                options[0].classList.add('correct');
+            }
+        }
+
+        // Initialize chart
+        initializeRiskRewardChart();
+    </script>
+</body>
+</html>

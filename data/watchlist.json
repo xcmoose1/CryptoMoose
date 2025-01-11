@@ -1,0 +1,96 @@
+{
+  "gems": [
+    {
+      "name": "Turbo On Base",
+      "symbol": "TURBO",
+      "chainId": "ethereum",
+      "chainName": "Ethereum",
+      "marketCap": 271862,
+      "volume24h": 841739,
+      "priceChange24h": 49.33715,
+      "liquidity": 420869.5,
+      "price": 0.00027186,
+      "poolAddress": "",
+      "dexId": "various",
+      "dexName": "Various DEXes",
+      "quoteToken": "Multiple",
+      "url": "https://www.coingecko.com/en/coins/turbo-on-base",
+      "score": 100,
+      "addedAt": "2024-12-26T17:49:55.595Z",
+      "initialPrice": 0.00027186,
+      "initialMarketCap": 271862
+    },
+    {
+      "name": "Pichi Finance",
+      "symbol": "PCH",
+      "chainId": "ethereum",
+      "chainName": "Ethereum",
+      "marketCap": 140957,
+      "volume24h": 104633,
+      "priceChange24h": 14.98929,
+      "liquidity": 52316.5,
+      "price": 0.00116493,
+      "poolAddress": "",
+      "dexId": "various",
+      "dexName": "Various DEXes",
+      "quoteToken": "Multiple",
+      "url": "https://www.coingecko.com/en/coins/pichi-finance",
+      "score": 100,
+      "addedAt": "2024-12-26T17:57:14.775Z",
+      "initialPrice": 0.00116493,
+      "initialMarketCap": 140957
+    },
+    {
+      "name": "Scroll",
+      "symbol": "SCR",
+      "marketCap": 148770424,
+      "volume24h": 31052678,
+      "priceChange24h": -9.45294,
+      "liquidity": 15526339,
+      "price": 1.069,
+      "url": "https://www.coingecko.com/en/coins/scroll",
+      "score": 92,
+      "insights": [],
+      "addedAt": "2024-12-26T18:13:10.741Z",
+      "initialPrice": 1.069,
+      "initialMarketCap": 148770424
+    },
+    {
+      "name": "Marinade",
+      "symbol": "MNDE",
+      "marketCap": 50482348,
+      "volume24h": 31745431,
+      "priceChange24h": -2.96333,
+      "liquidity": 15872715.5,
+      "price": 0.130686,
+      "url": "https://www.coingecko.com/en/coins/marinade",
+      "score": 99,
+      "insights": [
+        "Healthy trading volume at 62.9% of market cap",
+        "Price consolidation phase with stable -3.0% movement"
+      ],
+      "addedAt": "2024-12-26T18:16:40.994Z",
+      "initialPrice": 0.130686,
+      "initialMarketCap": 50482348
+    },
+    {
+      "name": "Diamond castle",
+      "symbol": "DMCK",
+      "marketCap": 122183,
+      "volume24h": 48366984,
+      "priceChange24h": -19.61618,
+      "liquidity": 24183492,
+      "price": 0.00806035,
+      "url": "https://www.coingecko.com/en/coins/diamond-castle",
+      "score": 100,
+      "insights": [
+        "Strong trading activity with 395.9x daily volume vs market cap",
+        "Potential dip buying opportunity at -19.6% below recent price"
+      ],
+      "addedAt": "2024-12-26T18:16:54.115Z",
+      "initialPrice": 0.00806035,
+      "initialMarketCap": 122183
+    }
+  ],
+  "lastUpdated": "2024-12-26T18:16:54.115Z"
+}

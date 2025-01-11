@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technical Analysis - Trading Psychology - CryptoMoose Learning</title>
+    <link rel="stylesheet" href="../css/course-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="nav-left">
+                <a href="../index.html" class="logo-container">
+                    <img src="../images/Moose.png" alt="CryptoMoose Logo">
+                </a>
+                <a href="https://t.me/CryptoMooseAlpha" target="_blank" class="btn btn-telegram">
+                    <i class="fab fa-telegram"></i> Join Telegram
+                </a>
+            </div>
+            <div class="nav-right">
+                <a href="../dashboard.html" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="https://x.com/XCryptoMoose" target="_blank" class="nav-link">
+                    <i class="fab fa-x-twitter"></i>
+                    <span>Follow Alpha</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="course-container">
+        <div class="course-header">
+            <h1>Trading Psychology</h1>
+            <p>Master your emotions and develop a winning trading mindset</p>
+        </div>
+
+        <div class="course-progress">
+            <div class="progress-text">Course Progress: 66%</div>
+            <div class="progress-bar">
+                <div class="progress" style="width: 66%"></div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>1. Common Trading Biases</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-header">
+                        <i class="fas fa-brain"></i>
+                        <h3>Confirmation Bias</h3>
+                    </div>
+                    <p>The tendency to search for information that confirms your existing beliefs.</p>
+                    <ul>
+                        <li>Only looking for bullish signals in an uptrend</li>
+                        <li>Ignoring contradictory information</li>
+                        <li>Following echo chambers</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <div class="info-header">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>FOMO (Fear of Missing Out)</h3>
+                    </div>
+                    <p>Making impulsive decisions based on the fear of missing potential gains.</p>
+                    <ul>
+                        <li>Buying at market tops</li>
+                        <li>Increasing position size irrationally</li>
+                        <li>Ignoring risk management</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>2. Emotional Control</h2>
+            <div class="chart-container">
+                <canvas id="emotionChart"></canvas>
+                <div class="chart-controls">
+                    <button class="chart-control active" onclick="showEmotion('greed')">Greed Cycle</button>
+                    <button class="chart-control" onclick="showEmotion('fear')">Fear Cycle</button>
+                </div>
+            </div>
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-header">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Protection Strategies</h3>
+                    </div>
+                    <ul>
+                        <li>Stick to your trading plan</li>
+                        <li>Use stop losses religiously</li>
+                        <li>Keep a trading journal</li>
+                        <li>Take regular breaks</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>3. Practice Exercise</h2>
+            <div class="quiz-container">
+                <h3>Trading Psychology Quiz</h3>
+                <div class="quiz-question">
+                    <p>Which of the following is NOT a good way to manage trading emotions?</p>
+                    <div class="quiz-option" onclick="checkAnswer(1, this)">
+                        A) Increasing position size to recover losses
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(2, this)">
+                        B) Keeping a trading journal
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(3, this)">
+                        C) Setting stop losses
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(4, this)">
+                        D) Taking regular breaks
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="course-navigation">
+            <a href="technical-analysis-3.html" class="nav-button">
+                <i class="fas fa-arrow-left"></i> Previous Lesson
+            </a>
+            <a href="technical-analysis-5.html" class="nav-button">
+                Next Lesson <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Initialize emotion chart
+        function initializeEmotionChart() {
+            const ctx = document.getElementById('emotionChart').getContext('2d');
+            window.emotionChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: Array.from({length: 20}, (_, i) => i + 1),
+                    datasets: [{
+                        label: 'Market Cycle',
+                        data: generateEmotionData('greed'),
+                        borderColor: '#00ff9d',
+                        tension: 0.4,
+                        fill: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            labels: {
+                                color: '#ffffff'
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#ffffff'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#ffffff'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Generate emotion cycle data
+        function generateEmotionData(type) {
+            if (type === 'greed') {
+                return [10, 15, 25, 40, 60, 85, 95, 80, 60, 40, 25, 15];
+            } else {
+                return [90, 70, 50, 35, 25, 15, 10, 20, 35, 50, 65, 80];
+            }
+        }
+
+        // Update emotion chart
+        function showEmotion(type) {
+            const buttons = document.querySelectorAll('.chart-control');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            window.emotionChart.data.datasets[0].data = generateEmotionData(type);
+            window.emotionChart.update();
+        }
+
+        // Quiz functionality
+        function checkAnswer(option, element) {
+            const options = document.querySelectorAll('.quiz-option');
+            options.forEach(opt => {
+                opt.classList.remove('correct', 'wrong');
+                opt.style.pointerEvents = 'none';
+            });
+
+            if(option === 1) {
+                element.classList.add('correct');
+            } else {
+                element.classList.add('wrong');
+                options[0].classList.add('correct');
+            }
+        }
+
+        // Initialize everything
+        initializeEmotionChart();
+    </script>
+</body>
+</html>

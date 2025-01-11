@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoMoose VIP - Segment Projections</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/ai-projections.css">
+    <link rel="stylesheet" href="css/segment-projections.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --color-bg: #0a0b0c;
+            --color-surface: #16181a;
+            --color-primary: #00ff9d;
+            --color-secondary: #94a3b8;
+            --color-text: #ffffff;
+            --color-text-dim: rgba(255, 255, 255, 0.7);
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding-top: 80px;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Nav Styles */
+        .nav {
+            background: rgba(18, 18, 18, 0.8);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-left, .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #ffffff;
+            gap: 0.5rem;
+        }
+
+        .logo-container img {
+            height: 32px;
+            width: auto;
+        }
+
+        .nav-link {
+            color: var(--color-text);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-link i {
+            font-size: 1rem;
+        }
+
+        .nav-link span {
+            font-size: 0.9rem;
+        }
+
+        .nav-link.twitter {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            margin-left: 12px;
+        }
+
+        .nav-link.twitter:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-telegram {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #0088cc;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .btn-telegram:hover {
+            background: #0099e6;
+        }
+
+        .btn-telegram i {
+            font-size: 1rem;
+        }
+
+        /* Projection Cards */
+        .projection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            padding: 1.5rem;
+        }
+
+        .projection-card {
+            background: var(--color-surface);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.3s ease;
+        }
+
+        .projection-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-header h3 {
+            margin: 0;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .token-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+        }
+
+        .price-info {
+            text-align: right;
+        }
+
+        .current-price {
+            display: block;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        .price-change {
+            font-size: 0.875rem;
+        }
+
+        .price-change.positive {
+            color: var(--color-success);
+        }
+
+        .price-change.negative {
+            color: var(--color-danger);
+        }
+
+        .projection-details {
+            margin-bottom: 1.5rem;
+        }
+
+        .projection-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .projection-item:last-child {
+            border-bottom: none;
+        }
+
+        .projection-item .label {
+            color: var(--color-text-dim);
+            font-size: 0.875rem;
+        }
+
+        .projection-item .value {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 0.25rem;
+        }
+
+        .projection-value {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .projection-change {
+            font-size: 0.75rem;
+            padding: 0.125rem 0.375rem;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .projection-change.positive {
+            background: rgba(52, 211, 153, 0.1);
+            color: #34D399;
+        }
+
+        .projection-change.negative {
+            background: rgba(239, 68, 68, 0.1);
+            color: #EF4444;
+        }
+
+        .trend .value.positive {
+            color: #34D399;
+        }
+
+        .trend .value.negative {
+            color: #EF4444;
+        }
+
+        .market-signals {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .signal-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            font-size: 0.875rem;
+        }
+
+        .signal-item i {
+            color: var(--color-primary);
+        }
+
+        /* Segment Navigation */
+        .segment-navigation {
+            display: flex;
+            gap: 0.5rem;
+            padding: 1rem 1.5rem;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .segment-navigation::-webkit-scrollbar {
+            display: none;
+        }
+
+        .segment-btn {
+            background: var(--color-surface);
+            border: none;
+            color: var(--color-text);
+            padding: 0.75rem 1.25rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            font-weight: 500;
+        }
+
+        .segment-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .segment-btn.active {
+            background: var(--color-primary);
+            color: var(--color-bg);
+        }
+
+        /* Chart styles */
+        .projection-chart {
+            margin-top: 1.5rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 8px;
+            padding: 1rem;
+        }
+
+        /* Base responsive styles */
+        @media (max-width: 1200px) {
+            .projection-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .projection-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .segment-buttons {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.5rem;
+            }
+
+            .segment-btn {
+                padding: 0.75rem;
+                font-size: 0.875rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .header {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            .segment-buttons {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .projection-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .projection-card {
+                padding: 1rem;
+            }
+
+            .projection-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 0.5rem;
+            }
+
+            .market-signals {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+
+            .signal-item {
+                padding: 0.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .segment-buttons {
+                grid-template-columns: 1fr;
+            }
+
+            .projection-header h3 {
+                font-size: 1.25rem;
+            }
+
+            .current-price {
+                font-size: 1.5rem;
+            }
+
+            .projection-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .projection-item .value {
+                width: 100%;
+                flex-direction: row;
+                justify-content: space-between;
+            }
+
+            .projection-change {
+                margin-left: 0.5rem;
+            }
+        }
+
+        /* Touch-friendly adjustments */
+        @media (hover: none) {
+            .segment-btn {
+                min-height: 44px; /* Minimum touch target size */
+            }
+
+            .projection-card {
+                cursor: pointer;
+                transition: transform 0.2s;
+            }
+
+            .projection-card:active {
+                transform: scale(0.98);
+            }
+
+            select {
+                padding: 0.75rem;
+                min-height: 44px;
+            }
+        }
+
+        /* Dark mode support */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --color-background: #121212;
+                --color-surface: #1e1e1e;
+                --color-text: #ffffff;
+                --color-text-dim: #a0a0a0;
+                --color-primary: #bb86fc;
+                --color-secondary: #03dac6;
+            }
+        }
+
+        /* High contrast support */
+        @media (prefers-contrast: high) {
+            :root {
+                --color-text: #ffffff;
+                --color-text-dim: #e0e0e0;
+                --color-primary: #ffffff;
+                --color-secondary: #ffffff;
+            }
+
+            .projection-card {
+                border: 2px solid #ffffff;
+            }
+
+            .segment-btn {
+                border: 2px solid #ffffff;
+            }
+        }
+
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Dashboard Nav -->
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="nav-left">
+                <a href="index.html" class="logo-container">
+                    <img src="images/moose.png" alt="CryptoMoose" style="height: 32px; width: auto;">
+                    <span>CryptoMoose</span>
+                </a>
+                <a href="dashboard.html" class="nav-link">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="signals.html" class="nav-link">
+                    <i class="fas fa-signal"></i>
+                    <span>Signals</span>
+                </a>
+                <a href="segment-projections.html" class="nav-link active">
+                    <i class="fas fa-layer-group"></i>
+                    <span>Segment Projections</span>
+                </a>
+                <a href="members.html" class="nav-link">
+                    <i class="fas fa-robot"></i>
+                    <span>AI Market Insights</span>
+                </a>
+            </div>
+            <div class="nav-right">
+                <a href="https://t.me/cryptomoose" target="_blank" class="btn-telegram">
+                    <i class="fab fa-telegram"></i>
+                    <span>Get Live Signals on Telegram</span>
+                </a>
+                <a href="https://x.com/XCryptoMoose" target="_blank" class="nav-link twitter">
+                    <img src="images/x-logo.svg" alt="X (Twitter)" style="height: 16px; width: 16px;">
+                    <span>Follow Alpha</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <header class="page-header">
+            <h1><i class="fas fa-layer-group"></i> Segment Projections</h1>
+            <p class="header-description">AI-powered price predictions for major crypto segments</p>
+        </header>
+
+        <!-- Segment Navigation -->
+        <div class="segment-navigation">
+            <button class="segment-btn active" data-segment="top">Top</button>
+            <button class="segment-btn" data-segment="defi">DeFi</button>
+            <button class="segment-btn" data-segment="layer1">Layer 1</button>
+            <button class="segment-btn" data-segment="gaming">Gaming</button>
+            <button class="segment-btn" data-segment="infrastructure">Infrastructure</button>
+            <button class="segment-btn" data-segment="ai">AI & Data</button>
+            <button class="segment-btn" data-segment="memes">Meme Coins</button>
+            <button class="segment-btn" data-segment="depin">DePIN</button>
+            <button class="segment-btn" data-segment="web3">Web3</button>
+        </div>
+
+        <div class="content">
+            <!-- Top Segment -->
+            <div class="segment-section active" id="top-segment">
+                <div class="segment-header">
+                    <h2>Top Cryptocurrencies</h2>
+                    <p>Market Leaders and Major Assets</p>
+                </div>
+                <div class="projection-grid">
+                    <!-- Projection cards will be added here -->
+                </div>
+            </div>
+
+            <!-- DeFi Segment -->
+            <div class="segment-section" id="defi-segment">
+                <div class="segment-header">
+                    <h2>DeFi Protocols</h2>
+                    <p>Decentralized Finance protocols and platforms</p>
+                </div>
+                <div class="projection-grid">
+                    <!-- Projection cards will be added here -->
+                </div>
+            </div>
+
+            <!-- Layer 1 Segment -->
+            <div class="segment-section" id="layer1-segment">
+                <div class="segment-header">
+                    <h2>Layer 1 Networks</h2>
+                    <p>Base layer blockchain protocols</p>
+                </div>
+                <div class="projection-grid">
+                    <!-- Projection cards will be added here -->
+                </div>
+            </div>
+
+            <!-- Gaming Segment -->
+            <div class="segment-section" id="gaming-segment">
+                <div class="segment-header">
+                    <h2>Gaming & Metaverse</h2>
+                    <p>Gaming, NFT, and metaverse projects</p>
+                </div>
+                <div class="projection-grid">
+                    <!-- Projection cards will be added here -->
+                </div>
+            </div>
+
+            <!-- Infrastructure Segment -->
+            <div class="segment-section" id="infrastructure-segment">
+                <div class="segment-header">
+                    <h2>Infrastructure</h2>
+                    <p>Blockchain infrastructure and scaling solutions</p>
+                </div>
+                <div class="projection-grid">
+                    <!-- Projection cards will be added here -->
+                </div>
+            </div>
+
+            <!-- AI Segment -->
+            <div class="segment-section" id="ai-segment">
+                <div class="segment-header">
+                    <h2>AI & Data</h2>
+                    <p>Artificial Intelligence and data protocols</p>
+                </div>
+                <div class="projection-grid">
+                    <!-- Projection cards will be added here -->
+                </div>
+            </div>
+
+            <!-- Meme Coins Segment -->
+            <div class="segment-section" id="memes-segment">
+                <div class="segment-header">
+                    <h2>Meme Coins</h2>
+                    <p>Community-driven tokens and viral sensations</p>
+                </div>
+                <div class="projection-grid">
+                    <!-- Projection cards will be added here -->
+                </div>
+            </div>
+
+            <!-- DePIN Segment -->
+            <div class="segment-section" id="depin-segment">
+                <div class="segment-header">
+                    <h2>DePIN</h2>
+                    <p>Decentralized Physical Infrastructure Networks</p>
+                </div>
+                <div class="projection-grid">
+                    <!-- Projection cards will be added here -->
+                </div>
+            </div>
+
+            <!-- Web3 Segment -->
+            <div class="segment-section" id="web3-segment">
+                <div class="segment-header">
+                    <h2>Web3</h2>
+                    <p>Web3 protocols and platforms</p>
+                </div>
+                <div class="projection-grid">
+                    <!-- Projection cards will be added here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/segments/htx-segments.js"></script>
+    <script>
+        // Initialize HTX Segment Data
+        const htxSegments = new HTXSegmentData();
+        
+        // Initialize immediately when DOM is loaded
+        window.addEventListener('DOMContentLoaded', async function() {
+            // Handle segment navigation
+            document.querySelectorAll('.segment-btn').forEach(button => {
+                button.addEventListener('click', async () => {
+                    const segment = button.dataset.segment;
+                    document.querySelectorAll('.segment-btn').forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    
+                    // Update UI for new segment
+                    await updateSegmentUI(segment);
+                });
+            });
+
+            // Initialize first segment
+            await updateSegmentUI('top');
+        });
+
+        async function updateSegmentUI(segment) {
+            const symbols = HTX_SEGMENTS.SUPPORTED_SEGMENTS[segment];
+            const projectionGrid = document.querySelector('.projection-grid');
+            projectionGrid.innerHTML = ''; // Clear existing cards
+            
+            // Create projection cards for each symbol
+            for (const symbol of symbols) {
+                const card = createProjectionCard(symbol);
+                projectionGrid.appendChild(card);
+                
+                // Generate and update projections
+                const projections = await htxSegments.generateProjections(symbol);
+                updateProjectionCard(card, symbol, projections);
+                
+                // Subscribe to real-time updates
+                htxSegments.subscribe(symbol, (data) => {
+                    updateCardPrices(card, data);
+                });
+            }
+        }
+
+        function createProjectionCard(symbol) {
+            const card = document.createElement('div');
+            card.className = 'projection-card';
+            card.dataset.symbol = symbol;
+            
+            card.innerHTML = `
+                <div class="card-header">
+                    <h3>${symbol}/USDT</h3>
+                    <div class="price-info">
+                        <span class="current-price">Loading...</span>
+                        <span class="price-change">--</span>
+                    </div>
+                </div>
+                <div class="projection-details">
+                    <div class="projection-item">
+                        <span class="label">Short Term (24h)</span>
+                        <span class="value short-term">--</span>
+                    </div>
+                    <div class="projection-item">
+                        <span class="label">Mid Term (7d)</span>
+                        <span class="value mid-term">--</span>
+                    </div>
+                    <div class="projection-item">
+                        <span class="label">Long Term (30d)</span>
+                        <span class="value long-term">--</span>
+                    </div>
+                    <div class="projection-item">
+                        <span class="label">Confidence</span>
+                        <span class="value confidence">--</span>
+                    </div>
+                </div>
+                <div class="market-signals">
+                    <div class="signal-item trend">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Trend: <span class="value">--</span></span>
+                    </div>
+                    <div class="signal-item volume">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Volume: <span class="value">--</span></span>
+                    </div>
+                </div>
+            `;
+            
+            return card;
+        }
+
+        function updateProjectionCard(card, symbol, projections) {
+            if (!projections || !projections.currentPrice) {
+                console.log('No valid projections for', symbol);
+                return;
+            }
+
+            console.log('Updating card for', symbol, 'with projections:', projections);
+
+            // Update current price and change
+            const priceElement = card.querySelector('.current-price');
+            const changeElement = card.querySelector('.price-change');
+            
+            if (priceElement) {
+                priceElement.textContent = `$${projections.currentPrice.toFixed(4)}`;
+            }
+
+            // Update projections with percentage changes
+            const calculateChange = (projected, current) => {
+                if (!projected || !current) return '--';
+                const change = ((projected - current) / current) * 100;
+                return `${change >= 0 ? '+' : ''}${change.toFixed(2)}%`;
+            };
+
+            // Update each projection with price and change
+            const updateProjectionItem = (selector, value, current) => {
+                const element = card.querySelector(selector);
+                if (element && value) {
+                    const change = calculateChange(value, current);
+                    element.innerHTML = `
+                        <div class="projection-value">$${value.toFixed(4)}</div>
+                        <div class="projection-change ${change.startsWith('+') ? 'positive' : 'negative'}">${change}</div>
+                    `;
+                }
+            };
+
+            updateProjectionItem('.short-term', projections.shortTerm, projections.currentPrice);
+            updateProjectionItem('.mid-term', projections.midTerm, projections.currentPrice);
+            updateProjectionItem('.long-term', projections.longTerm, projections.currentPrice);
+
+            // Update confidence and signals
+            const confidenceElement = card.querySelector('.confidence');
+            const trendElement = card.querySelector('.trend .value');
+            const volumeElement = card.querySelector('.volume .value');
+
+            if (confidenceElement) confidenceElement.textContent = projections.confidence || '--';
+            if (trendElement) trendElement.textContent = projections.trend || '--';
+            if (volumeElement) volumeElement.textContent = projections.volumeStrength || '--';
+
+            // Update trend colors
+            if (projections.trend === 'bullish') {
+                trendElement.classList.add('positive');
+                trendElement.classList.remove('negative');
+            } else if (projections.trend === 'bearish') {
+                trendElement.classList.add('negative');
+                trendElement.classList.remove('positive');
+            } else {
+                trendElement.classList.remove('positive', 'negative');
+            }
+        }
+
+        function updateCardPrices(card, data) {
+            if (!data || !data.close) return;
+
+            const priceElement = card.querySelector('.current-price');
+            const changeElement = card.querySelector('.price-change');
+            
+            if (priceElement) {
+                priceElement.textContent = `$${data.close.toFixed(4)}`;
+            }
+
+            if (changeElement && data.open) {
+                const change = ((data.close - data.open) / data.open) * 100;
+                changeElement.textContent = `${change >= 0 ? '+' : ''}${change.toFixed(2)}%`;
+                changeElement.className = `price-change ${change >= 0 ? 'positive' : 'negative'}`;
+            }
+        }
+    </script>
+</body>
+</html>

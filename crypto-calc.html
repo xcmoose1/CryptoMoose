@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoCalc Hub - CryptoMoose</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --color-bg: #0a0b0c;
+            --color-surface: #16181a;
+            --color-primary: #00ff9d;
+            --color-secondary: #94a3b8;
+            --color-text: #ffffff;
+            --color-text-dim: rgba(255, 255, 255, 0.7);
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding-top: 80px;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .nav {
+            background: rgba(18, 18, 18, 0.8);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-left, .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-img {
+            width: 30px;
+            height: 30px;
+            margin-right: 0.5rem;
+        }
+
+        .logo-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        .nav-link {
+            color: var(--color-text);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-link i {
+            font-size: 1rem;
+        }
+
+        .nav-link span {
+            font-size: 0.9rem;
+        }
+
+        .btn-telegram {
+            background: #0088cc;
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-telegram:hover {
+            background: #0099e6;
+            transform: translateY(-1px);
+        }
+
+        .nav-link.active {
+            background: rgba(0, 255, 157, 0.1);
+            color: var(--color-primary);
+        }
+
+        .nav-link.active i {
+            color: var(--color-primary);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .calculator-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .calculator-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            border-color: var(--color-primary);
+        }
+
+        .calculator-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 255, 157, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .calculator-icon i {
+            font-size: 1.5rem;
+            color: var(--color-primary);
+        }
+
+        .calculator-content h3 {
+            margin: 0 0 1rem 0;
+            color: var(--color-text);
+        }
+
+        .calculator-content p {
+            color: var(--color-text-dim);
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .input-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .result-card {
+            background: rgba(0, 255, 157, 0.1);
+            border: 1px solid var(--color-primary);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-top: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .result-label {
+            color: var(--color-text-dim);
+            font-size: 0.9rem;
+        }
+
+        .result-value {
+            color: var(--color-primary);
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .input-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .calculator-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .nav-content {
+                padding: 0.5rem 1rem;
+            }
+
+            .btn span {
+                display: none;
+            }
+
+            .btn {
+                padding: 0.5rem;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--color-surface);
+                flex-direction: column;
+                padding: 1rem;
+                gap: 1rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .calculator-card {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .welcome-section h1 {
+                font-size: 1.8rem;
+            }
+
+            .calculator-card {
+                padding: 1rem;
+            }
+
+            .input-group {
+                margin: 0.8rem 0;
+            }
+
+            .logo span {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="nav">
+            <div class="nav-content">
+                <div class="nav-left">
+                    <a href="index.html" class="logo-container">
+                        <img src="images/moose.png" alt="CryptoMoose" style="height: 32px; width: auto;">
+                        <span>CryptoMoose</span>
+                    </a>
+                    <a href="dashboard.html" class="nav-link">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="signals.html" class="nav-link">
+                        <i class="fas fa-signal"></i>
+                        <span>Signals</span>
+                    </a>
+                    <a href="segment-projections.html" class="nav-link">
+                        <i class="fas fa-layer-group"></i>
+                        <span>Segment Projections</span>
+                    </a>
+                    <a href="members.html" class="nav-link">
+                        <i class="fas fa-robot"></i>
+                        <span>AI Market Insights</span>
+                    </a>
+                </div>
+                <div class="nav-right">
+                    <a href="https://t.me/cryptomoose" target="_blank" class="btn-telegram">
+                        <i class="fab fa-telegram"></i>
+                        <span>Get Live Signals on Telegram</span>
+                    </a>
+                    <a href="https://x.com/XCryptoMoose" target="_blank" class="nav-link twitter">
+                        <img src="images/x-logo.svg" alt="X (Twitter)" style="height: 16px; width: 16px;">
+                        <span>Follow Alpha</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="welcome-section">
+            <h1>CryptoCalc Hub</h1>
+            <p>Your comprehensive suite of cryptocurrency calculators</p>
+        </div>
+
+        <div class="calculator-grid">
+            <!-- Yield Farming Calculator -->
+            <div class="calculator-card" id="yield-farming">
+                <div class="calculator-icon">
+                    <i class="fas fa-seedling"></i>
+                </div>
+                <div class="calculator-content">
+                    <h3>Yield Farming Calculator</h3>
+                    <p>Calculate potential returns from yield farming investments</p>
+                    <div class="input-group">
+                        <label>Initial Investment (USD)</label>
+                        <input type="number" id="yf-investment" placeholder="1000">
+                    </div>
+                    <div class="input-group">
+                        <label>APY (%)</label>
+                        <input type="number" id="yf-apy" placeholder="100">
+                    </div>
+                    <button class="calculate-btn" onclick="calculateYieldFarming()">Calculate Returns</button>
+                    <div class="result" id="yf-result">Annual Return: $0</div>
+                </div>
+            </div>
+
+            <!-- APY Calculator -->
+            <div class="calculator-card" id="apy">
+                <div class="calculator-icon">
+                    <i class="fas fa-percentage"></i>
+                </div>
+                <div class="calculator-content">
+                    <h3>APY Calculator</h3>
+                    <p>Convert between APR and APY, calculate compound interest</p>
+                    <div class="input-group">
+                        <label>APR (%)</label>
+                        <input type="number" id="apr-input" placeholder="10">
+                    </div>
+                    <div class="input-group">
+                        <label>Compound Frequency</label>
+                        <select id="compound-frequency" style="width: 100%; padding: 0.5rem; background: rgba(255, 255, 255, 0.05); color: var(--color-text); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px;">
+                            <option value="365">Daily</option>
+                            <option value="52">Weekly</option>
+                            <option value="12">Monthly</option>
+                            <option value="4">Quarterly</option>
+                            <option value="1">Annually</option>
+                        </select>
+                    </div>
+                    <button class="calculate-btn" onclick="calculateAPY()">Calculate APY</button>
+                    <div class="result" id="apy-result">APY: 0%</div>
+                </div>
+            </div>
+
+            <!-- Impermanent Loss Calculator -->
+            <div class="calculator-card" id="impermanent-loss">
+                <div class="calculator-icon">
+                    <i class="fas fa-water"></i>
+                </div>
+                <div class="calculator-content">
+                    <h3>Impermanent Loss Calculator</h3>
+                    <p>Calculate potential impermanent loss in liquidity pools</p>
+                    <div class="input-group">
+                        <label>Price Change (%)</label>
+                        <input type="number" id="il-price-change" placeholder="100">
+                    </div>
+                    <button class="calculate-btn" onclick="calculateImpermanentLoss()">Calculate Loss</button>
+                    <div class="result" id="il-result">Impermanent Loss: 0%</div>
+                </div>
+            </div>
+
+            <!-- Position Size Calculator -->
+            <div class="calculator-card" id="position-size">
+                <div class="calculator-icon">
+                    <i class="fas fa-calculator"></i>
+                </div>
+                <div class="calculator-content">
+                    <h3>Position Size Calculator</h3>
+                    <p>Calculate optimal position size based on risk management</p>
+                    <div class="input-group">
+                        <label>Account Size (USD)</label>
+                        <input type="number" id="ps-account-size" placeholder="10000">
+                    </div>
+                    <div class="input-group">
+                        <label>Risk Percentage (%)</label>
+                        <input type="number" id="ps-risk" placeholder="1">
+                    </div>
+                    <div class="input-group">
+                        <label>Stop Loss (%)</label>
+                        <input type="number" id="ps-stop-loss" placeholder="5">
+                    </div>
+                    <button class="calculate-btn" onclick="calculatePositionSize()">Calculate Position</button>
+                    <div class="result" id="ps-result">Position Size: $0</div>
+                </div>
+            </div>
+
+            <!-- DCA Calculator -->
+            <div class="calculator-card" id="dca">
+                <div class="calculator-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="calculator-content">
+                    <h3>DCA Calculator</h3>
+                    <p>Calculate potential returns from dollar-cost averaging</p>
+                    <div class="input-group">
+                        <label>Monthly Investment (USD)</label>
+                        <input type="number" id="dca-monthly" placeholder="100">
+                    </div>
+                    <div class="input-group">
+                        <label>Time Period (Months)</label>
+                        <input type="number" id="dca-period" placeholder="12">
+                    </div>
+                    <div class="input-group">
+                        <label>Expected Annual Return (%)</label>
+                        <input type="number" id="dca-return" placeholder="10">
+                    </div>
+                    <button class="calculate-btn" onclick="calculateDCA()">Calculate DCA</button>
+                    <div class="result" id="dca-result">Total Value: $0</div>
+                </div>
+            </div>
+
+            <!-- Fibonacci Calculator -->
+            <div class="calculator-card" id="fibonacci">
+                <div class="calculator-icon">
+                    <i class="fas fa-wave-square"></i>
+                </div>
+                <div class="calculator-content">
+                    <h3>Fibonacci Levels Calculator</h3>
+                    <p>Calculate Fibonacci retracement and extension levels</p>
+                    <div class="input-group">
+                        <label>High Price</label>
+                        <input type="number" id="fib-high" placeholder="100">
+                    </div>
+                    <div class="input-group">
+                        <label>Low Price</label>
+                        <input type="number" id="fib-low" placeholder="50">
+                    </div>
+                    <button class="calculate-btn" onclick="calculateFibonacci()">Calculate Levels</button>
+                    <div class="result" id="fib-result">Levels will appear here</div>
+                </div>
+            </div>
+
+            <!-- Liquidation Price Calculator -->
+            <div class="calculator-card" id="liquidation">
+                <div class="calculator-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <div class="calculator-content">
+                    <h3>Liquidation Price Calculator</h3>
+                    <p>Calculate liquidation price for leveraged positions</p>
+                    <div class="input-group">
+                        <label>Entry Price</label>
+                        <input type="number" id="liq-entry" placeholder="1000">
+                    </div>
+                    <div class="input-group">
+                        <label>Leverage</label>
+                        <input type="number" id="liq-leverage" placeholder="10">
+                    </div>
+                    <div class="input-group">
+                        <label>Position Side</label>
+                        <select id="liq-side" style="width: 100%; padding: 0.5rem; background: rgba(255, 255, 255, 0.05); color: var(--color-text); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px;">
+                            <option value="long">Long</option>
+                            <option value="short">Short</option>
+                        </select>
+                    </div>
+                    <button class="calculate-btn" onclick="calculateLiquidation()">Calculate Price</button>
+                    <div class="result" id="liq-result">Liquidation Price: $0</div>
+                </div>
+            </div>
+
+            <!-- Gas Calculator -->
+            <div class="calculator-card" id="gas">
+                <div class="calculator-icon">
+                    <i class="fas fa-gas-pump"></i>
+                </div>
+                <div class="calculator-content">
+                    <h3>Gas Fee Calculator</h3>
+                    <p>Calculate transaction fees for different networks</p>
+                    <div class="input-group">
+                        <label>Network</label>
+                        <select id="gas-network" style="width: 100%; padding: 0.5rem; background: rgba(255, 255, 255, 0.05); color: var(--color-text); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px;">
+                            <option value="eth">Ethereum</option>
+                            <option value="bsc">BSC</option>
+                            <option value="polygon">Polygon</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Gas Limit</label>
+                        <input type="number" id="gas-limit" placeholder="21000">
+                    </div>
+                    <div class="input-group">
+                        <label>Gas Price (Gwei)</label>
+                        <input type="number" id="gas-price" placeholder="50">
+                    </div>
+                    <button class="calculate-btn" onclick="calculateGas()">Calculate Fee</button>
+                    <div class="result" id="gas-result">Fee: $0</div>
+                </div>
+            </div>
+
+            <!-- ROI Calculator -->
+            <div class="calculator-card" id="roi">
+                <div class="calculator-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="calculator-content">
+                    <h3>ROI Calculator</h3>
+                    <p>Calculate your Return on Investment for crypto trades</p>
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label>Initial Investment ($)</label>
+                            <input type="number" id="roi-initial" placeholder="1000">
+                        </div>
+                        <div class="input-group">
+                            <label>Final Value ($)</label>
+                            <input type="number" id="roi-final" placeholder="1500">
+                        </div>
+                    </div>
+                    <button onclick="calculateROI()">Calculate ROI</button>
+                    <div id="roi-result" class="result-card" style="display: none;">
+                        <span class="result-label">ROI</span>
+                        <span class="result-value">0%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Leverage Trading Calculator -->
+            <div class="calculator-card" id="leverage">
+                <div class="calculator-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <div class="calculator-content">
+                    <h3>Leverage Calculator</h3>
+                    <p>Calculate potential profit and loss with leverage</p>
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label>Position Size ($)</label>
+                            <input type="number" id="leverage-size" placeholder="1000">
+                        </div>
+                        <div class="input-group">
+                            <label>Leverage (x)</label>
+                            <input type="number" id="leverage-multiplier" placeholder="10">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>Price Change (%)</label>
+                        <input type="number" id="leverage-change" placeholder="5">
+                    </div>
+                    <button onclick="calculateLeverage()">Calculate P/L</button>
+                    <div id="leverage-result" class="result-card" style="display: none;">
+                        <span class="result-label">Profit/Loss</span>
+                        <span class="result-value">$0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Staking Rewards Calculator -->
+            <div class="calculator-card" id="staking">
+                <div class="calculator-icon">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <div class="calculator-content">
+                    <h3>Staking Calculator</h3>
+                    <p>Calculate potential staking rewards</p>
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label>Stake Amount</label>
+                            <input type="number" id="stake-amount" placeholder="1000">
+                        </div>
+                        <div class="input-group">
+                            <label>APY (%)</label>
+                            <input type="number" id="stake-apy" placeholder="12">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>Lock Period (Days)</label>
+                        <input type="number" id="stake-period" placeholder="365">
+                    </div>
+                    <button onclick="calculateStaking()">Calculate Rewards</button>
+                    <div id="staking-result" class="result-card" style="display: none;">
+                        <span class="result-label">Estimated Rewards</span>
+                        <span class="result-value">0 Tokens</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Token Vesting Calculator -->
+            <div class="calculator-card" id="vesting">
+                <div class="calculator-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="calculator-content">
+                    <h3>Vesting Calculator</h3>
+                    <p>Calculate token unlock schedule</p>
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label>Total Tokens</label>
+                            <input type="number" id="vesting-total" placeholder="100000">
+                        </div>
+                        <div class="input-group">
+                            <label>Vesting Period (Months)</label>
+                            <input type="number" id="vesting-period" placeholder="12">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>Cliff Period (Months)</label>
+                        <input type="number" id="vesting-cliff" placeholder="3">
+                    </div>
+                    <button onclick="calculateVesting()">Calculate Schedule</button>
+                    <div id="vesting-result" class="result-card" style="display: none;">
+                        <span class="result-label">Monthly Unlock</span>
+                        <span class="result-value">0 Tokens</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Portfolio Rebalancing Calculator -->
+            <div class="calculator-card" id="rebalancing">
+                <div class="calculator-icon">
+                    <i class="fas fa-balance-scale"></i>
+                </div>
+                <div class="calculator-content">
+                    <h3>Portfolio Rebalancing</h3>
+                    <p>Calculate required trades for portfolio rebalancing</p>
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label>Current Allocation (%)</label>
+                            <input type="number" id="rebalance-current" placeholder="40">
+                        </div>
+                        <div class="input-group">
+                            <label>Target Allocation (%)</label>
+                            <input type="number" id="rebalance-target" placeholder="50">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>Portfolio Value ($)</label>
+                        <input type="number" id="rebalance-value" placeholder="10000">
+                    </div>
+                    <button onclick="calculateRebalancing()">Calculate Trades</button>
+                    <div id="rebalancing-result" class="result-card" style="display: none;">
+                        <span class="result-label">Required Trade</span>
+                        <span class="result-value">$0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Arbitrage Calculator -->
+            <div class="calculator-card" id="arbitrage">
+                <div class="calculator-icon">
+                    <i class="fas fa-exchange-alt"></i>
+                </div>
+                <div class="calculator-content">
+                    <h3>Arbitrage Calculator</h3>
+                    <p>Calculate potential arbitrage profits</p>
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label>Buy Price ($)</label>
+                            <input type="number" id="arb-buy" placeholder="1.95">
+                        </div>
+                        <div class="input-group">
+                            <label>Sell Price ($)</label>
+                            <input type="number" id="arb-sell" placeholder="2.00">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>Trade Amount ($)</label>
+                        <input type="number" id="arb-amount" placeholder="1000">
+                    </div>
+                    <button onclick="calculateArbitrage()">Calculate Profit</button>
+                    <div id="arbitrage-result" class="result-card" style="display: none;">
+                        <span class="result-label">Potential Profit</span>
+                        <span class="result-value">$0</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function calculateYieldFarming() {
+            const investment = parseFloat(document.getElementById('yf-investment').value);
+            const apy = parseFloat(document.getElementById('yf-apy').value);
+            const annualReturn = investment * (apy / 100);
+            document.getElementById('yf-result').innerHTML = `Annual Return: $${annualReturn.toFixed(2)}`;
+        }
+
+        function calculateAPY() {
+            const apr = parseFloat(document.getElementById('apr-input').value);
+            const compounds = parseFloat(document.getElementById('compound-frequency').value);
+            const apy = (Math.pow(1 + (apr/100)/compounds, compounds) - 1) * 100;
+            document.getElementById('apy-result').innerHTML = `APY: ${apy.toFixed(2)}%`;
+        }
+
+        function calculateImpermanentLoss() {
+            const priceChange = parseFloat(document.getElementById('il-price-change').value);
+            const r = priceChange / 100;
+            const il = ((2 * Math.sqrt(r)) / (1 + r) - 1) * 100;
+            document.getElementById('il-result').innerHTML = `Impermanent Loss: ${Math.abs(il).toFixed(2)}%`;
+        }
+
+        function calculatePositionSize() {
+            const accountSize = parseFloat(document.getElementById('ps-account-size').value);
+            const riskPercentage = parseFloat(document.getElementById('ps-risk').value);
+            const stopLoss = parseFloat(document.getElementById('ps-stop-loss').value);
+            const riskAmount = accountSize * (riskPercentage / 100);
+            const positionSize = (riskAmount / (stopLoss / 100)).toFixed(2);
+            document.getElementById('ps-result').innerHTML = `Position Size: $${positionSize}`;
+        }
+
+        function calculateDCA() {
+            const monthly = parseFloat(document.getElementById('dca-monthly').value);
+            const period = parseFloat(document.getElementById('dca-period').value);
+            const returnRate = parseFloat(document.getElementById('dca-return').value);
+            
+            let totalValue = 0;
+            for (let i = 0; i < period; i++) {
+                totalValue += monthly * Math.pow(1 + returnRate/100/12, period - i);
+            }
+            
+            document.getElementById('dca-result').innerHTML = `Total Value: $${totalValue.toFixed(2)}`;
+        }
+
+        function calculateFibonacci() {
+            const high = parseFloat(document.getElementById('fib-high').value);
+            const low = parseFloat(document.getElementById('fib-low').value);
+            const diff = high - low;
+            
+            const levels = {
+                '0': low,
+                '0.236': low + diff * 0.236,
+                '0.382': low + diff * 0.382,
+                '0.5': low + diff * 0.5,
+                '0.618': low + diff * 0.618,
+                '0.786': low + diff * 0.786,
+                '1': high
+            };
+            
+            let result = '<div style="text-align: left;">';
+            for (const [level, price] of Object.entries(levels)) {
+                result += `Level ${level}: $${price.toFixed(2)}<br>`;
+            }
+            result += '</div>';
+            
+            document.getElementById('fib-result').innerHTML = result;
+        }
+
+        function calculateLiquidation() {
+            const entry = parseFloat(document.getElementById('liq-entry').value);
+            const leverage = parseFloat(document.getElementById('liq-leverage').value);
+            const side = document.getElementById('liq-side').value;
+            
+            // Assuming 100% maintenance margin
+            const maintenanceMargin = 0.01;
+            let liquidationPrice;
+            
+            if (side === 'long') {
+                liquidationPrice = entry * (1 - (1 / leverage) + maintenanceMargin);
+            } else {
+                liquidationPrice = entry * (1 + (1 / leverage) - maintenanceMargin);
+            }
+            
+            document.getElementById('liq-result').innerHTML = `Liquidation Price: $${liquidationPrice.toFixed(2)}`;
+        }
+
+        function calculateGas() {
+            const network = document.getElementById('gas-network').value;
+            const gasLimit = parseFloat(document.getElementById('gas-limit').value);
+            const gasPrice = parseFloat(document.getElementById('gas-price').value);
+            
+            // Mock prices for demonstration
+            const prices = {
+                'eth': 2000,
+                'bsc': 300,
+                'polygon': 1
+            };
+            
+            const gweiToEth = 1e-9;
+            const fee = gasLimit * gasPrice * gweiToEth * prices[network];
+            
+            document.getElementById('gas-result').innerHTML = `Fee: $${fee.toFixed(4)}`;
+        }
+
+        function calculateROI() {
+            const initial = parseFloat(document.getElementById('roi-initial').value);
+            const final = parseFloat(document.getElementById('roi-final').value);
+            const roi = ((final - initial) / initial) * 100;
+            const resultElement = document.getElementById('roi-result');
+            resultElement.style.display = 'flex';
+            resultElement.querySelector('.result-value').textContent = roi.toFixed(2) + '%';
+        }
+
+        function calculateLeverage() {
+            const size = parseFloat(document.getElementById('leverage-size').value);
+            const leverage = parseFloat(document.getElementById('leverage-multiplier').value);
+            const change = parseFloat(document.getElementById('leverage-change').value);
+            const pnl = size * (change / 100) * leverage;
+            const resultElement = document.getElementById('leverage-result');
+            resultElement.style.display = 'flex';
+            resultElement.querySelector('.result-value').textContent = '$' + pnl.toFixed(2);
+        }
+
+        function calculateStaking() {
+            const amount = parseFloat(document.getElementById('stake-amount').value);
+            const apy = parseFloat(document.getElementById('stake-apy').value);
+            const period = parseFloat(document.getElementById('stake-period').value);
+            const rewards = amount * (apy / 100) * (period / 365);
+            const resultElement = document.getElementById('staking-result');
+            resultElement.style.display = 'flex';
+            resultElement.querySelector('.result-value').textContent = rewards.toFixed(2) + ' Tokens';
+        }
+
+        function calculateVesting() {
+            const total = parseFloat(document.getElementById('vesting-total').value);
+            const period = parseFloat(document.getElementById('vesting-period').value);
+            const cliff = parseFloat(document.getElementById('vesting-cliff').value);
+            const monthlyUnlock = total / (period - cliff);
+            const resultElement = document.getElementById('vesting-result');
+            resultElement.style.display = 'flex';
+            resultElement.querySelector('.result-value').textContent = monthlyUnlock.toFixed(2) + ' Tokens';
+        }
+
+        function calculateRebalancing() {
+            const current = parseFloat(document.getElementById('rebalance-current').value);
+            const target = parseFloat(document.getElementById('rebalance-target').value);
+            const value = parseFloat(document.getElementById('rebalance-value').value);
+            const trade = (target - current) / 100 * value;
+            const resultElement = document.getElementById('rebalancing-result');
+            resultElement.style.display = 'flex';
+            resultElement.querySelector('.result-value').textContent = '$' + Math.abs(trade).toFixed(2);
+        }
+
+        function calculateArbitrage() {
+            const buyPrice = parseFloat(document.getElementById('arb-buy').value);
+            const sellPrice = parseFloat(document.getElementById('arb-sell').value);
+            const amount = parseFloat(document.getElementById('arb-amount').value);
+            const profit = amount * ((sellPrice - buyPrice) / buyPrice);
+            const resultElement = document.getElementById('arbitrage-result');
+            resultElement.style.display = 'flex';
+            resultElement.querySelector('.result-value').textContent = '$' + profit.toFixed(2);
+        }
+
+        // Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+
+            menuToggle.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!menuToggle.contains(e.target) && !navLinks.contains(e.target)) {
+                    navLinks.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

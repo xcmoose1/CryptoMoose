@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoMoose - IDO Calendar</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --color-bg: #0a0b0c;
+            --color-surface: #16181a;
+            --color-primary: #00ff9d;
+            --color-secondary: #94a3b8;
+            --color-text: #ffffff;
+            --color-text-dim: rgba(255, 255, 255, 0.7);
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding-top: 80px;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Nav Styles */
+        .nav {
+            background: rgba(18, 18, 18, 0.8);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-left, .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-link {
+            color: var(--color-text);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-link i {
+            font-size: 1rem;
+        }
+
+        .nav-link span {
+            font-size: 0.9rem;
+        }
+
+        .btn-telegram {
+            background: #0088cc;
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-telegram:hover {
+            background: #0099e6;
+            transform: translateY(-1px);
+        }
+
+        .nav-link.active {
+            background: rgba(0, 255, 157, 0.1);
+            color: var(--color-primary);
+        }
+
+        .nav-link.active i {
+            color: var(--color-primary);
+        }
+
+        /* Container Styles */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* IDO Card Styles */
+        .ido-card {
+            background: var(--color-surface);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            margin-bottom: 1rem;
+        }
+
+        .ido-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--color-secondary);
+        }
+
+        /* Stats Card Styles */
+        .stats-card {
+            background: var(--color-surface);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stats-card h2 {
+            color: var(--color-secondary);
+            font-size: 2rem;
+            margin-bottom: 0;
+        }
+
+        .stats-card h5 {
+            color: var(--color-text-dim);
+            margin-bottom: 1rem;
+        }
+
+        /* Platform Badge Styles */
+        .platform-badge {
+            background: rgba(0, 255, 135, 0.1);
+            color: var(--color-secondary);
+            border: 1px solid var(--color-secondary);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+
+        /* Sort Button Styles */
+        .sort-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--color-text);
+            padding: 8px 16px;
+            border-radius: 20px;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .sort-btn:hover, .sort-btn.active {
+            background: var(--color-secondary);
+            color: var(--color-bg);
+            border-color: var(--color-secondary);
+        }
+
+        /* Form Select Styles */
+        .form-select {
+            background-color: var(--color-surface);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--color-text);
+            padding: 8px 16px;
+            border-radius: 12px;
+        }
+
+        .form-select:focus {
+            background-color: var(--color-surface);
+            border-color: var(--color-secondary);
+            color: var(--color-text);
+            box-shadow: 0 0 0 0.25rem rgba(0, 255, 135, 0.25);
+        }
+
+        /* Modal Styles */
+        .modal-content {
+            background: var(--color-surface);
+            color: var(--color-text);
+        }
+
+        .modal-header {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-close {
+            filter: invert(1) grayscale(100%) brightness(200%);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="nav-left">
+                <a href="https://t.me/CryptoMooseAlpha" target="_blank" class="btn btn-telegram">
+                    <i class="fab fa-telegram"></i> Join Telegram
+                </a>
+            </div>
+            <div class="nav-right">
+                <a href="dashboard.html" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="members.html" class="nav-link">
+                    <i class="fas fa-user"></i>
+                    <span>Members</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Stats Overview -->
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="stats-card">
+                    <h5>Total IDOs</h5>
+                    <h2 id="totalIdos">-</h2>
+                    <p class="text-muted mb-0">This month</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stats-card">
+                    <h5>Average ROI</h5>
+                    <h2 id="averageRoi">-</h2>
+                    <p class="text-muted mb-0">Last 30 days</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stats-card">
+                    <h5>Success Rate</h5>
+                    <h2 id="successRate">-</h2>
+                    <p class="text-muted mb-0">Projects above listing</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stats-card">
+                    <h5>Total Raised</h5>
+                    <h2 id="totalRaised">-</h2>
+                    <p class="text-muted mb-0">This month</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filters and Sort -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div class="filters d-flex gap-2">
+                            <select id="platformFilter" class="form-select">
+                                <option value="">All Platforms</option>
+                            </select>
+                            <select id="riskFilter" class="form-select">
+                                <option value="">All Risk Levels</option>
+                                <option value="low">Low Risk</option>
+                                <option value="medium">Medium Risk</option>
+                                <option value="high">High Risk</option>
+                            </select>
+                        </div>
+                        <div class="sort-options">
+                            <button class="sort-btn active" data-sort="date">Date</button>
+                            <button class="sort-btn" data-sort="roi">ROI</button>
+                            <button class="sort-btn" data-sort="raised">Raised</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- IDO List -->
+        <div class="row" id="idoList">
+            <!-- IDO cards will be inserted here -->
+            <div id="loading" class="loading" style="display: none;">
+                <div class="loading-spinner"></div>
+                <p class="mt-2">Loading IDO data...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- IDO Details Modal -->
+    <div class="modal fade" id="idoModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">IDO Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>Project Information</h6>
+                            <p><strong>Name:</strong> <span id="projectName"></span></p>
+                            <p><strong>Symbol:</strong> <span id="projectSymbol"></span></p>
+                            <p><strong>Category:</strong> <span id="projectCategory"></span></p>
+                            <p><strong>Platform:</strong> <span id="projectPlatform"></span></p>
+                            <p><strong>Start Date:</strong> <span id="projectStartDate"></span></p>
+                            <p><strong>End Date:</strong> <span id="projectEndDate"></span></p>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Token Metrics</h6>
+                            <p><strong>Total Supply:</strong> <span id="tokenSupply"></span></p>
+                            <p><strong>Initial Supply:</strong> <span id="initialSupply"></span></p>
+                            <p><strong>Initial MC:</strong> <span id="initialMC"></span></p>
+                            <p><strong>Token Price:</strong> <span id="tokenPrice"></span></p>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <h6>Risk Assessment</h6>
+                            <p><strong>Risk Level:</strong> <span id="riskLevel"></span></p>
+                            <p><strong>KYC:</strong> <span id="kycStatus"></span></p>
+                            <div id="riskFactors"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Requirements</h6>
+                            <p><strong>Whitelist:</strong> <span id="whitelistReq"></span></p>
+                            <p><strong>Restrictions:</strong> <span id="restrictions"></span></p>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <h6>Project Description</h6>
+                            <p id="projectDescription"></p>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <h6>Links</h6>
+                            <div class="d-flex gap-2 flex-wrap">
+                                <a id="projectWebsite" href="#" target="_blank" class="btn btn-primary">Website</a>
+                                <a id="projectWhitepaper" href="#" target="_blank" class="btn btn-secondary">Whitepaper</a>
+                                <a id="projectTelegram" href="#" target="_blank" class="btn btn-info">Telegram</a>
+                                <a id="projectTwitter" href="#" target="_blank" class="btn btn-info">Twitter</a>
+                                <a id="projectDiscord" href="#" target="_blank" class="btn btn-primary">Discord</a>
+                                <a id="projectMedium" href="#" target="_blank" class="btn btn-dark">Medium</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let currentSort = 'date';
+        let idoData = [];
+
+        // Mock data for testing
+        const mockData = {
+            events: [
+                {
+                    name: "MetaVerse X",
+                    symbol: "MVX",
+                    platform: "Polkastarter",
+                    startDate: "2024-12-28T10:00:00Z",
+                    endDate: "2024-12-29T10:00:00Z",
+                    description: "Next-generation metaverse platform with integrated AI and blockchain technology.",
+                    riskAssessment: {
+                        level: "low",
+                        factors: ["Strong team", "Audited smart contracts", "Clear roadmap"]
+                    },
+                    tokenMetrics: {
+                        totalSupply: 1000000000,
+                        initialSupply: 100000000,
+                        initialMarketCap: 2500000,
+                        price: 0.025
+                    },
+                    category: "Metaverse",
+                    social: {
+                        telegram: "https://t.me/metaversex",
+                        twitter: "https://twitter.com/metaversex",
+                        discord: "https://discord.gg/metaversex"
+                    }
+                },
+                {
+                    name: "DeFi Pulse",
+                    symbol: "PULSE",
+                    platform: "DAO Maker",
+                    startDate: "2024-12-27T15:00:00Z",
+                    endDate: "2024-12-28T15:00:00Z",
+                    description: "Revolutionary DeFi protocol offering advanced yield optimization and risk management.",
+                    riskAssessment: {
+                        level: "medium",
+                        factors: ["New technology", "Complex tokenomics"]
+                    },
+                    tokenMetrics: {
+                        totalSupply: 500000000,
+                        initialSupply: 50000000,
+                        initialMarketCap: 1500000,
+                        price: 0.03
+                    },
+                    category: "DeFi",
+                    social: {
+                        telegram: "https://t.me/defipulse",
+                        twitter: "https://twitter.com/defipulse"
+                    }
+                },
+                {
+                    name: "GameFi Pro",
+                    symbol: "GFP",
+                    platform: "Binance Launchpad",
+                    startDate: "2024-12-29T12:00:00Z",
+                    endDate: "2024-12-30T12:00:00Z",
+                    description: "Professional gaming platform with play-to-earn mechanics and NFT integration.",
+                    riskAssessment: {
+                        level: "high",
+                        factors: ["Competitive market", "High initial valuation", "Complex gaming economy"]
+                    },
+                    tokenMetrics: {
+                        totalSupply: 2000000000,
+                        initialSupply: 200000000,
+                        initialMarketCap: 5000000,
+                        price: 0.025
+                    },
+                    category: "Gaming",
+                    social: {
+                        telegram: "https://t.me/gamefipro",
+                        twitter: "https://twitter.com/gamefipro",
+                        discord: "https://discord.gg/gamefipro"
+                    }
+                }
+            ],
+            stats: {
+                totalIdos: 3,
+                averageRoi: 247,
+                successRate: 85,
+                totalRaised: 9000000
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Use mock data instead of API call for now
+            idoData = mockData.events;
+            updateStats(mockData.stats);
+            updatePlatformOptions(mockData.events);
+            filterAndSortData();
+            
+            // Add filter listeners
+            document.getElementById('platformFilter').addEventListener('change', filterAndSortData);
+            document.getElementById('riskFilter').addEventListener('change', filterAndSortData);
+
+            // Add sort listeners
+            document.querySelectorAll('.sort-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentSort = this.dataset.sort;
+                    filterAndSortData();
+                });
+            });
+        });
+
+        function filterAndSortData() {
+            let filtered = [...idoData];
+
+            // Apply filters
+            const platform = document.getElementById('platformFilter').value;
+            const riskLevel = document.getElementById('riskFilter').value;
+
+            if (platform) {
+                filtered = filtered.filter(ido => ido.platform === platform);
+            }
+            if (riskLevel) {
+                filtered = filtered.filter(ido => ido.riskAssessment?.level?.toLowerCase() === riskLevel);
+            }
+
+            // Apply sorting
+            filtered.sort((a, b) => {
+                switch (currentSort) {
+                    case 'date':
+                        return new Date(a.startDate) - new Date(b.startDate);
+                    case 'roi':
+                        return (b.roi || 0) - (a.roi || 0);
+                    case 'raised':
+                        return (b.tokenMetrics?.initialMarketCap || 0) - (a.tokenMetrics?.initialMarketCap || 0);
+                    default:
+                        return 0;
+                }
+            });
+
+            displayIDOs(filtered);
+        }
+
+        function displayIDOs(idos) {
+            const container = document.getElementById('idoList');
+            container.innerHTML = '';
+
+            idos.forEach(ido => {
+                const timeRemaining = getTimeRemaining(ido.startDate);
+                const card = document.createElement('div');
+                card.className = 'col-md-6 col-lg-4 mb-4';
+                card.innerHTML = `
+                    <div class="ido-card p-4" onclick="showIDODetails(${JSON.stringify(ido).replace(/"/g, '&quot;')})">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <div>
+                                <h5 class="mb-1">${ido.name}</h5>
+                                <span class="platform-badge">${ido.platform}</span>
+                            </div>
+                            <div class="text-end">
+                                <div><span class="risk-indicator risk-${ido.riskAssessment?.level?.toLowerCase()}"></span>${ido.riskAssessment?.level || 'Unknown'}</div>
+                                <small class="text-muted">${ido.symbol}</small>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <p class="mb-1">${ido.description?.substring(0, 100)}...</p>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-end">
+                            <div>
+                                <div class="text-muted">Initial MC</div>
+                                <div>$${formatNumber(ido.tokenMetrics?.initialMarketCap)}</div>
+                            </div>
+                            <div class="text-end">
+                                <div class="text-muted">Starts In</div>
+                                <div class="time-remaining">${timeRemaining}</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function getTimeRemaining(startDate) {
+            const now = new Date();
+            const start = new Date(startDate);
+            const diff = start - now;
+
+            if (diff < 0) return 'Started';
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+
+            if (days > 0) return `${days}d ${hours}h`;
+            return `${hours}h`;
+        }
+
+        function updateStats(stats) {
+            document.getElementById('totalIdos').textContent = stats?.totalIdos || '-';
+            document.getElementById('averageRoi').textContent = stats?.averageRoi ? `${stats.averageRoi}%` : '-';
+            document.getElementById('successRate').textContent = stats?.successRate ? `${stats.successRate}%` : '-';
+            document.getElementById('totalRaised').textContent = stats?.totalRaised ? `$${formatNumber(stats.totalRaised)}` : '-';
+        }
+
+        function updatePlatformOptions(events) {
+            const platformSelect = document.getElementById('platformFilter');
+            const currentValue = platformSelect.value;
+            const platforms = [...new Set(events.map(ido => ido.platform))].sort();
+            
+            while (platformSelect.options.length > 1) {
+                platformSelect.remove(1);
+            }
+            
+            platforms.forEach(platform => {
+                const option = new Option(platform, platform);
+                platformSelect.add(option);
+            });
+            
+            if (platforms.includes(currentValue)) {
+                platformSelect.value = currentValue;
+            }
+        }
+
+        function formatNumber(num) {
+            if (!num) return '0';
+            return new Intl.NumberFormat('en-US', {
+                maximumFractionDigits: 2,
+                minimumFractionDigits: 0,
+                notation: 'compact',
+                compactDisplay: 'short'
+            }).format(num);
+        }
+
+        function showIDODetails(ido) {
+            // Basic Info
+            document.getElementById('projectName').textContent = ido.name;
+            document.getElementById('projectSymbol').textContent = ido.symbol;
+            document.getElementById('projectCategory').textContent = ido.category;
+            document.getElementById('projectPlatform').textContent = ido.platform;
+            document.getElementById('projectStartDate').textContent = new Date(ido.startDate).toLocaleDateString();
+            document.getElementById('projectEndDate').textContent = new Date(ido.endDate).toLocaleDateString();
+            
+            // Token Metrics
+            document.getElementById('tokenSupply').textContent = formatNumber(ido.tokenMetrics?.totalSupply);
+            document.getElementById('initialSupply').textContent = formatNumber(ido.tokenMetrics?.initialSupply);
+            document.getElementById('initialMC').textContent = `$${formatNumber(ido.tokenMetrics?.initialMarketCap)}`;
+            document.getElementById('tokenPrice').textContent = `$${ido.tokenMetrics?.price}`;
+
+            // Risk Assessment
+            const riskLevel = document.getElementById('riskLevel');
+            riskLevel.textContent = ido.riskAssessment?.level || 'Unknown';
+            riskLevel.className = `risk-${ido.riskAssessment?.level?.toLowerCase()}`;
+            
+            document.getElementById('kycStatus').textContent = ido.kycRequired ? 'Required' : 'Not Required';
+            
+            const riskFactors = document.getElementById('riskFactors');
+            if (ido.riskAssessment?.factors?.length > 0) {
+                riskFactors.innerHTML = '<ul>' + 
+                    ido.riskAssessment.factors.map(factor => `<li>${factor}</li>`).join('') + 
+                    '</ul>';
+            } else {
+                riskFactors.innerHTML = '<p>No risk factors identified</p>';
+            }
+
+            // Requirements
+            document.getElementById('whitelistReq').textContent = ido.requirements?.whitelist ? 'Required' : 'Not Required';
+            document.getElementById('restrictions').textContent = ido.restrictions?.join(', ') || 'None';
+
+            // Description
+            document.getElementById('projectDescription').textContent = ido.description || 'No description available';
+
+            // Links
+            document.getElementById('projectWebsite').href = ido.website || '#';
+            document.getElementById('projectWebsite').style.display = ido.website ? 'inline-block' : 'none';
+            
+            document.getElementById('projectWhitepaper').href = ido.whitepaper || '#';
+            document.getElementById('projectWhitepaper').style.display = ido.whitepaper ? 'inline-block' : 'none';
+            
+            document.getElementById('projectTelegram').href = ido.social?.telegram || '#';
+            document.getElementById('projectTelegram').style.display = ido.social?.telegram ? 'inline-block' : 'none';
+            
+            document.getElementById('projectTwitter').href = ido.social?.twitter || '#';
+            document.getElementById('projectTwitter').style.display = ido.social?.twitter ? 'inline-block' : 'none';
+            
+            document.getElementById('projectDiscord').href = ido.social?.discord || '#';
+            document.getElementById('projectDiscord').style.display = ido.social?.discord ? 'inline-block' : 'none';
+            
+            document.getElementById('projectMedium').href = ido.social?.medium || '#';
+            document.getElementById('projectMedium').style.display = ido.social?.medium ? 'inline-block' : 'none';
+
+            new bootstrap.Modal(document.getElementById('idoModal')).show();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="400" xmlns="http://www.w3.org/2000/svg">
+    <style>
+        .text { fill: white; font-family: Arial; }
+        .line { fill: none; stroke: #f0b90b; stroke-width: 3; }
+        .arrow { fill: #f0b90b; }
+        .phase { font-size: 14px; }
+    </style>
+    
+    <!-- Market Cycle Path -->
+    <path class="line" d="M 50,200 Q 150,150 250,300 T 450,100 T 650,300 T 750,200"/>
+    
+    <!-- Phase Labels -->
+    <text x="100" y="150" class="text phase">Accumulation</text>
+    <text x="300" y="100" class="text phase">Mark Up</text>
+    <text x="500" y="80" class="text phase">Distribution</text>
+    <text x="650" y="350" class="text phase">Mark Down</text>
+    
+    <!-- Arrows -->
+    <path class="arrow" d="M 750,200 l -10,-5 v 10 z"/>
+</svg>
